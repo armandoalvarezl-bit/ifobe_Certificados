@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IFOBE | Plataforma de Certificados</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #001a33 0%, #0b3c63 100%);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .container-login {
+      display: flex;
+      flex-wrap: wrap;
+      width: 90%;
+      max-width: 1100px;
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1.2s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .info-section {
+      flex: 1;
+      background: linear-gradient(135deg, #00264d, #0b4979);
+      color: white;
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      animation: slideInLeft 1.2s ease forwards;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .info-section img {
+      width: 180px;
+      margin-bottom: 25px;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .info-section h1 {
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .info-section p {
+      font-size: 1.05rem;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    .login-section {
+      flex: 1;
+      background-color: #ffffff;
+      padding: 60px 50px;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      transform: translateX(80px);
+      animation: slideInRight 1.2s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(80px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .login-section h2 {
+      color: #0b3c63;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .btn-primary {
+      background-color: #0b3c63;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #094b83;
+      transform: scale(1.03);
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    @media (max-width: 900px) {
+      .container-login {
+        flex-direction: column;
+      }
+
+      .info-section, .login-section {
+        flex: none;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+      }
+
+      .info-section img {
+        margin: 0 auto 20px;
+      }
+
+      .login-section {
+        animation: fadeInUp 1s ease forwards;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container-login">
+
+    <!-- Sección izquierda (informativa) -->
+    <div class="info-section">
+      <img src="img/ChatGPT Image 27 oct 2025, 03_33_45 p.m..png" alt="Logo IFOBE">
+      <h1>Instituto de Formación IFOBE</h1>
+      <p>
+        Bienvenido a la plataforma institucional de certificados académicos.  
+        Valide la información y genere constancias oficiales de manera segura y confiable.
+      </p>
+    </div>
+
+    <!-- Sección derecha (formulario login) -->
+    <div class="login-section">
+      <h2>Acceso a la Plataforma</h2>
+
+      <div class="mb-3">
+        <label for="usuario" class="form-label">Usuario</label>
+        <input type="text" id="usuario" class="form-control" placeholder="Ingrese su usuario">
+      </div>
+
+      <div class="mb-4">
+        <label for="clave" class="form-label">Contraseña</label>
+        <input type="password" id="clave" class="form-control" placeholder="Ingrese su contraseña">
+      </div>
+
+      <button class="btn btn-primary" onclick="iniciarSesion()">Ingresar</button>
+
+      <div class="footer-text">
+        © 2025 Instituto de Formación IFOBE — Todos los derechos reservados.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function iniciarSesion() {
+      const usuario = document.getElementById("usuario").value.trim();
+      const clave = document.getElementById("clave").value.trim();
+
+      if (!usuario || !clave) {
+        alert("Por favor, ingrese usuario y contraseña.");
+        return;
+      }
+
+      // Acceso directo por ahora
+      window.location.href = "home.html";
+    }
+  </script>
+
+</body>
+</html>
