@@ -209,19 +209,32 @@
   </div>
 
   <script>
-    function iniciarSesion() {
-      const usuario = document.getElementById("usuario").value.trim();
-      const clave = document.getElementById("clave").value.trim();
+function iniciarSesion() {
+  const usuario = document.getElementById("usuario").value.trim();
+  const clave = document.getElementById("clave").value.trim();
 
-      if (!usuario || !clave) {
-        alert("Por favor, ingrese usuario y contraseña.");
-        return;
-      }
+  if (!usuario || !clave) {
+    alert("Por favor, ingrese usuario y contraseña.");
+    return;
+  }
 
-      // Acceso directo por ahora
-      window.location.href = "home.html";
-    }
-  </script>
+  // Usuarios predefinidos
+  const usuarios = [
+    { tipo: "docente", usuario: "profesor1", clave: "1234", pagina: "home-docente.html" },
+    { tipo: "estudiante", usuario: "estudiante1", clave: "abcd", pagina: "home-estudiante.html" }
+  ];
+
+  // Buscar coincidencia
+  const usuarioValido = usuarios.find(u => u.usuario === usuario && u.clave === clave);
+
+  if (usuarioValido) {
+    window.location.href = usuarioValido.pagina;
+  } else {
+    alert("Usuario o contraseña incorrectos.");
+  }
+}
+</script>
+
 
 </body>
 </html>
