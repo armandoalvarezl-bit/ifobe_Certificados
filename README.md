@@ -208,7 +208,7 @@
     </div>
   </div>
 
-<script>
+  <script>
 function iniciarSesion() {
   const usuario = document.getElementById("usuario").value.trim();
   const clave = document.getElementById("clave").value.trim();
@@ -220,8 +220,8 @@ function iniciarSesion() {
 
   // Usuarios predefinidos
   const usuarios = [
-    { tipo: "docente", usuario: "profesor1", clave: "1234", pagina: "home-docente.html" },
-    { tipo: "estudiante", usuario: "estudiante1", clave: "abcd", pagina: "home-estudiante.html" }
+    { tipo: "docente", usuario: "admin_Ifobe", clave: "lmgh_2ol90@", pagina: "home.html" },
+    { tipo: "estudiante", usuario: "Alumnos_Ifobe", clave: "Ingreso", pagina: "home.html" }
   ];
 
   // Buscar coincidencia
@@ -232,6 +232,7 @@ function iniciarSesion() {
   } else {
     alert("Usuario o contraseña incorrectos.");
   }
+      
 }
 </script>
 
