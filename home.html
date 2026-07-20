@@ -27,8 +27,8 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 32px 20px;
+            align-items: flex-start;
+            padding: 16px;
             font-family: 'Inter', sans-serif;
             color: var(--ifobe-ink);
             background:
@@ -40,11 +40,12 @@
 
         .page-wrap {
             width: 100%;
-            max-width: 860px;
+            max-width: 1280px;
         }
 
         .card-shell {
             display: flex;
+            min-height: calc(100vh - 32px);
             background: var(--ifobe-paper);
             border-radius: 16px;
             box-shadow: 0 18px 40px rgba(0,0,0,0.35);
@@ -52,12 +53,12 @@
         }
 
         .brand-panel {
-            flex: 0 0 260px;
+            flex: 0 0 310px;
             background:
                 radial-gradient(circle at 30% 20%, rgba(217,164,65,0.25), transparent 55%),
                 linear-gradient(165deg, var(--ifobe-navy-deep), var(--ifobe-navy) 75%);
             color: #eef3f9;
-            padding: 32px 26px;
+            padding: 28px 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -67,8 +68,8 @@
         }
 
         .brand-panel img {
-            max-width: 120px;
-            margin-bottom: 18px;
+            max-width: 108px;
+            margin-bottom: 16px;
             filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
         }
 
@@ -90,8 +91,38 @@
 
         .container {
             flex: 1 1 auto;
-            padding: 30px 32px 26px;
+            width: auto;
+            max-width: none;
+            padding: 22px 30px;
             min-width: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.1fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        .form-block {
+            min-width: 0;
+        }
+
+        .action-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-start;
+        }
+
+        .action-grid .btn {
+            width: auto;
+            min-width: 190px;
+            flex: 0 0 auto;
+            margin-bottom: 0 !important;
+            min-height: 40px;
+            padding: 8px 18px;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 720px) {
@@ -103,6 +134,9 @@
                 padding: 24px 20px;
             }
             .brand-panel img { max-width: 90px; margin-bottom: 10px; }
+            .form-grid { grid-template-columns: 1fr; gap: 0; }
+            .action-grid { grid-template-columns: 1fr; }
+            .action-grid .btn { width: 100%; min-width: 0; }
         }
 
         .section-label {
@@ -110,8 +144,8 @@
             font-weight: 600;
             font-size: 0.95rem;
             color: var(--ifobe-navy);
-            margin: 0 0 14px;
-            padding-bottom: 8px;
+            margin: 0 0 10px;
+            padding-bottom: 7px;
             border-bottom: 1px solid var(--ifobe-line);
         }
 
@@ -126,7 +160,7 @@
         .form-control, .form-select {
             border: 1px solid var(--ifobe-line);
             border-radius: 8px;
-            padding: 9px 12px;
+            padding: 8px 12px;
         }
 
         .form-control:focus, .form-select:focus {
@@ -142,7 +176,7 @@
             width: 100%;
             border-radius: 8px;
             font-weight: 600;
-            padding: 10px 12px;
+            padding: 9px 12px;
         }
 
         .btn-primary {
@@ -184,12 +218,12 @@
             color: #fff;
         }
 
-        .field-row { margin-bottom: 16px; }
+        .field-row { margin-bottom: 11px; }
 
         .divider {
             height: 1px;
             background: var(--ifobe-line);
-            margin: 18px 0;
+            margin: 14px 0;
         }
 
         .modal-header { background: var(--ifobe-navy); color: #fff; }
@@ -289,6 +323,79 @@
             .modal-dialog { width: calc(100% - 16px); margin: 12px auto; }
             .modal-footer .btn { flex: 1 1 100%; }
         }
+
+        .history-panel {
+            margin-top: 22px;
+            border-top: 1px solid var(--ifobe-line);
+            padding-top: 18px;
+        }
+
+        .history-toolbar {
+            display: grid;
+            grid-template-columns: 1fr auto auto auto;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .history-toolbar .btn {
+            width: auto;
+            white-space: nowrap;
+        }
+
+        .history-count {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--ifobe-navy);
+            background: #e9eef4;
+            border-radius: 999px;
+            padding: 6px 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .history-table-wrap {
+            overflow: auto;
+            border: 1px solid var(--ifobe-line);
+            border-radius: 8px;
+            background: #fff;
+            max-height: 260px;
+        }
+
+        .history-table {
+            margin: 0;
+            min-width: 760px;
+            font-size: 0.82rem;
+        }
+
+        .history-table th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            color: #fff;
+            background: var(--ifobe-navy);
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .history-empty {
+            padding: 18px;
+            color: #687584;
+            text-align: center;
+            font-size: 0.86rem;
+        }
+
+        @media (max-width: 720px) {
+            .history-toolbar {
+                grid-template-columns: 1fr;
+            }
+
+            .history-toolbar .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -304,6 +411,8 @@
     </div>
 
     <div class="container">
+        <div class="form-grid">
+        <div class="form-block">
         <p class="section-label">1. Validación del estudiante</p>
         <div class="field-row">
             <label for="cedula" class="form-label">Cédula del estudiante</label>
@@ -315,7 +424,8 @@
         </div>
         <button class="btn btn-primary" onclick="validarCedula()">Validar cédula</button>
 
-        <div class="divider"></div>
+        </div>
+        <div class="form-block">
 
         <p class="section-label">2. Datos del curso</p>
         <div class="field-row">
@@ -361,13 +471,45 @@
             </select>
         </div>
 
+        </div>
+        </div>
+
         <input type="hidden" id="codigo" class="form-control">
 
         <div class="divider"></div>
 
+        <div class="action-grid">
         <button class="btn btn-success mb-2" onclick="generarDiploma()">Generar diploma (PDF)</button>
         <button class="btn btn-outline-primary mb-2" onclick="generarCertificadoCapacitacion()">Generar certificado de capacitación (PDF)</button>
         <button class="btn btn-danger" onclick="cerrarSesion()">Cerrar sesión</button>
+        </div>
+        <div class="history-panel">
+            <p class="section-label">3. Historial de documentos</p>
+            <div class="history-toolbar">
+                <input type="search" id="historialBuscar" class="form-control" placeholder="Buscar por cedula, nombre, programa o codigo">
+                <span class="history-count" id="historialContador">0 registros</span>
+                <button class="btn btn-outline-primary" type="button" onclick="exportarHistorialExcel()">Exportar Excel</button>
+                <button class="btn btn-danger" type="button" onclick="cargarHistorialRemoto()">Actualizar historial</button>
+            </div>
+            <div class="history-table-wrap">
+                <table class="table table-sm table-hover history-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Cedula</th>
+                            <th>Estudiante</th>
+                            <th>Programa</th>
+                            <th>Horas</th>
+                            <th>Semestre</th>
+                            <th>Codigo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historialTabla"></tbody>
+                </table>
+                <div class="history-empty" id="historialVacio">Aun no hay documentos generados.</div>
+            </div>
+        </div>
     </div>
   </div>
 </div>
@@ -424,6 +566,223 @@
     function cerrarSesion() {
         window.location.href = 'index.html';
     }
+
+    const HISTORIAL_KEY = "ifobe_historial_documentos_cache";
+    const ALUMNOS_KEY = "ifobe_alumnos_cache";
+    const HISTORIAL_API_URL = "https://script.google.com/macros/s/AKfycbxSol-yx9_yaLFOjcQ3q7bHLraF6wJXTaZbCETjKfX2zAEu2hDVcc03y2T4O7f_hUODxg/exec";
+    let historialEnMemoria = [];
+    let alumnosEnMemoria = {};
+
+    const ALUMNOS_RESPALDO = {
+        "1003080612": "Álvarez Armando José",
+        "32288072": "Alvarez Orosco Cesar Augusto",
+        "7523962": "Borja Ramirez Manuel Antonio",
+        "36": "luis",
+        "1045138286": "Arroyave Madera Ingris Johana",
+        "1007027467": "Pajaro Alvarez Nabiris Mildreth",
+        "1007259821": "Luna Delgado Gabriela",
+        "1007676136": "Camargo Benitez Angelica",
+        "1043133900": "Ricardo Rodriguez Luisa Fernanda",
+        "1001534238": "Rojas Areiza Lorena"
+    };
+
+    function obtenerHistorial() {
+        try {
+            return JSON.parse(localStorage.getItem(HISTORIAL_KEY)) || [];
+        } catch (error) {
+            return [];
+        }
+    }
+
+    function guardarHistorialCache(historial) {
+        localStorage.setItem(HISTORIAL_KEY, JSON.stringify(historial));
+    }
+
+    function obtenerAlumnosCache() {
+        try {
+            return JSON.parse(localStorage.getItem(ALUMNOS_KEY)) || {};
+        } catch (error) {
+            return {};
+        }
+    }
+
+    function guardarAlumnosCache(alumnos) {
+        localStorage.setItem(ALUMNOS_KEY, JSON.stringify(alumnos));
+    }
+
+    async function cargarAlumnosRemotos() {
+        try {
+            const respuesta = await fetch(`${HISTORIAL_API_URL}?accion=alumnos`, {
+                method: "GET",
+                cache: "no-store"
+            });
+
+            if (!respuesta.ok) throw new Error("Respuesta no valida de alumnos");
+
+            const resultado = await respuesta.json();
+            const alumnos = resultado.alumnos || {};
+            alumnosEnMemoria = Object.keys(alumnos).length ? alumnos : ALUMNOS_RESPALDO;
+            guardarAlumnosCache(alumnosEnMemoria);
+        } catch (error) {
+            alumnosEnMemoria = obtenerAlumnosCache();
+            if (!Object.keys(alumnosEnMemoria).length) alumnosEnMemoria = ALUMNOS_RESPALDO;
+            showToast("No se pudo cargar la base de alumnos online. Se usara la copia local de respaldo.", "warning", 6500);
+        }
+    }
+
+    async function cargarHistorialRemoto() {
+        try {
+            const respuesta = await fetch(`${HISTORIAL_API_URL}?accion=listar`, {
+                method: "GET",
+                cache: "no-store"
+            });
+
+            if (!respuesta.ok) throw new Error("Respuesta no valida del historial");
+
+            const resultado = await respuesta.json();
+            historialEnMemoria = Array.isArray(resultado) ? resultado : (resultado.historial || []);
+            guardarHistorialCache(historialEnMemoria);
+            renderizarHistorial();
+        } catch (error) {
+            historialEnMemoria = obtenerHistorial();
+            renderizarHistorial();
+            showToast("No se pudo cargar el historial online. Se muestra la ultima copia guardada en esta PC.", "warning", 6500);
+        }
+    }
+
+    async function registrarHistorial(datos, codigo, tipoDocumento) {
+        const registro = {
+            fecha: new Date().toLocaleString("es-CO"),
+            tipo: tipoDocumento,
+            cedula: datos.cedula,
+            nombre: datos.nombre,
+            programa: datos.programa,
+            horas: datos.horas,
+            semestre: datos.semestre,
+            codigo
+        };
+
+        historialEnMemoria.unshift(registro);
+        guardarHistorialCache(historialEnMemoria);
+        renderizarHistorial();
+
+        try {
+            const respuesta = await fetch(HISTORIAL_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(registro)
+            });
+
+            if (!respuesta.ok) throw new Error("No se pudo guardar en la hoja");
+
+            showToast("Documento guardado en el historial online.", "success");
+            cargarHistorialRemoto();
+        } catch (error) {
+            showToast("El PDF se genero, pero no se pudo guardar en la hoja online. Revisa internet o el despliegue del script.", "error", 7500);
+        }
+    }
+
+    function escapeHtml(valor) {
+        return String(valor ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function renderizarHistorial() {
+        const tabla = document.getElementById("historialTabla");
+        const vacio = document.getElementById("historialVacio");
+        const contador = document.getElementById("historialContador");
+        const buscar = document.getElementById("historialBuscar");
+
+        if (!tabla || !vacio || !contador) return;
+
+        const filtro = (buscar?.value || "").trim().toLowerCase();
+        const historial = historialEnMemoria;
+        const registros = historial.filter((item) => {
+            const texto = [
+                item.fecha,
+                item.tipo,
+                item.cedula,
+                item.nombre,
+                item.programa,
+                item.horas,
+                item.semestre,
+                item.codigo
+            ].join(" ").toLowerCase();
+            return texto.includes(filtro);
+        });
+
+        tabla.innerHTML = registros.map((item) => `
+            <tr>
+                <td>${escapeHtml(item.fecha)}</td>
+                <td>${escapeHtml(item.tipo)}</td>
+                <td>${escapeHtml(item.cedula)}</td>
+                <td>${escapeHtml(item.nombre)}</td>
+                <td>${escapeHtml(item.programa)}</td>
+                <td>${escapeHtml(item.horas)}</td>
+                <td>${escapeHtml(item.semestre)}</td>
+                <td>${escapeHtml(item.codigo)}</td>
+            </tr>
+        `).join("");
+
+        vacio.style.display = registros.length ? "none" : "block";
+        contador.textContent = `${registros.length} ${registros.length === 1 ? "registro" : "registros"}`;
+    }
+
+    function exportarHistorialExcel() {
+        const historial = historialEnMemoria;
+        if (!historial.length) {
+            showToast("No hay registros para exportar.", "warning");
+            return;
+        }
+
+        const encabezados = ["Fecha", "Tipo", "Cedula", "Estudiante", "Programa", "Horas", "Semestre", "Codigo"];
+        const filas = historial.map((item) => [
+            item.fecha,
+            item.tipo,
+            item.cedula,
+            item.nombre,
+            item.programa,
+            item.horas,
+            item.semestre,
+            item.codigo
+        ]);
+        const csv = [encabezados, ...filas]
+            .map((fila) => fila.map((celda) => `"${String(celda ?? "").replace(/"/g, '""')}"`).join(";"))
+            .join("\r\n");
+        const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `historial_certificados_ifobe_${new Date().toISOString().slice(0, 10)}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        showToast("Historial exportado para Excel.", "success");
+    }
+
+    function limpiarHistorial() {
+        const historial = historialEnMemoria;
+        if (!historial.length) {
+            showToast("El historial ya esta vacio.", "info");
+            return;
+        }
+        if (!confirm("Deseas borrar todo el historial guardado en este navegador?")) return;
+        showToast("Para borrar el historial online debes eliminar las filas desde la hoja de calculo.", "info", 6500);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        historialEnMemoria = obtenerHistorial();
+        alumnosEnMemoria = obtenerAlumnosCache();
+        renderizarHistorial();
+        cargarHistorialRemoto();
+        cargarAlumnosRemotos();
+        document.getElementById("historialBuscar")?.addEventListener("input", renderizarHistorial);
+    });
 
     // Muestra un mensaje de estado no intrusivo (reemplaza los alert() nativos).
     // tipo: 'success' | 'error' | 'warning' | 'info'
@@ -495,7 +854,7 @@
         confirmacionModal.show();
     }
 
-    function validarCedula() {
+    async function validarCedula() {
         let cedula = document.getElementById("cedula").value.trim();
         let datosUsuarios = {
             "1003080612": "Álvarez Armando José",
@@ -509,6 +868,13 @@
             "1043133900": "Ricardo Rodriguez Luisa Fernanda",
             "1001534238": "Rojas Areiza Lorena"
         };
+
+        if (!Object.keys(alumnosEnMemoria).length) {
+            await cargarAlumnosRemotos();
+        }
+        if (Object.keys(alumnosEnMemoria).length) {
+            datosUsuarios = alumnosEnMemoria;
+        }
 
         if (!cedula) {
             showToast("Ingresa un número de cédula antes de validar.", "warning");
@@ -660,6 +1026,12 @@
             doc.text("Coordinador Académico", 212, margenInferior - 2, { align: "center" });
 
             doc.save(`Certificado_Constancia_ifobe_${nombre}.pdf`);
+
+            registrarHistorial(
+                { nombre, cedula, programa, horas, semestre },
+                codigo,
+                "Diploma"
+            );
 
             mostrarModalExito(
                 { nombre, cedula, programa, horas, semestre },
@@ -862,6 +1234,11 @@
 
         const finalizar = () => {
             doc.save(`Certificado_Capacitacion_ifobe_${nombre}.pdf`);
+            registrarHistorial(
+                { nombre, cedula, programa, horas, semestre },
+                codigo,
+                "Certificado de capacitacion"
+            );
             mostrarModalExito(
                 { nombre, cedula, programa, horas, semestre },
                 codigo,

@@ -194,13 +194,31 @@
     </style>
     <script>
         let texts = {};
+        const API_URL = "https://script.google.com/macros/s/AKfycbxSol-yx9_yaLFOjcQ3q7bHLraF6wJXTaZbCETjKfX2zAEu2hDVcc03y2T4O7f_hUODxg/exec";
 
-        function validarLogin(event) {
+        async function validarLogin(event) {
             event.preventDefault();
-            var email = document.getElementById("email").value;
+            var email = document.getElementById("email").value.trim();
             var password = document.getElementById("password").value;
+            var loginValido = false;
+
+            try {
+                const params = new URLSearchParams({
+                    accion: "login",
+                    email: email,
+                    password: password
+                });
+                const respuesta = await fetch(`${API_URL}?${params.toString()}`, {
+                    method: "GET",
+                    cache: "no-store"
+                });
+                const resultado = await respuesta.json();
+                loginValido = resultado.ok === true && resultado.autorizado === true;
+            } catch (error) {
+                loginValido = email === "admin@ifobe.edu.com" && password === "Admin2024@";
+            }
             
-            if (email === "admin@ifobe.edu.com" && password === "Admin2024@") {
+            if (loginValido) {
                 Swal.fire({
                     icon: 'success',
                     title: texts.success_title,
