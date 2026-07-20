@@ -1,241 +1,298 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IFOBE | Plataforma de Certificados</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión - Gen 10</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --ifobe-navy: #0a2a4a;
+            --ifobe-navy-deep: #051a30;
+            --ifobe-gold: #d9a441;
+            --ifobe-sky: #2f7fd1;
+            --ifobe-paper: #f7f5f0;
+            --ifobe-ink: #1c2a38;
+            --ifobe-line: #dfe3e8;
+        }
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #001a33 0%, #0b3c63 100%);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+        * { box-sizing: border-box; }
 
-    .container-login {
-      display: flex;
-      flex-wrap: wrap;
-      width: 90%;
-      max-width: 1100px;
-      background-color: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1.2s ease forwards;
-    }
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            font-family: 'Inter', sans-serif;
+            color: #eef3f9;
+            background: var(--ifobe-navy-deep);
+            transition: background 0.3s, color 0.3s;
+            overflow: hidden;
+        }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        /* Nota: la clase se llama "dark-mode" en el JS original, pero aquí
+           funciona como el tema claro/alterno; se mantiene el nombre para
+           no romper el toggle existente. */
+        .dark-mode {
+            background: var(--ifobe-paper);
+            color: var(--ifobe-ink);
+        }
 
-    .info-section {
-      flex: 1;
-      background: linear-gradient(135deg, #00264d, #0b4979);
-      color: white;
-      padding: 50px 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      animation: slideInLeft 1.2s ease forwards;
-    }
+        .video-background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -2;
+        }
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(6px) brightness(0.55);
+        }
+        .video-background::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 15%, rgba(217,164,65,0.18), transparent 45%),
+                linear-gradient(160deg, rgba(5,26,48,0.85), rgba(10,42,74,0.75) 60%);
+        }
 
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-60px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
+        .top-controls {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 5;
+            display: flex;
+            gap: 10px;
+        }
 
-    .info-section img {
-      width: 180px;
-      margin-bottom: 25px;
-      animation: fadeIn 1.5s ease-in;
-    }
+        .theme-toggle, .language-toggle {
+            position: static;
+            cursor: pointer;
+            background: rgba(255,255,255,0.95);
+            color: var(--ifobe-navy);
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+            font-size: 1.15rem;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .theme-toggle:hover, .language-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+        .login-container {
+            position: relative;
+            z-index: 1;
+            background: rgba(15, 35, 58, 0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-top: 4px solid var(--ifobe-gold);
+            padding: 38px 34px 30px;
+            border-radius: 16px;
+            box-shadow: 0 24px 50px rgba(0,0,0,0.45);
+            text-align: center;
+            width: 100%;
+            max-width: 340px;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
 
-    .info-section h1 {
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
+        .dark-mode .login-container {
+            background: rgba(255, 255, 255, 0.92);
+            color: var(--ifobe-ink);
+            border: 1px solid var(--ifobe-line);
+            border-top: 4px solid var(--ifobe-gold);
+        }
 
-    .info-section p {
-      font-size: 1.05rem;
-      line-height: 1.5;
-      opacity: 0.9;
-    }
+        .login-container .logo {
+            max-width: 130px;
+            height: auto;
+            margin-bottom: 14px;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
+        }
 
-    .login-section {
-      flex: 1;
-      background-color: #ffffff;
-      padding: 60px 50px;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      opacity: 0;
-      transform: translateX(80px);
-      animation: slideInRight 1.2s ease forwards;
-      animation-delay: 0.3s;
-    }
+        .login-container h3 {
+            font-family: 'Source Serif 4', serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+        }
 
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(80px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
+        .motivational-message {
+            font-size: 0.85rem;
+            font-style: italic;
+            opacity: 0.85;
+            margin-bottom: 22px;
+            line-height: 1.4;
+        }
 
-    .login-section h2 {
-      color: #0b3c63;
-      font-weight: 700;
-      margin-bottom: 30px;
-      text-align: center;
-    }
+        .login-container .form-label {
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            opacity: 0.9;
+        }
 
-    .form-control {
-      border-radius: 8px;
-      padding: 12px;
-    }
+        .login-container .form-control {
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.08);
+            color: inherit;
+            padding: 10px 12px;
+        }
+        .login-container .form-control::placeholder { color: rgba(255,255,255,0.55); }
+        .login-container .form-control:focus {
+            border-color: var(--ifobe-sky);
+            box-shadow: 0 0 0 3px rgba(47,127,209,0.25);
+            background: rgba(255,255,255,0.12);
+        }
 
-    .btn-primary {
-      background-color: #0b3c63;
-      border: none;
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-    }
+        .dark-mode .login-container .form-control {
+            background: #ffffff;
+            border: 1px solid var(--ifobe-line);
+            color: var(--ifobe-ink);
+        }
+        .dark-mode .login-container .form-control::placeholder { color: #8b96a3; }
 
-    .btn-primary:hover {
-      background-color: #094b83;
-      transform: scale(1.03);
-    }
+        .login-container .btn-primary {
+            margin-top: 6px;
+            background: var(--ifobe-navy);
+            border-color: var(--ifobe-navy);
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 10px 12px;
+            letter-spacing: 0.01em;
+        }
+        .login-container .btn-primary:hover {
+            background: #123a63;
+            border-color: #123a63;
+        }
+        .dark-mode .login-container .btn-primary {
+            background: var(--ifobe-navy);
+            border-color: var(--ifobe-navy);
+        }
 
-    .footer-text {
-      text-align: center;
-      margin-top: 25px;
-      font-size: 0.85rem;
-      color: #777;
-    }
+        @media (max-width: 380px) {
+            .login-container { padding: 30px 22px 24px; }
+        }
+    </style>
+    <script>
+        let texts = {};
 
-    @media (max-width: 900px) {
-      .container-login {
-        flex-direction: column;
-      }
+        function validarLogin(event) {
+            event.preventDefault();
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            
+            if (email === "admin@ifobe.edu.com" && password === "Admin2024@") {
+                Swal.fire({
+                    icon: 'success',
+                    title: texts.success_title,
+                    text: texts.success_message,
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = "home.html";
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: texts.error_title,
+                    text: texts.error_message,
+                    confirmButtonColor: '#00796b'
+                });
+            }
+        }
 
-      .info-section, .login-section {
-        flex: none;
-        width: 100%;
-        text-align: center;
-        align-items: center;
-      }
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
 
-      .info-section img {
-        margin: 0 auto 20px;
-      }
+        function toggleLanguage() {
+            const lang = document.documentElement.lang === "es" ? "en" : "es";
+            document.documentElement.lang = lang;
+            updateTexts(lang);
+        }
 
-      .login-section {
-        animation: fadeInUp 1s ease forwards;
-        transform: none;
-      }
-    }
-  </style>
+        function updateTexts(lang) {
+            const translations = {
+                es: {
+                    welcome: "¡Bienvenido!",
+                    motivational: "\"El aprendizaje nunca se detiene. ¡Sigue avanzando!\"",
+                    email: "Correo Electrónico*",
+                    password: "Contraseña*",
+                    login: "Iniciar Sesión",
+                    success_title: "¡Bienvenido a Gen 10 - IFOBE!",
+                    success_message: "Recuerda que el aprendizaje es un viaje, no un destino.",
+                    error_title: "Credenciales incorrectas",
+                    error_message: "Sigue intentando, el éxito es para los persistentes."
+                },
+                en: {
+                    welcome: "Welcome!",
+                    motivational: "\"Learning never stops. Keep moving forward!\"",
+                    email: "Email Address*",
+                    password: "Password*",
+                    login: "Login",
+                    success_title: "Welcome back!",
+                    success_message: "Remember, learning is a journey, not a destination.",
+                    error_title: "Incorrect credentials",
+                    error_message: "Keep trying, success is for the persistent."
+                }
+            };
+            texts = translations[lang];
+            document.querySelector("h3").textContent = texts.welcome;
+            document.querySelector(".motivational-message").textContent = texts.motivational;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            updateTexts("es");
+        });
+    </script>
 </head>
 <body>
-
-  <div class="container-login">
-
-    <!-- Sección izquierda (informativa) -->
-    <div class="info-section">
-      <img src="img/ChatGPT Image 27 oct 2025, 03_33_45 p.m..png" alt="Logo IFOBE">
-      <h1>Instituto de Formación IFOBE</h1>
-      <p>
-        Bienvenido a la plataforma institucional de certificados académicos.  
-        Valide la información y genere constancias oficiales de manera segura y confiable.
-      </p>
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="img/Diseño sin título.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+        </video>
     </div>
 
-    <!-- Sección derecha (formulario login) -->
-    <div class="login-section">
-      <h2>Acceso a la Plataforma</h2>
-
-      <div class="mb-3">
-        <label for="usuario" class="form-label">Usuario</label>
-        <input type="text" id="usuario" class="form-control" placeholder="Ingrese su usuario">
-      </div>
-
-      <div class="mb-4">
-        <label for="clave" class="form-label">Contraseña</label>
-        <input type="password" id="clave" class="form-control" placeholder="Ingrese su contraseña">
-      </div>
-
-      <button class="btn btn-primary" onclick="iniciarSesion()">Ingresar</button>
-
-      <div class="footer-text">
-        © 2025 Instituto de Formación IFOBE — Todos los derechos reservados.
-      </div>
+    <div class="top-controls">
+        <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar tema">🌙</div>
+        <div class="language-toggle" onclick="toggleLanguage()" title="Change language">🌍</div>
     </div>
-  </div>
 
-  <script>
-function iniciarSesion() {
-  const usuario = document.getElementById("usuario").value.trim();
-  const clave = document.getElementById("clave").value.trim();
-
-  if (!usuario || !clave) {
-    alert("Por favor, ingrese usuario y contraseña.");
-    return;
-  }
-
-  // Usuarios predefinidos
-  const usuarios = [
-    { tipo: "docente", usuario: "admin_Ifobe", clave: "lmgh_2ol90@", pagina: "home.html" },
-    { tipo: "estudiante", usuario: "Alumnos_Ifobe", clave: "Ingreso", pagina: "home.html" }
-  ];
-
-  // Buscar coincidencia
-  const usuarioValido = usuarios.find(u => u.usuario === usuario && u.clave === clave);
-
-  if (usuarioValido) {
-    window.location.href = usuarioValido.pagina;
-  } else {
-    alert("Usuario o contraseña incorrectos.");
-  }
-      
-}
-</script>
-
-
+    <div class="login-container">
+        <img src="img/Logogen10.png" alt="Logo" class="logo">
+        <h3 class="mb-2"></h3>
+        <p class="motivational-message"></p>
+        <form onsubmit="validarLogin(event)">
+            <div class="mb-3 text-start">
+                <label for="email" class="form-label">Correo Electrónico*</label>
+                <input type="email" class="form-control" id="email" placeholder="Ingrese su correo" required>
+            </div>
+            <div class="mb-3 text-start">
+                <label for="password" class="form-label">Contraseña*</label>
+                <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+        </form>
+    </div>
 </body>
 </html>

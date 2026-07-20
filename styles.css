@@ -1,0 +1,19 @@
+
+/* styles.css */
+body {
+    
+    
+}
+.card {
+    border-radius: 10px;
+    background: rgb(255, 130, 13);
+    ba                        
+}
+
+.btn-primary {
+    background-color:#0005a1;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #0005a1;
+}

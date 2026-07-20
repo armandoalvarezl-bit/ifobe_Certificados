@@ -1,269 +1,890 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plataforma de Certificados IFOBE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Certificados IFOBE</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- jsPDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --ifobe-navy: #0a2a4a;
+            --ifobe-navy-deep: #051a30;
+            --ifobe-gold: #d9a441;
+            --ifobe-sky: #2f7fd1;
+            --ifobe-paper: #f7f5f0;
+            --ifobe-ink: #1c2a38;
+            --ifobe-line: #dfe3e8;
+        }
 
-  <style>
-    body {
-      background-color: #051a30;
-      background-image: url('img/fonfo2 (1).png');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      min-height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        * { box-sizing: border-box; }
 
-    .container-principal {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0;
-      justify-content: center;
-      align-items: stretch;
-      max-width: 1100px;
-      width: 100%;
-      padding: 30px;
-      background: rgba(255,255,255,0.98);
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.4);
-    }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 32px 20px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ifobe-ink);
+            background:
+                radial-gradient(circle at 15% 20%, rgba(217,164,65,0.12), transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(47,127,209,0.18), transparent 45%),
+                linear-gradient(160deg, var(--ifobe-navy-deep), var(--ifobe-navy) 60%, #0d3457);
+            background-attachment: fixed;
+        }
 
-    .columna {
-      flex: 1 1 50%;
-      padding: 30px;
-    }
+        .page-wrap {
+            width: 100%;
+            max-width: 860px;
+        }
 
-    .separador {
-      width: 2px;
-      background-color: #d3d3d3;
-      margin: 20px 0;
-    }
+        .card-shell {
+            display: flex;
+            background: var(--ifobe-paper);
+            border-radius: 16px;
+            box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+            overflow: hidden;
+        }
 
-    .logo {
-      max-width: 250px;
-      margin-bottom: 20px;
-    }
+        .brand-panel {
+            flex: 0 0 260px;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(217,164,65,0.25), transparent 55%),
+                linear-gradient(165deg, var(--ifobe-navy-deep), var(--ifobe-navy) 75%);
+            color: #eef3f9;
+            padding: 32px 26px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-right: 4px solid var(--ifobe-gold);
+        }
 
-    h2 {
-      color: #0a2740;
-      font-weight: bold;
-    }
+        .brand-panel img {
+            max-width: 120px;
+            margin-bottom: 18px;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
+        }
 
-    label {
-      font-weight: 500;
-    }
+        .brand-panel h2 {
+            font-family: 'Source Serif 4', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            line-height: 1.3;
+            letter-spacing: 0.01em;
+            margin-bottom: 14px;
+        }
 
-    .btn {
-      width: 100%;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
+        .brand-panel .legal-note {
+            display: block;
+            font-size: 0.72rem;
+            line-height: 1.5;
+            color: #b7c6d9;
+        }
 
-    .btn:hover {
-      transform: scale(1.03);
-      filter: brightness(1.1);
-    }
+        .container {
+            flex: 1 1 auto;
+            padding: 30px 32px 26px;
+            min-width: 0;
+        }
 
-    .footer-text {
-      font-size: 0.9rem;
-      color: #444;
-      margin-top: 20px;
-      text-align: justify;
-    }
+        @media (max-width: 720px) {
+            .card-shell { flex-direction: column; border-radius: 14px; }
+            .brand-panel {
+                flex: 0 0 auto;
+                border-right: none;
+                border-bottom: 4px solid var(--ifobe-gold);
+                padding: 24px 20px;
+            }
+            .brand-panel img { max-width: 90px; margin-bottom: 10px; }
+        }
 
-    @media (max-width: 992px) {
-      .container-principal {
-        flex-direction: column;
-      }
-      .separador {
-        display: none;
-      }
-    }
-  </style>
+        .section-label {
+            font-family: 'Source Serif 4', serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--ifobe-navy);
+            margin: 0 0 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--ifobe-line);
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.83rem;
+            color: var(--ifobe-navy);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid var(--ifobe-line);
+            border-radius: 8px;
+            padding: 9px 12px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--ifobe-sky);
+            box-shadow: 0 0 0 3px rgba(47,127,209,0.18);
+        }
+
+        .form-control[readonly] {
+            background-color: #eef1f4;
+        }
+
+        .btn {
+            width: 100%;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 10px 12px;
+        }
+
+        .btn-primary {
+            background-color: var(--ifobe-navy);
+            border-color: var(--ifobe-navy);
+        }
+        .btn-primary:hover {
+            background-color: #123a63;
+            border-color: #123a63;
+        }
+
+        .btn-success {
+            background-color: #1f7a4d;
+            border-color: #1f7a4d;
+        }
+        .btn-success:hover {
+            background-color: #185f3c;
+            border-color: #185f3c;
+        }
+
+        .btn-danger {
+            background-color: transparent;
+            border: 1px solid #c0392b;
+            color: #c0392b;
+        }
+        .btn-danger:hover {
+            background-color: #c0392b;
+            color: #fff;
+        }
+
+        .btn-outline-primary {
+            background-color: transparent;
+            border: 1px solid var(--ifobe-navy);
+            color: var(--ifobe-navy);
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--ifobe-navy);
+            border-color: var(--ifobe-navy);
+            color: #fff;
+        }
+
+        .field-row { margin-bottom: 16px; }
+
+        .divider {
+            height: 1px;
+            background: var(--ifobe-line);
+            margin: 18px 0;
+        }
+
+        .modal-header { background: var(--ifobe-navy); color: #fff; }
+        .modal-header .btn-close { filter: invert(1); }
+
+        /* --- Toasts de estado --- */
+        .toast-stack {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            left: 16px;
+            z-index: 1080;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .app-toast {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 12px 14px;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+            border-left: 4px solid var(--ifobe-sky);
+            font-size: 0.87rem;
+            color: var(--ifobe-ink);
+            animation: toast-in 0.25s ease-out;
+            width: 100%;
+            max-width: 340px;
+            pointer-events: auto;
+        }
+        .app-toast.success { border-left-color: #1f7a4d; }
+        .app-toast.error { border-left-color: #c0392b; }
+        .app-toast.warning { border-left-color: var(--ifobe-gold); }
+
+        .app-toast .icon {
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1;
+        }
+        .app-toast.success .icon { color: #1f7a4d; }
+        .app-toast.error .icon { color: #c0392b; }
+        .app-toast.warning .icon { color: #b5811f; }
+        .app-toast.info .icon { color: var(--ifobe-sky); }
+
+        @keyframes toast-in {
+            from { opacity: 0; transform: translateX(24px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* --- Modales: adaptables a cualquier pantalla --- */
+        .modal-dialog {
+            max-width: 460px;
+            width: calc(100% - 24px);
+            margin: 1.75rem auto;
+        }
+        .modal-content { border-radius: 12px; }
+        .modal-header { padding: 14px 18px; }
+        .modal-title { font-size: 1.02rem; line-height: 1.35; }
+        .modal-body { font-size: 0.92rem; padding: 18px; }
+        .resumen-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px dashed var(--ifobe-line);
+            font-size: 0.87rem;
+        }
+        .resumen-item span:first-child {
+            color: #6b7a89;
+            flex: 0 0 auto;
+            white-space: nowrap;
+        }
+        .resumen-item span:last-child {
+            font-weight: 600;
+            color: var(--ifobe-navy);
+            text-align: right;
+            word-break: break-word;
+        }
+        .modal-footer {
+            padding: 14px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .modal-footer .btn {
+            flex: 1 1 140px;
+            width: auto;
+            margin: 0;
+        }
+        @media (max-width: 420px) {
+            .modal-dialog { width: calc(100% - 16px); margin: 12px auto; }
+            .modal-footer .btn { flex: 1 1 100%; }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container-principal">
+<div class="toast-stack" id="toastStack"></div>
 
-    <!-- COLUMNA IZQUIERDA: LOGO Y PRESENTACIÓN -->
-    <div class="columna text-center d-flex flex-column justify-content-center">
-      <img src="img/ChatGPT Image 27 oct 2025, 03_33_45 p.m..png" alt="Logo IFOBE" class="logo mx-auto">
-      <h2>Plataforma Interna de Certificados IFOBE</h2>
-      <p class="footer-text">
-        Esta plataforma permite validar información y generar certificados oficiales del Instituto de Formación IFOBE.  
-        Al usar el sistema, acepta que sus datos sean tratados conforme a la Ley de Protección de Datos Personales.  
-        Sus registros se mantienen bajo estándares de seguridad institucional.
-      </p>
+<div class="page-wrap">
+  <div class="card-shell">
+    <div class="brand-panel">
+        <img src="img/Logogen10.png" alt="Logo IFOBE">
+        <h2>Plataforma Interna de Certificados IFOBE</h2>
+        <span class="legal-note">Al hacer uso de esta plataforma, usted acepta que sus datos serán tratados conforme a la Ley de Protección de Datos Personales.</span>
     </div>
 
-    <!-- LÍNEA DIVISORIA -->
-    <div class="separador"></div>
+    <div class="container">
+        <p class="section-label">1. Validación del estudiante</p>
+        <div class="field-row">
+            <label for="cedula" class="form-label">Cédula del estudiante</label>
+            <input type="text" id="cedula" class="form-control" maxlength="10" placeholder="Ej: 32288072">
+        </div>
+        <div class="field-row">
+            <label for="nombre" class="form-label">Nombre del estudiante</label>
+            <input type="text" id="nombre" class="form-control" readonly placeholder="Se completa al validar">
+        </div>
+        <button class="btn btn-primary" onclick="validarCedula()">Validar cédula</button>
 
-    <!-- COLUMNA DERECHA: FORMULARIO -->
-    <div class="columna">
-      <h2 class="mb-3 text-center">Validador de Información</h2>
+        <div class="divider"></div>
 
-      <div class="mb-3">
-        <label for="cedula" class="form-label">Cédula del estudiante</label>
-        <input type="text" id="cedula" class="form-control" maxlength="10" placeholder="Ej: 1234567890">
-      </div>
+        <p class="section-label">2. Datos del curso</p>
+        <div class="field-row">
+            <label for="programa" class="form-label">Programa</label>
+            <select id="programa" class="form-select">
+                <option value="">Seleccione un programa</option>
+                <option value="Ingeniería Civil">Ingeniería Civil</option>
+                <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+                <option value="Ingeniería Electrónica">Ingeniería Electrónica</option>
+                <option value="Curso de Office Básico">Curso de Office Básico</option>
+                <option value="Curso de Office Avanzado">Curso de Office Avanzado</option>
+                <option value="Diplomado en Administración">Diplomado en Administración</option>
+                <option value="Diplomado en Finanzas">Diplomado en Finanzas</option>
+                <option value="Seminario en Herramientas Digitales">Seminario en Herramientas Digitales</option>
+            </select>
+        </div>
 
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre del estudiante</label>
-        <input type="text" id="nombre" class="form-control" readonly>
-      </div>
+        <div class="field-row">
+            <label for="horas" class="form-label">Horas del curso</label>
+            <select id="horas" class="form-select">
+                <option value="">Seleccione las horas</option>
+                <option value="20">20 horas</option>
+                <option value="40">40 horas</option>
+                <option value="60">60 horas</option>
+                <option value="80">80 horas</option>
+                <option value="100">100 horas</option>
+                <option value="150">150 horas</option>
+                <option value="180">180 horas</option>
+                <option value="190">190 horas</option>
+                <option value="200">200 horas</option>
+                <option value="400">400 horas</option>
+            </select>
+        </div>
 
-      <button class="btn btn-primary mb-4" onclick="validarCedula()">Validar Cédula</button>
+        <div class="field-row">
+            <label for="semestre" class="form-label">Semestre</label>
+            <select id="semestre" class="form-select">
+                <option value="">Seleccione el semestre</option>
+                <option value="1">Semestre 1</option>
+                <option value="2">Semestre 2</option>
+                <option value="3">Semestre 3</option>
+                <option value="4">Semestre 4</option>
+            </select>
+        </div>
 
-      <h5 class="text-center mb-3">Seleccionar Programa</h5>
+        <input type="hidden" id="codigo" class="form-control">
 
-      <div class="mb-4">
-        <label for="programa" class="form-label">Nombre del programa</label>
-        <select id="programa" class="form-select">
-          <option value="">Seleccione un programa...</option>
-          <option>Ofimática Básica</option>
-          <option>Excel Avanzado</option>
-          <option>Diseño Gráfico Digital</option>
-          <option>Contabilidad Digital</option>
-          <option>Marketing Digital</option>
-          <option>Desarrollo Web</option>
-          <option>Atención al Cliente</option>
-          <option>Gestión Empresarial</option>
-          <option>Emprendimiento e Innovación</option>
-          <option>Curso en TICs</option>
-        </select>
-      </div>
+        <div class="divider"></div>
 
-      <button class="btn btn-success mb-3" onclick="generarDiploma()">Generar Diploma</button>
-      <button class="btn btn-danger" onclick="cerrarSesion()">Cerrar Sesión</button>
+        <button class="btn btn-success mb-2" onclick="generarDiploma()">Generar diploma (PDF)</button>
+        <button class="btn btn-outline-primary mb-2" onclick="generarCertificadoCapacitacion()">Generar certificado de capacitación (PDF)</button>
+        <button class="btn btn-danger" onclick="cerrarSesion()">Cerrar sesión</button>
     </div>
-
   </div>
+</div>
 
-  <script>
-    const datosUsuarios = {
-      "1003080612": "Álvarez Armando José",
-      "32288072": "Alvarez Orosco Cesar Augusto",
-      "7523962": "Borja Ramirez Manuel Antonio"
-    };
+<!-- Modal de Confirmación previa a generar el PDF -->
+<div class="modal fade" id="confirmGenerarModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cfModalTitulo">Confirmar generación del diploma</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="cfModalIntro">Estás a punto de generar el diploma con estos datos. Verifica que sean correctos antes de continuar:</p>
+                <div class="resumen-item"><span>Estudiante</span><span id="cfNombre"></span></div>
+                <div class="resumen-item"><span>Cédula</span><span id="cfCedula"></span></div>
+                <div class="resumen-item"><span>Programa</span><span id="cfPrograma"></span></div>
+                <div class="resumen-item"><span>Horas</span><span id="cfHoras"></span></div>
+                <div class="resumen-item"><span>Semestre</span><span id="cfSemestre"></span></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" style="width:auto;">Revisar datos</button>
+                <button type="button" class="btn btn-success" id="btnConfirmarGeneracion" style="width:auto;">Sí, generar documento</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmacionModalLabel">✓ Documento generado con éxito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="confModalIntro">El PDF se descargó correctamente en tu carpeta de <strong>Descargas</strong>. Resumen del documento emitido:</p>
+                <div class="resumen-item"><span>Estudiante</span><span id="confNombre"></span></div>
+                <div class="resumen-item"><span>Cédula</span><span id="confCedula"></span></div>
+                <div class="resumen-item"><span>Programa</span><span id="confPrograma"></span></div>
+                <div class="resumen-item"><span>Horas</span><span id="confHoras"></span></div>
+                <div class="resumen-item"><span>Semestre</span><span id="confSemestre"></span></div>
+                <div class="resumen-item"><span>Código</span><span id="confCodigo"></span></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
     function cerrarSesion() {
-      Swal.fire({
-        icon: 'info',
-        title: 'Sesión finalizada',
-        text: 'Será redirigido a la página principal.',
-        confirmButtonText: 'Aceptar'
-      }).then(() => {
         window.location.href = 'index.html';
-      });
+    }
+
+    // Muestra un mensaje de estado no intrusivo (reemplaza los alert() nativos).
+    // tipo: 'success' | 'error' | 'warning' | 'info'
+    function showToast(mensaje, tipo = "info", duracion = 4200) {
+        const iconos = { success: "✓", error: "✕", warning: "!", info: "i" };
+        const stack = document.getElementById("toastStack");
+
+        const toast = document.createElement("div");
+        toast.className = `app-toast ${tipo}`;
+        toast.innerHTML = `<span class="icon">${iconos[tipo] || iconos.info}</span><span>${mensaje}</span>`;
+        stack.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+            toast.style.opacity = "0";
+            toast.style.transform = "translateX(24px)";
+            setTimeout(() => toast.remove(), 300);
+        }, duracion);
+    }
+
+    // Modal de confirmación con Promesa, para reemplazar window.confirm().
+    // opciones: { titulo, intro, textoBoton }
+    function confirmarGeneracion(datos, opciones = {}) {
+        return new Promise((resolve) => {
+            document.getElementById("cfModalTitulo").textContent = opciones.titulo || "Confirmar generación del documento";
+            document.getElementById("cfModalIntro").textContent = opciones.intro || "Estás a punto de generar el documento con estos datos. Verifica que sean correctos antes de continuar:";
+            document.getElementById("btnConfirmarGeneracion").textContent = opciones.textoBoton || "Sí, generar documento";
+
+            document.getElementById("cfNombre").textContent = datos.nombre;
+            document.getElementById("cfCedula").textContent = datos.cedula;
+            document.getElementById("cfPrograma").textContent = datos.programa;
+            document.getElementById("cfHoras").textContent = `${datos.horas} horas`;
+            document.getElementById("cfSemestre").textContent = `Semestre ${datos.semestre}`;
+
+            const modalEl = document.getElementById("confirmGenerarModal");
+            const modal = new bootstrap.Modal(modalEl);
+            const btnConfirmar = document.getElementById("btnConfirmarGeneracion");
+
+            let resuelto = false;
+            const onConfirmar = () => {
+                resuelto = true;
+                modal.hide();
+                resolve(true);
+            };
+            const onOculto = () => {
+                btnConfirmar.removeEventListener("click", onConfirmar);
+                modalEl.removeEventListener("hidden.bs.modal", onOculto);
+                if (!resuelto) resolve(false);
+            };
+
+            btnConfirmar.addEventListener("click", onConfirmar);
+            modalEl.addEventListener("hidden.bs.modal", onOculto);
+            modal.show();
+        });
+    }
+
+    // Muestra el modal final de éxito con datos personalizados según el
+    // tipo de documento generado.
+    function mostrarModalExito(datos, codigo, opciones = {}) {
+        document.getElementById("confirmacionModalLabel").textContent = opciones.tituloExito || "✓ Documento generado con éxito";
+        document.getElementById("confModalIntro").innerHTML = opciones.introExito || 'El PDF se descargó correctamente en tu carpeta de <strong>Descargas</strong>. Resumen del documento emitido:';
+        document.getElementById("confNombre").textContent = datos.nombre;
+        document.getElementById("confCedula").textContent = datos.cedula;
+        document.getElementById("confPrograma").textContent = datos.programa;
+        document.getElementById("confHoras").textContent = datos.horas;
+        document.getElementById("confSemestre").textContent = datos.semestre;
+        document.getElementById("confCodigo").textContent = codigo;
+        const confirmacionModal = new bootstrap.Modal(document.getElementById('confirmacionModal'));
+        confirmacionModal.show();
     }
 
     function validarCedula() {
-      const cedula = document.getElementById("cedula").value.trim();
-      const nombreField = document.getElementById("nombre");
+        let cedula = document.getElementById("cedula").value.trim();
+        let datosUsuarios = {
+            "1003080612": "Álvarez Armando José",
+            "32288072": "Alvarez Orosco Cesar Augusto",
+            "7523962": "Borja Ramirez Manuel Antonio",
+            "36": "luis",
+            "1045138286": "Arroyave Madera Ingris Johana",
+            "1007027467": "Pajaro Alvarez Nabiris Mildreth",
+            "1007259821": "Luna Delgado Gabriela",
+            "1007676136": "Camargo Benitez Angelica",
+            "1043133900": "Ricardo Rodriguez Luisa Fernanda",
+            "1001534238": "Rojas Areiza Lorena"
+        };
 
-      if (!cedula.match(/^[0-9]{6,10}$/)) {
-        Swal.fire('Atención', 'Ingrese una cédula válida (6 a 10 dígitos numéricos).', 'warning');
-        return;
-      }
+        if (!cedula) {
+            showToast("Ingresa un número de cédula antes de validar.", "warning");
+            return false;
+        }
 
-      if (!datosUsuarios[cedula]) {
-        Swal.fire('No encontrado', 'La cédula no se encuentra en la base de datos.', 'error');
-        nombreField.value = "";
-        return;
-      }
+        if (!datosUsuarios[cedula]) {
+            document.getElementById("nombre").value = "";
+            showToast("No encontramos esa cédula en la base de datos. Verifica el número e inténtalo de nuevo.", "error");
+            return false;
+        }
 
-      nombreField.value = datosUsuarios[cedula];
-      Swal.fire('Validación exitosa', `Cédula válida. Estudiante: ${datosUsuarios[cedula]}`, 'success');
+        document.getElementById("nombre").value = datosUsuarios[cedula];
+        showToast(`Cédula validada: ${datosUsuarios[cedula]}.`, "success");
+        return true;
     }
 
-    function generarDiploma() {
-      const cedula = document.getElementById("cedula").value.trim();
-      const nombre = document.getElementById("nombre").value.trim();
-      const programa = document.getElementById("programa").value;
+    // Escribe una línea centrada y, si no cabe en maxWidth, reduce el tamaño
+    // de fuente automáticamente hasta que entre. Evita que nombres largos
+    // o textos largos se salgan de los márgenes del certificado.
+    function textoAjustado(doc, texto, x, y, opciones) {
+        let tamanoMax = opciones.tamanoMax || 22;
+        let tamanoMin = opciones.tamanoMin || 12;
+        let maxWidth = opciones.maxWidth || 250;
+        let tamano = tamanoMax;
 
-      if (!nombre) return Swal.fire('Atención', 'Debe validar primero la cédula.', 'warning');
-      if (!programa) return Swal.fire('Campo faltante', 'Seleccione un programa del listado.', 'warning');
-
-      Swal.fire({
-        title: 'Confirmación',
-        html: `
-          <p><b>Nombre:</b> ${nombre}</p>
-          <p><b>Cédula:</b> ${cedula}</p>
-          <p><b>Programa:</b> ${programa}</p>
-          <p>¿Desea generar el diploma con estos datos?</p>
-        `,
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, generar',
-        cancelButtonText: 'Cancelar'
-      }).then(result => {
-        if (result.isConfirmed) generarPDF(nombre, cedula, programa);
-      });
+        doc.setFontSize(tamano);
+        while (doc.getTextWidth(texto) > maxWidth && tamano > tamanoMin) {
+            tamano -= 1;
+            doc.setFontSize(tamano);
+        }
+        doc.text(texto, x, y, { align: "center" });
+        return tamano;
     }
 
-    function generarPDF(nombre, cedula, programa) {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({ orientation: "landscape" });
+    async function generarDiploma() {
+        let cedula = document.getElementById("cedula").value;
+        let nombre = document.getElementById("nombre").value;
+        let programa = document.getElementById("programa").value;
+        let horas = document.getElementById("horas").value;
+        let semestre = document.getElementById("semestre").value;
 
-      const fecha = new Date();
-      const dia = fecha.getDate();
-      const mes = fecha.toLocaleString('es-ES', { month: 'long' });
-      const anio = fecha.getFullYear();
+        if (!nombre) {
+            showToast("Primero valida la cédula del estudiante.", "warning");
+            return;
+        }
+        if (!programa) {
+            showToast("Selecciona el programa del curso.", "warning");
+            return;
+        }
+        if (!horas) {
+            showToast("Selecciona la intensidad horaria del curso.", "warning");
+            return;
+        }
+        if (!semestre) {
+            showToast("Selecciona el semestre correspondiente.", "warning");
+            return;
+        }
 
-      const img = new Image();
-      img.src = "img/certificado.png";
+        let codigo = `INES-IFOBE-${programa.substr(0, 3).toUpperCase()}-${semestre}-${horas}`;
+        document.getElementById("codigo").value = codigo;
 
-      img.onload = function() {
-        doc.addImage(img, "JPEG", 0, 0, 297, 210);
-        doc.setFont("times", "bold");
-        doc.setFontSize(22);
-        doc.text("INSTITUTO DE FORMACIÓN IFOBE", 148, 35, { align: "center" });
-        doc.setFontSize(14);
-        doc.text("NIT. 901753803-7 | CÓDIGO 8065 APOYO A LA EDUCACIÓN", 148, 45, { align: "center" });
-        doc.text("Régimen de ley 115 de 1994 | Resolución 7/23/2024", 148, 52, { align: "center" });
-        doc.text("Número de resolución nacional: R2024031453", 148, 60, { align: "center" });
+        const confirmado = await confirmarGeneracion(
+            { nombre, cedula, programa, horas, semestre },
+            {
+                titulo: "Confirmar generación del diploma",
+                intro: "Estás a punto de generar el diploma con estos datos. Verifica que sean correctos antes de continuar:",
+                textoBoton: "Sí, generar diploma"
+            }
+        );
+        if (!confirmado) {
+            showToast("Generación cancelada. No se creó ningún diploma.", "info");
+            return;
+        }
 
-        doc.setFontSize(18);
-        doc.text("OTORGADO A CONSTANCIA DE ASISTENCIA A:", 148, 75, { align: "center" });
-        doc.setFontSize(24);
-        doc.text(nombre, 148, 95, { align: "center" });
-        doc.setFontSize(16);
-        doc.text(`Cédula: ${cedula}`, 148, 110, { align: "center" });
-        doc.text(`Por haber culminado el curso en: ${programa}`, 148, 125, { align: "center" });
+        let fecha = new Date();
+        let dia = fecha.getDate();
+        let mes = fecha.toLocaleString('es-ES', { month: 'long' });
+        let anio = fecha.getFullYear();
 
-        const texto = "El presente certificado acredita la participación y aprobación del estudiante en el curso, validando las competencias adquiridas en la materia. Este documento tiene validez oficial y respalda los conocimientos desarrollados.";
-        const lineas = doc.splitTextToSize(texto, 250);
-        doc.setFontSize(12);
-        doc.text(lineas, 148, 140, { align: "center" });
-        doc.text(`Otorgado en Ciudad, a los ${dia} días del mes de ${mes} del año ${anio}.`, 148, 165, { align: "center" });
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
 
-        doc.setFontSize(14);
-        doc.text("_________________________", 70, 175, { align: "center" });
-        doc.text("Armando Álvarez", 70, 185, { align: "center" });
-        doc.text("Director de Administración", 70, 195, { align: "center" });
+        // Página A4 apaisada: 297 x 210 mm. Se trabaja siempre dentro de un
+        // margen de 15 mm arriba/abajo para que nada quede cortado ni se
+        // salga del área imprimible.
+        const centroX = 148.5;
+        const margenInferior = 195;
 
-        doc.text("_________________________", 220, 175, { align: "center" });
-        doc.text("César Augusto", 220, 185, { align: "center" });
-        doc.text("Coordinador Académico", 220, 195, { align: "center" });
+        let img = new Image();
+        img.src = "img/certificado.png";
 
-        doc.save(`Certificado_IFOBE_${nombre}.pdf`);
-      };
+        img.onload = function () {
+            doc.addImage(img, "JPEG", 0, 0, 297, 210);
+
+            // --- Encabezado institucional ---
+            doc.setFont("times", "bold");
+            doc.setFontSize(19);
+            doc.setTextColor(20, 30, 45);
+            doc.text("INSTITUTO DE FORMACIÓN IFOBE", centroX, 26, { align: "center" });
+
+            doc.setFont("times", "normal");
+            doc.setFontSize(10.5);
+            doc.text("NIT. 901753803-7 | CÓDIGO 8065 APOYO A LA EDUCACIÓN", centroX, 33, { align: "center" });
+            doc.text("Régimen de ley 115 de 1994 | Resolución 7/23/2024", centroX, 39, { align: "center" });
+            doc.text("Número de resolución nacional: R2024031453", centroX, 45, { align: "center" });
+
+            // --- Cuerpo principal ---
+            doc.setFont("times", "bold");
+            doc.setFontSize(14);
+            doc.text("OTORGADO A CONSTANCIA DE ASISTENCIA A:", centroX, 60, { align: "center" });
+
+            doc.setFont("times", "bold");
+            textoAjustado(doc, nombre, centroX, 74, { tamanoMax: 22, tamanoMin: 14, maxWidth: 220 });
+
+            doc.setFont("times", "normal");
+            doc.setFontSize(13);
+            doc.text(`Cédula: ${cedula}`, centroX, 84, { align: "center" });
+
+            doc.setFontSize(12);
+            textoAjustado(doc, `Por haber culminado el curso especializado en: ${programa}`, centroX, 94, { tamanoMax: 12, tamanoMin: 9, maxWidth: 230 });
+
+            doc.setFontSize(12);
+            doc.text(`Horas: ${horas}      Semestre: ${semestre}`, centroX, 103, { align: "center" });
+            doc.text(`Código: ${codigo}`, centroX, 111, { align: "center" });
+
+            // --- Párrafo descriptivo (envuelto para no invadir el sello) ---
+            doc.setFontSize(9.5);
+            let texto = "El presente certificado acredita la participación y aprobación del estudiante en el curso, validando las competencias adquiridas en la materia. Este documento tiene validez oficial y respalda los conocimientos y habilidades desarrolladas, sirviendo como reconocimiento de su formación en el área correspondiente.";
+            let lineas = doc.splitTextToSize(texto, 210);
+            doc.text(lineas, centroX, 122, { align: "center", lineHeightFactor: 1.35 });
+
+            // --- Fecha de expedición ---
+            doc.setFontSize(10.5);
+            let textoFecha = `Otorgado en Ciudad, a los ${dia} días del mes de ${mes} del año ${anio} con una intensidad horaria de ${horas} horas.`;
+            let lineasFecha = doc.splitTextToSize(textoFecha, 220);
+            doc.text(lineasFecha, centroX, 152, { align: "center" });
+
+            // --- Firmas (dentro del margen inferior de 195 mm) ---
+            doc.setFont("times", "italic");
+            doc.setFontSize(11);
+
+            doc.text("_________________________", 85, margenInferior - 15, { align: "center" });
+            doc.text("Armando Álvarez", 85, margenInferior - 8, { align: "center" });
+            doc.text("Director de Administración", 85, margenInferior - 2, { align: "center" });
+
+            doc.text("_________________________", 212, margenInferior - 15, { align: "center" });
+            doc.text("Jhonie Tuiran", 212, margenInferior - 8, { align: "center" });
+            doc.text("Coordinador Académico", 212, margenInferior - 2, { align: "center" });
+
+            doc.save(`Certificado_Constancia_ifobe_${nombre}.pdf`);
+
+            mostrarModalExito(
+                { nombre, cedula, programa, horas, semestre },
+                codigo,
+                {
+                    tituloExito: "✓ Diploma generado con éxito",
+                    introExito: 'El PDF se descargó correctamente en tu carpeta de <strong>Descargas</strong>. Resumen del diploma emitido:'
+                }
+            );
+        };
+
+        img.onerror = function () {
+            showToast("No se pudo cargar la plantilla del certificado (img/certificado.png). Verifica que el archivo exista en esa ruta.", "error", 6000);
+        };
     }
-  </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    // --- Segundo documento: Certificado de Aprobación de Capacitación ---
+    // Usa la misma base de datos y los mismos campos del formulario, pero
+    // con un formato completamente distinto: vertical (carta), sin imagen
+    // de fondo, con un diseño de tabla estructurada en lugar de un texto
+    // narrativo tipo diploma. Es un formato propio, dibujado con líneas y
+    // recuadros, pensado para procesos de Educación para el Trabajo y el
+    // Desarrollo Humano (ETDH).
+    async function generarCertificadoCapacitacion() {
+        let cedula = document.getElementById("cedula").value;
+        let nombre = document.getElementById("nombre").value;
+        let programa = document.getElementById("programa").value;
+        let horas = document.getElementById("horas").value;
+        let semestre = document.getElementById("semestre").value;
+
+        if (!nombre) {
+            showToast("Primero valida la cédula del estudiante.", "warning");
+            return;
+        }
+        if (!programa) {
+            showToast("Selecciona el programa del curso.", "warning");
+            return;
+        }
+        if (!horas) {
+            showToast("Selecciona la intensidad horaria del curso.", "warning");
+            return;
+        }
+        if (!semestre) {
+            showToast("Selecciona el semestre correspondiente.", "warning");
+            return;
+        }
+
+        let codigo = `IFOBE-ETDH-${programa.substr(0, 3).toUpperCase()}-${semestre}-${horas}`;
+
+        const confirmado = await confirmarGeneracion(
+            { nombre, cedula, programa, horas, semestre },
+            {
+                titulo: "Confirmar certificado de capacitación",
+                intro: "Estás a punto de generar el certificado de aprobación de capacitación para el trabajo con estos datos:",
+                textoBoton: "Sí, generar certificado"
+            }
+        );
+        if (!confirmado) {
+            showToast("Generación cancelada. No se creó ningún certificado.", "info");
+            return;
+        }
+
+        let fecha = new Date();
+        let dia = fecha.getDate();
+        let mes = fecha.toLocaleString('es-ES', { month: 'long' });
+        let anio = fecha.getFullYear();
+
+        const { jsPDF } = window.jspdf;
+        // Tamaño CARTA (US Letter): 215.9 x 279.4 mm — el mismo formato que
+        // usa el SENA en sus certificados de aprobación.
+        const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "letter" });
+
+        const pageW = 215.9, pageH = 279.4;
+        const centroX = pageW / 2;
+        const inkNavy = [10, 42, 74];
+        const inkGold = [217, 164, 65];
+        const inkGray = [90, 100, 112];
+
+        // Si existe una imagen de fondo estilo SENA (img/certificado_capacitacion.png,
+        // tamaño carta / 215.9 x 279.4 mm o proporción equivalente), se usa como
+        // plantilla y solo se dibujan los datos encima. Si el archivo no existe
+        // todavía, el certificado se genera igual con un diseño propio dibujado
+        // (bordes navy/dorado + tabla), sin depender de ninguna imagen.
+        const fondo = new Image();
+        fondo.src = "img/certificado_capacitacion.png";
+
+        const dibujarContenido = (conBordesPropios) => {
+            if (conBordesPropios) {
+                doc.setDrawColor(...inkNavy);
+                doc.setLineWidth(1.1);
+                doc.rect(10, 10, pageW - 20, pageH - 20);
+                doc.setDrawColor(...inkGold);
+                doc.setLineWidth(0.4);
+                doc.rect(14, 14, pageW - 28, pageH - 28);
+
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(15);
+                doc.setTextColor(...inkNavy);
+                doc.text("INSTITUTO DE FORMACIÓN IFOBE", centroX, 28, { align: "center" });
+
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(9);
+                doc.setTextColor(...inkGray);
+                doc.text("NIT. 901753803-7 · Código 8065 apoyo a la educación", centroX, 34, { align: "center" });
+                doc.text("Educación para el Trabajo y el Desarrollo Humano · Resolución 7/23/2024", centroX, 39, { align: "center" });
+
+                doc.setDrawColor(...inkGold);
+                doc.setLineWidth(0.6);
+                doc.line(45, 45, pageW - 45, 45);
+            }
+
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(20);
+            doc.setTextColor(...inkNavy);
+            doc.text("CERTIFICADO DE APROBACIÓN", centroX, 62, { align: "center" });
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.setTextColor(...inkGray);
+            doc.text("Capacitación para el Trabajo y el Desarrollo Humano", centroX, 70, { align: "center" });
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.setTextColor(...inkNavy);
+            doc.text("Se certifica que:", centroX, 86, { align: "center" });
+
+            // Nombre del estudiante (con auto-ajuste si es muy largo)
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(...inkNavy);
+            textoAjustado(doc, nombre, centroX, 98, { tamanoMax: 19, tamanoMin: 13, maxWidth: pageW - 55 });
+
+            // Tabla de datos estructurada (formato distinto al diploma narrativo)
+            const filas = [
+                ["Documento de identidad", `${cedula}`],
+                ["Programa de formación", programa],
+                ["Intensidad horaria", `${horas} horas`],
+                ["Semestre académico", `Semestre ${semestre}`],
+                ["Código de verificación", codigo]
+            ];
+
+            let tablaY = 112;
+            const filaAlto = 10;
+            const colEtiquetaW = 68, colValorW = 96;
+            const anchoTabla = colEtiquetaW + colValorW;
+            const colEtiquetaX = centroX - anchoTabla / 2;
+            const colValorX = colEtiquetaX + colEtiquetaW;
+
+            doc.setFontSize(9.5);
+            filas.forEach((fila, i) => {
+                const y = tablaY + i * filaAlto;
+                if (i % 2 === 0) {
+                    doc.setFillColor(244, 246, 249);
+                    doc.rect(colEtiquetaX, y, anchoTabla, filaAlto, "F");
+                }
+                doc.setDrawColor(220, 224, 229);
+                doc.setLineWidth(0.2);
+                doc.rect(colEtiquetaX, y, colEtiquetaW, filaAlto);
+                doc.rect(colValorX, y, colValorW, filaAlto);
+
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(...inkGray);
+                doc.text(fila[0], colEtiquetaX + 4, y + filaAlto / 2 + 1.5);
+
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(...inkNavy);
+                let valorTexto = doc.splitTextToSize(fila[1], colValorW - 8);
+                doc.text(valorTexto, colValorX + 4, y + filaAlto / 2 + 1.5);
+            });
+
+            const finTabla = tablaY + filas.length * filaAlto;
+
+            // Párrafo de certificación
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.setTextColor(...inkGray);
+            let texto = `El Instituto de Formación IFOBE certifica que el (la) participante mencionado(a) aprobó satisfactoriamente el proceso de capacitación para el trabajo y el desarrollo humano correspondiente al programa indicado, cumpliendo con los objetivos de aprendizaje y la intensidad horaria establecida.`;
+            let lineas = doc.splitTextToSize(texto, pageW - 56);
+            doc.text(lineas, centroX, finTabla + 13, { align: "center", lineHeightFactor: 1.4 });
+
+            // Fecha de expedición
+            doc.setFontSize(9.5);
+            doc.text(`Expedido en Ciudad, a los ${dia} días del mes de ${mes} del año ${anio}.`, centroX, finTabla + 38, { align: "center" });
+
+            // Firmas
+            doc.setDrawColor(...inkNavy);
+            doc.setLineWidth(0.3);
+            const yFirma = pageH - 40;
+            doc.line(centroX - 75, yFirma, centroX - 22, yFirma);
+            doc.line(centroX + 22, yFirma, centroX + 75, yFirma);
+
+            doc.setFont("helvetica", "italic");
+            doc.setFontSize(10);
+            doc.setTextColor(...inkNavy);
+            doc.text("Armando Álvarez", centroX - 48.5, yFirma + 6, { align: "center" });
+            doc.text("Director de Administración", centroX - 48.5, yFirma + 11, { align: "center" });
+
+            doc.text("Jhonie Tuiran", centroX + 48.5, yFirma + 6, { align: "center" });
+            doc.text("Coordinador Académico", centroX + 48.5, yFirma + 11, { align: "center" });
+        };
+
+        const finalizar = () => {
+            doc.save(`Certificado_Capacitacion_ifobe_${nombre}.pdf`);
+            mostrarModalExito(
+                { nombre, cedula, programa, horas, semestre },
+                codigo,
+                {
+                    tituloExito: "✓ Certificado de capacitación generado",
+                    introExito: 'El PDF se descargó correctamente en tu carpeta de <strong>Descargas</strong>. Resumen del certificado emitido:'
+                }
+            );
+        };
+
+        fondo.onload = function () {
+            doc.addImage(fondo, "PNG", 0, 0, pageW, pageH);
+            dibujarContenido(false); // la imagen ya trae su propio borde/diseño
+            finalizar();
+        };
+
+        fondo.onerror = function () {
+            dibujarContenido(true); // sin imagen: se dibuja el diseño propio completo
+            finalizar();
+        };
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
