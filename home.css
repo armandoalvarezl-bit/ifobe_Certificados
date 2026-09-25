@@ -1,0 +1,40 @@
+/* Correcciones de distribución; el diseño de los PDF se define en home.html. */
+body { -webkit-font-smoothing: antialiased; }
+/* Textos sobre las superficies azules del home. */
+.certificates-home .workspace-nav,
+.certificates-home .workspace-heading { background: #17324d; }
+.certificates-home .workspace-nav { padding: 16px 20px; border-color: #688099; border-radius: 12px 12px 0 0; }
+.certificates-home .workspace-heading { padding: 26px 20px; margin-bottom: 24px; border-radius: 0 0 12px 12px; }
+.certificates-home .workspace-nav a,
+.certificates-home .workspace-heading h1 { color: #ffffff; }
+.certificates-home .workspace-heading p { color: #f0cd89; }
+.certificates-home .workspace-heading > span { color: #dce6f0; }
+.certificates-home .workspace-nav a:hover { color: #f0cd89; text-decoration: underline; text-underline-offset: 4px; }
+.certificates-home .workspace-nav a:focus-visible { outline-color: #f0cd89; }
+.certificates-home .brand-panel h2 { color: #ffffff; }
+.certificates-home .brand-panel .legal-note { color: #e2eaf2; font-size: .8rem; }
+.brand-panel img { background: #fff; border-radius: 16px; padding: 8px; filter: none; }
+.form-grid { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+.history-toolbar { grid-template-columns: minmax(0, 1fr) auto auto auto; }
+.history-toolbar > * { min-width: 0; }
+.form-control, .form-select { min-height: 44px; }
+.btn { min-height: 44px; }
+:focus-visible { outline: 3px solid #b78a37; outline-offset: 3px; }
+@media (max-width: 1050px) {
+  .brand-panel { flex-basis: 230px; padding: 24px 18px; }
+  .container { padding: 24px; }
+  .form-grid { grid-template-columns: 1fr; gap: 24px; }
+  .history-toolbar { grid-template-columns: 1fr 1fr; }
+  .history-toolbar input { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  body { padding: 12px; }
+  .brand-panel { flex-basis: auto; padding: 20px; }
+  .brand-panel img { max-width: 82px; }
+  .container { padding: 22px 18px; }
+  .history-toolbar { grid-template-columns: 1fr; }
+  .resumen-item { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

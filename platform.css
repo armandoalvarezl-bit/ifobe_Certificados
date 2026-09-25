@@ -1,0 +1,105 @@
+/* Visual layer for access and student management only. */
+:root { --campus-navy: #142d4e; --campus-gold: #b78a37; }
+* { box-sizing: border-box; }
+.campus-login { margin: 0; font-family: 'Inter', sans-serif; }
+.campus-login .top-controls { display: flex; gap: 10px; flex-shrink: 0; }
+.campus-login .theme-toggle, .campus-login .language-toggle { width: 42px; height: 42px; border-radius: 10px; color: #142d4e; cursor: pointer; }
+.campus-login .access-layout { min-width: 0; }
+.campus-login .login-container { min-width: 0; }
+.campus-login .form-label { display: block; font-weight: 600; }
+.campus-login .form-control { width: 100%; color: #142d4e; }
+.campus-login .btn-primary { width: 100%; color: white; cursor: pointer; }
+.campus-login .btn-primary:disabled { opacity: .65; cursor: wait; }
+.campus-login .access-help a { color: #24496f; font-weight: 600; }
+.campus-login #login-status { font-size: 13px; line-height: 1.6; margin: 16px 0 0; }
+.campus-login #login-status:empty { display: none; }
+.campus-login .mb-3 { margin-bottom: 18px; }
+.campus-login.dark-mode .access-help a { color: #e4c58b; }
+.campus-login.dark-mode .form-control { color: #eef3fa; background: #12263f; border-color: #425975; }
+.campus-login.dark-mode .campus-brand img, .campus-login.dark-mode .logo { background: white; border-radius: 10px; padding: 4px; }
+body { -webkit-font-smoothing: antialiased; }
+button, input, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid #b78a37; outline-offset: 4px; }
+.campus-login { min-height: 100vh; height: auto; overflow: auto; padding: 32px; background: #edf1f5; color: #142d4e; display: flex; flex-direction: column; }
+.campus-login .video-background { display: none; }
+.campus-header { width: min(1120px, 100%); display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 0 auto 32px; }
+.campus-brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .12em; }
+.campus-brand img { width: 44px; height: 44px; object-fit: contain; }
+.campus-brand small { display: block; font-size: 10px; letter-spacing: .16em; color: #637185; margin-top: 3px; }
+.campus-login .top-controls { position: static; }
+.campus-login .theme-toggle, .campus-login .language-toggle { border: 1px solid #dce3eb; background: white; box-shadow: none; font-size: 14px; font-weight: 600; }
+.access-layout { width: min(1120px, 100%); margin: auto; display: grid; grid-template-columns: 1.12fr 1fr; background: white; border: 1px solid #dce3eb; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px #142d4e0c; }
+.access-story { background: #142d4e; color: #fff; padding: clamp(30px, 5vw, 66px); display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+.access-story::after { content: ''; position: absolute; width: 340px; height: 340px; border: 1px solid #ffffff12; border-radius: 50%; right: -190px; bottom: -110px; box-shadow: 0 0 0 45px #ffffff04, 0 0 0 90px #ffffff03; pointer-events: none; }
+.access-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #e4c58b; margin-bottom: 30px; }
+.access-story h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(36px, 4vw, 54px); line-height: 1.12; letter-spacing: -.035em; margin: 0 0 24px; }
+.access-story h1 em { color: #e4c58b; font-style: normal; }
+.access-story > p { color: #c4d0df; font-size: 15px; line-height: 1.8; max-width: 360px; }
+.story-note { border-top: 1px solid #ffffff26; padding-top: 24px; margin-top: 42px; font-size: 13px; color: #d4deeb; }
+.story-note span { display: block; color: #e4c58b; font-size: 10px; letter-spacing: .14em; margin-bottom: 8px; }
+.campus-login .login-container { width: 100%; max-width: none; border: 0; border-radius: 0; box-shadow: none; background: white; color: #142d4e; padding: clamp(28px, 5vw, 66px); text-align: left; backdrop-filter: none; }
+.campus-login .login-container .logo { max-width: 85px; max-height: 85px; object-fit: contain; filter: none; margin-bottom: 26px; }
+.campus-login .login-container h3 { font: 600 28px 'Inter', sans-serif; letter-spacing: -.04em; }
+.campus-login .motivational-message { font-style: normal; color: #637185; opacity: 1; line-height: 1.7; margin: 12px 0 30px; }
+.campus-login .form-label { font-size: 12px; text-transform: none; letter-spacing: 0; opacity: 1; margin-bottom: 8px; }
+.campus-login .form-control { min-height: 50px; border: 1px solid #d6dfe9; border-radius: 9px; padding: 12px 14px; font-size: 14px; background: #f8fafc; }
+.campus-login .form-control:focus { border-color: #577aa4; box-shadow: 0 0 0 3px #577aa420; }
+.campus-login .btn-primary { min-height: 50px; background: #142d4e; border: 1px solid #142d4e; border-radius: 9px; font-size: 14px; font-weight: 600; margin-top: 10px; }
+.campus-login .btn-primary:hover { background: #24496f; }
+.access-help { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid #e6ebf1; font-size: 12px; line-height: 1.7; color: #637185; }
+.campus-footer { color: #637185; font-size: 11px; text-align: center; padding-top: 28px; }
+.campus-login.dark-mode { background: #0c1c30; color: #e5edf7; }
+.dark-mode .campus-brand small, .dark-mode .campus-footer { color: #afbed1; }
+.dark-mode .access-layout { border-color: #29405e; }
+.dark-mode .login-container { background: #1b304b; color: #eef3fa; }
+.dark-mode .motivational-message, .dark-mode .access-help { color: #bac9da; }
+.dark-mode .form-control { background: #12263f; border-color: #425975; color: white; }
+.dark-mode .form-control::placeholder { color: #aabbd0; }
+.dark-mode .access-help { border-color: #425975; }
+.dark-mode .login-container .btn-primary { background: #dec087; border-color: #dec087; color: #142d4e; }
+.campus-registry { background: #f2f5f8; --linea: #dce3eb; --blanco: #fff; --azul-oscuro: #142d4e; --sombra: 0 12px 35px #142d4e09; }
+.campus-registry::before { display: none; }
+.campus-registry .envoltura { max-width: 1180px; padding-top: 28px; }
+.registry-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 38px; padding-bottom: 20px; border-bottom: 1px solid #dce3eb; font-size: 13px; color: #637185; }
+.registry-nav strong { color: #142d4e; letter-spacing: .12em; }
+.registry-nav a { color: #142d4e; text-decoration: none; padding: 10px 14px; border: 1px solid #dce3eb; border-radius: 8px; background: white; }
+.campus-registry .titulo-bloque h1 { font-family: 'Inter', sans-serif; letter-spacing: -.04em; font-size: clamp(24px, 3vw, 34px); }
+.campus-registry .titulo-bloque p { line-height: 1.7; }
+.campus-registry .escudo { width: 72px; height: 72px; border-radius: 16px; box-shadow: none; border: 1px solid #dce3eb; }
+.campus-registry .cinta { display: none; }
+.campus-registry .barra { padding: 20px; background: white; border: 1px solid #dce3eb; border-radius: 12px; }
+.campus-registry .ledger { border-radius: 12px; }
+.campus-registry .ledger-cabecera { background: #e9eff5; color: #344d6b; box-shadow: none; }
+.campus-registry .ledger-cabecera::after { display: none; }
+.campus-registry .fila { padding-top: 18px; padding-bottom: 18px; }
+.campus-registry .btn-primario { background: #142d4e; box-shadow: none; }
+.campus-registry .btn-primario:hover { background: #24496f; }
+.campus-registry .buscador input { box-shadow: none; background: #f8fafc; min-height: 44px; }
+.campus-registry .modal { border-radius: 16px; }
+@media (max-width: 760px) {
+  .campus-login { padding: 20px 16px; }
+  .campus-header { margin-bottom: 20px; }
+  .access-layout { grid-template-columns: 1fr; border-radius: 16px; }
+  .access-story { padding: 28px; }
+  .access-story h1 { font-size: 34px; max-width: 440px; margin-bottom: 14px; }
+  .access-story > p { margin-bottom: 0; max-width: none; }
+  .access-eyebrow { margin-bottom: 16px; }
+  .story-note { display: none; }
+  .campus-login .login-container { padding: 28px; }
+  .campus-login .login-container .logo { display: none; }
+}
+@media (max-width: 640px) {
+  .campus-registry .envoltura { padding: 20px 16px 48px; }
+  .registry-nav { margin-bottom: 26px; }
+  .campus-registry header.marca { gap: 14px; align-items: flex-start; margin-bottom: 12px; }
+  .campus-registry .escudo { width: 52px; height: 52px; border-radius: 12px; }
+  .campus-registry .titulo-bloque .eyebrow { font-size: 9px; letter-spacing: 1px; }
+  .campus-registry .barra { padding: 14px; }
+  .campus-registry .buscador { max-width: none; flex-basis: 100%; }
+  .campus-registry .barra > div:last-child { width: 100%; justify-content: space-between; gap: 8px !important; flex-wrap: wrap; }
+  .campus-registry .fila .nombre { display: block; grid-column: 1 / -1; padding: 8px 0 0; overflow-wrap: anywhere; }
+  .campus-registry .modal { max-height: calc(100dvh - 32px); overflow-y: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

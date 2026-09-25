@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscripción de estudiantes · IFOBE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="inscripcion.css">
+  <script src="inscripcion-config.js" defer></script>
+  <script src="inscripcion.js" defer></script>
+  <script src="programas.js" defer></script>
+<link rel="stylesheet" href="refinamientos.css">
+</head>
+<body>
+  <div class="institution-strip"><span>IFOBE · GEN 10</span><span>Portal de admisiones</span></div>
+  <header class="topbar">
+    <a class="brand" href="index.html"><img src="img/Logogen10.png" alt=""><span>IFOBE<small>GESTIÓN ACADÉMICA · GEN 10</small></span></a>
+    <a class="back" href="index.html">Acceso institucional</a>
+  </header>
+  <main>
+    <nav class="breadcrumb" aria-label="Ubicación"><a href="index.html">Inicio</a><span aria-hidden="true">/</span><span>Admisiones</span><span aria-hidden="true">/</span><strong>Inscripción</strong></nav>
+    <header class="admissions-header">
+      <div class="header-content">
+      <p class="eyebrow">ADMISIONES Y REGISTRO ACADÉMICO</p>
+      <h1>Tu próximo paso empieza aquí.</h1>
+      <p class="admissions-description">Preinscríbete en el programa de tu interés. Completa tus datos y nuestro equipo revisará tu solicitud.</p>
+      <div class="document-meta"><span>Solicitud de admisión</span><span>Formulario en línea</span></div>
+      </div>
+      <div class="header-seal" aria-hidden="true"><img src="img/Logogen10.png" alt=""><span>IFOBE · GEN 10</span></div>
+    </header>
+    <nav class="section-nav" aria-label="Secciones de la inscripción">
+      <a href="#personal-title"><span>01</span>Datos personales</a>
+      <a href="#contacto-title"><span>02</span>Contacto</a>
+      <a href="#academico-title"><span>03</span>Formación académica</a>
+      <a href="#documentos-title"><span>04</span>Documentos</a>
+    </nav>
+    <section class="form-panel" aria-labelledby="form-title">
+      <div class="form-heading">
+      <div>
+      <h2 id="form-title">Información del aspirante</h2>
+      <p class="intro">Complete cada sección para presentar su solicitud.</p>
+      </div><span class="required-note">* Campos obligatorios</span>
+      </div>
+      <form id="inscripcionForm">
+        <fieldset id="datos">
+          <legend class="sr-only">Datos de la solicitud</legend>
+          <section class="form-section" aria-labelledby="personal-title">
+            <h3 id="personal-title"><span>01</span> Información personal</h3>
+            <p class="section-description">Escribe tus datos tal como aparecen en tu documento.</p>
+            <div class="field-grid">
+              <div><label for="nombres">Nombres *</label><input id="nombres" name="nombres" autocomplete="given-name" maxlength="80" required></div>
+              <div><label for="apellidos">Apellidos *</label><input id="apellidos" name="apellidos" autocomplete="family-name" maxlength="80" required></div>
+              <div><label for="tipoDocumento">Tipo de documento *</label><select id="tipoDocumento" name="tipoDocumento" required>
+                <option value="">Selecciona una opción</option>
+                <option value="CC">Cédula de ciudadanía (CC)</option>
+                <option value="TI">Tarjeta de identidad (TI)</option>
+                <option value="CE">Cédula de extranjería (CE)</option>
+                <option value="PA">Pasaporte</option>
+                <option value="PPT">Permiso por Protección Temporal (PPT)</option>
+              </select></div>
+              <div><label for="cedula">Número de documento *</label><input id="cedula" name="cedula" minlength="4" maxlength="20" pattern="[A-Za-z0-9]{4,20}" required aria-describedby="documentoAyuda"><p class="hint" id="documentoAyuda">Sin puntos ni espacios.</p></div>
+              <div><label for="fechaNacimiento">Fecha de nacimiento *</label><input type="date" id="fechaNacimiento" name="fechaNacimiento" autocomplete="bday" required></div>
+              <div><label for="lugarExpedicion">Lugar de expedición *</label><input id="lugarExpedicion" name="lugarExpedicion" placeholder="Ciudad y país" maxlength="120" required></div>
+            </div>
+          </section>
+          <section class="form-section" aria-labelledby="contacto-title">
+            <h3 id="contacto-title"><span>02</span> Datos de contacto</h3>
+            <div class="field-grid">
+              <div><label for="correo">Correo electrónico *</label><input type="email" id="correo" name="correo" autocomplete="email" maxlength="150" required></div>
+              <div><label for="telefono">Celular / WhatsApp *</label><input type="tel" id="telefono" name="telefono" autocomplete="tel" placeholder="Ej. +57 300 123 4567" pattern="[0-9\+\(\)\. \x2D]{7,25}" maxlength="25" required></div>
+              <div><label for="pais">País de residencia *</label><input id="pais" name="pais" autocomplete="country-name" maxlength="80" required></div>
+              <div><label for="departamento">Departamento / estado *</label><input id="departamento" name="departamento" autocomplete="address-level1" maxlength="80" required></div>
+              <div><label for="ciudad">Ciudad / municipio *</label><input id="ciudad" name="ciudad" autocomplete="address-level2" maxlength="80" required></div>
+              <div><label for="direccion">Dirección de residencia *</label><input id="direccion" name="direccion" autocomplete="street-address" maxlength="180" required></div>
+            </div>
+          </section>
+          <section class="form-section" aria-labelledby="academico-title">
+            <h3 id="academico-title"><span>03</span> Información académica</h3>
+            <div class="field-grid">
+              <div class="full"><label for="programa">Programa de interés *</label><select id="programa" name="programa" required disabled><option value="">Cargando programas…</option></select><p class="hint" id="programasEstado" role="status">Consultando programas disponibles.</p><button type="button" onclick="cargarProgramas()">Actualizar programas</button></div>
+              <div><label for="nivelEstudios">Último nivel de estudios *</label><select id="nivelEstudios" name="nivelEstudios" required><option value="">Selecciona una opción</option><option>Primaria</option><option>Secundaria</option><option>Bachiller</option><option>Técnico</option><option>Tecnólogo</option><option>Universitario</option><option>Posgrado</option></select></div>
+              <div><label for="institucionAnterior">Institución de procedencia</label><input id="institucionAnterior" name="institucionAnterior" maxlength="150"></div>
+            </div>
+          </section>
+          <section class="form-section" aria-labelledby="documentos-title">
+            <h3 id="documentos-title"><span>04</span> Documento de identidad</h3>
+            <p class="section-description">Adjunta un PDF con ambas caras o dos fotos: frente y reverso. Puedes seleccionarlas desde tu celular.</p>
+            <label for="documentos" class="upload-box"><span class="upload-symbol" aria-hidden="true">↑</span><strong>Selecciona la copia de tu documento</strong><span>PDF, JPG o PNG · Máximo 2 archivos, 5 MB cada uno</span></label>
+            <input type="file" id="documentos" accept="application/pdf,image/jpeg,image/png,.pdf,.jpg,.jpeg,.png" multiple aria-describedby="adjuntosAyuda adjuntosError">
+            <p class="hint" id="adjuntosAyuda">Opcional en esta solicitud. Si aún no lo tienes, puedes presentarlo cuando la institución lo solicite. Los archivos se envían únicamente al confirmar la inscripción.</p>
+            <p id="adjuntosError" class="file-error" role="alert" hidden></p>
+            <ul id="listaArchivos" class="file-list" aria-label="Archivos seleccionados"></ul>
+          </section>
+          <div class="review-note"><span aria-hidden="true">ⓘ</span><p>Esta es una solicitud de admisión. La institución revisará la información y te indicará los siguientes pasos.</p></div>
+          <label class="confirmation"><input type="checkbox" id="confirmacion" name="confirmacion" required><span>Confirmo que los datos son correctos y solicito que la institución me contacte para gestionar mi inscripción. *</span></label>
+          <button type="submit" id="enviar">Enviar inscripción <span aria-hidden="true">→</span></button>
+        </fieldset>
+        <div id="estado" role="status" aria-live="polite" tabindex="-1" hidden></div>
+        <button type="button" id="otra" class="secondary" hidden>Registrar otro estudiante</button>
+      </form>
+      <p class="help">¿Necesitas corregir un registro existente?<br>Comunícate con la administración de tu institución.</p>
+    </section>
+  </main>
+  <footer>IFOBE · Gen 10 <span>Admisiones y registro académico</span></footer>
+</body>
+</html>

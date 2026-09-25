@@ -1,316 +1,529 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <script src="inscripcion-config.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Inicio de Sesión - Gen 10</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <style>
-        :root {
-            --ifobe-navy: #0a2a4a;
-            --ifobe-navy-deep: #051a30;
-            --ifobe-gold: #d9a441;
-            --ifobe-sky: #2f7fd1;
-            --ifobe-paper: #f7f5f0;
-            --ifobe-ink: #1c2a38;
-            --ifobe-line: #dfe3e8;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
 
-        * { box-sizing: border-box; }
 
-        body {
-            height: 100vh;
-            margin: 0;
-            padding: 16px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            font-family: 'Inter', sans-serif;
-            color: #eef3f9;
-            background: var(--ifobe-navy-deep);
-            transition: background 0.3s, color 0.3s;
-            overflow: hidden;
-        }
 
-        /* Nota: la clase se llama "dark-mode" en el JS original, pero aquí
-           funciona como el tema claro/alterno; se mantiene el nombre para
-           no romper el toggle existente. */
-        .dark-mode {
-            background: var(--ifobe-paper);
-            color: var(--ifobe-ink);
-        }
-
-        .video-background {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            z-index: -2;
-        }
-        .video-background video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(6px) brightness(0.55);
-        }
-        .video-background::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 20% 15%, rgba(217,164,65,0.18), transparent 45%),
-                linear-gradient(160deg, rgba(5,26,48,0.85), rgba(10,42,74,0.75) 60%);
-        }
-
-        .top-controls {
-            position: fixed;
-            top: 18px;
-            right: 18px;
-            z-index: 5;
-            display: flex;
-            gap: 10px;
-        }
-
-        .theme-toggle, .language-toggle {
-            position: static;
-            cursor: pointer;
-            background: rgba(255,255,255,0.95);
-            color: var(--ifobe-navy);
-            width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
-            font-size: 1.15rem;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-        .theme-toggle:hover, .language-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.35);
-        }
-
-        .login-container {
-            position: relative;
-            z-index: 1;
-            background: rgba(15, 35, 58, 0.55);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255,255,255,0.14);
-            border-top: 4px solid var(--ifobe-gold);
-            padding: 38px 34px 30px;
-            border-radius: 16px;
-            box-shadow: 0 24px 50px rgba(0,0,0,0.45);
-            text-align: center;
-            width: 100%;
-            max-width: 340px;
-            transition: background 0.3s, color 0.3s, border-color 0.3s;
-        }
-
-        .dark-mode .login-container {
-            background: rgba(255, 255, 255, 0.92);
-            color: var(--ifobe-ink);
-            border: 1px solid var(--ifobe-line);
-            border-top: 4px solid var(--ifobe-gold);
-        }
-
-        .login-container .logo {
-            max-width: 130px;
-            height: auto;
-            margin-bottom: 14px;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
-        }
-
-        .login-container h3 {
-            font-family: 'Source Serif 4', serif;
-            font-weight: 700;
-            font-size: 1.4rem;
-            margin-bottom: 6px;
-        }
-
-        .motivational-message {
-            font-size: 0.85rem;
-            font-style: italic;
-            opacity: 0.85;
-            margin-bottom: 22px;
-            line-height: 1.4;
-        }
-
-        .login-container .form-label {
-            font-weight: 600;
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            opacity: 0.9;
-        }
-
-        .login-container .form-control {
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.25);
-            background: rgba(255,255,255,0.08);
-            color: inherit;
-            padding: 10px 12px;
-        }
-        .login-container .form-control::placeholder { color: rgba(255,255,255,0.55); }
-        .login-container .form-control:focus {
-            border-color: var(--ifobe-sky);
-            box-shadow: 0 0 0 3px rgba(47,127,209,0.25);
-            background: rgba(255,255,255,0.12);
-        }
-
-        .dark-mode .login-container .form-control {
-            background: #ffffff;
-            border: 1px solid var(--ifobe-line);
-            color: var(--ifobe-ink);
-        }
-        .dark-mode .login-container .form-control::placeholder { color: #8b96a3; }
-
-        .login-container .btn-primary {
-            margin-top: 6px;
-            background: var(--ifobe-navy);
-            border-color: var(--ifobe-navy);
-            font-weight: 600;
-            border-radius: 8px;
-            padding: 10px 12px;
-            letter-spacing: 0.01em;
-        }
-        .login-container .btn-primary:hover {
-            background: #123a63;
-            border-color: #123a63;
-        }
-        .dark-mode .login-container .btn-primary {
-            background: var(--ifobe-navy);
-            border-color: var(--ifobe-navy);
-        }
-
-        @media (max-width: 380px) {
-            .login-container { padding: 30px 22px 24px; }
-        }
-    </style>
     <script>
         let texts = {};
-        const API_URL = "https://script.google.com/macros/s/AKfycbxSol-yx9_yaLFOjcQ3q7bHLraF6wJXTaZbCETjKfX2zAEu2hDVcc03y2T4O7f_hUODxg/exec";
 
+        const API_URL =
+            window.IFOBE_INSCRIPCION.apiUrl;
+
+
+        /* =====================================================
+           LOGIN
+        ===================================================== */
+
+        let loginEnCurso = false;
         async function validarLogin(event) {
             event.preventDefault();
-            var email = document.getElementById("email").value.trim();
-            var password = document.getElementById("password").value;
-            var loginValido = false;
-
+            if (loginEnCurso) return;
+            const form = event.target;
+            if (!form.reportValidity()) return;
+            const button = form.querySelector('button[type="submit"]');
+            const status = document.getElementById('login-status');
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 30000);
+            loginEnCurso = true;
+            button.disabled = true;
+            form.setAttribute('aria-busy', 'true');
+            status.textContent = document.documentElement.lang === 'es' ? 'Verificando acceso…' : 'Signing in…';
             try {
-                const params = new URLSearchParams({
-                    accion: "login",
-                    email: email,
-                    password: password
-                });
-                const respuesta = await fetch(`${API_URL}?${params.toString()}`, {
-                    method: "GET",
-                    cache: "no-store"
-                });
-                const resultado = await respuesta.json();
-                loginValido = resultado.ok === true && resultado.autorizado === true;
+                const params = new URLSearchParams({accion: 'login', email: document.getElementById('email').value.trim(), password: document.getElementById('password').value});
+                const response = await fetch(API_URL, {method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.fromEntries(params)),signal:controller.signal});
+                if (!response.ok) throw new Error('CONNECTION');
+                const result = await response.json();
+                if (result.ok !== true || typeof result.autorizado !== 'boolean') throw new Error('CONNECTION');
+                if (!result.autorizado) {
+                    status.textContent = texts.error_message;
+                    return;
+                }
+                if(result.token)sessionStorage.setItem('ifobeSesion',result.token);
+                status.textContent = texts.success_title;
+                window.location.href = 'home.html';
             } catch (error) {
-                loginValido = email === "admin@ifobe.edu.com" && password === "Admin2024@";
-            }
-            
-            if (loginValido) {
-                Swal.fire({
-                    icon: 'success',
-                    title: texts.success_title,
-                    text: texts.success_message,
-                    timer: 2000,
-                    showConfirmButton: false
-                }).then(() => {
-                    window.location.href = "home.html";
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: texts.error_title,
-                    text: texts.error_message,
-                    confirmButtonColor: '#00796b'
-                });
+                status.textContent = document.documentElement.lang === 'es'
+                    ? 'No se pudo conectar con la plataforma. Revisa tu conexión e inténtalo nuevamente.'
+                    : 'Unable to connect. Check your connection and try again.';
+            } finally {
+                clearTimeout(timeout);
+                loginEnCurso = false;
+                button.disabled = false;
+                form.removeAttribute('aria-busy');
             }
         }
 
         function toggleTheme() {
+
             document.body.classList.toggle("dark-mode");
+
+            const activo =
+                document.body.classList.contains("dark-mode");
+
+            document
+                .querySelector(".theme-toggle")
+                .setAttribute(
+                    "aria-pressed",
+                    String(activo)
+                );
         }
 
+
+        /* =====================================================
+           CAMBIO DE IDIOMA
+        ===================================================== */
+
         function toggleLanguage() {
-            const lang = document.documentElement.lang === "es" ? "en" : "es";
+
+            const lang =
+                document.documentElement.lang === "es"
+                    ? "en"
+                    : "es";
+
             document.documentElement.lang = lang;
+
             updateTexts(lang);
         }
 
+
+        /* =====================================================
+           TEXTOS
+        ===================================================== */
+
         function updateTexts(lang) {
+
             const translations = {
+
                 es: {
+
                     welcome: "¡Bienvenido!",
-                    motivational: "\"El aprendizaje nunca se detiene. ¡Sigue avanzando!\"",
-                    email: "Correo Electrónico*",
-                    password: "Contraseña*",
-                    login: "Iniciar Sesión",
-                    success_title: "¡Bienvenido a Gen 10 - IFOBE!",
-                    success_message: "Recuerda que el aprendizaje es un viaje, no un destino.",
-                    error_title: "Credenciales incorrectas",
-                    error_message: "Sigue intentando, el éxito es para los persistentes."
+
+                    motivational:
+                        '"El aprendizaje nunca se detiene. ¡Sigue avanzando!"',
+
+                    email:
+                        "Correo Electrónico*",
+
+                    password:
+                        "Contraseña*",
+
+                    login:
+                        "Iniciar Sesión",
+
+                    success_title:
+                        "¡Bienvenido a Gen 10 - IFOBE!",
+
+                    success_message:
+                        "Recuerda que el aprendizaje es un viaje, no un destino.",
+
+                    error_title:
+                        "Credenciales incorrectas",
+
+                    error_message:
+                        "El correo o la contraseña no son correctos. Verifica tus datos."
                 },
+
                 en: {
-                    welcome: "Welcome!",
-                    motivational: "\"Learning never stops. Keep moving forward!\"",
-                    email: "Email Address*",
-                    password: "Password*",
-                    login: "Login",
-                    success_title: "Welcome back!",
-                    success_message: "Remember, learning is a journey, not a destination.",
-                    error_title: "Incorrect credentials",
-                    error_message: "Keep trying, success is for the persistent."
+
+                    welcome:
+                        "Welcome!",
+
+                    motivational:
+                        '"Learning never stops. Keep moving forward!"',
+
+                    email:
+                        "Email Address*",
+
+                    password:
+                        "Password*",
+
+                    login:
+                        "Login",
+
+                    success_title:
+                        "Welcome back!",
+
+                    success_message:
+                        "Remember, learning is a journey, not a destination.",
+
+                    error_title:
+                        "Incorrect credentials",
+
+                    error_message:
+                        "Your email or password is incorrect. Please check your details."
                 }
             };
+
+
             texts = translations[lang];
-            document.querySelector("h3").textContent = texts.welcome;
-            document.querySelector(".motivational-message").textContent = texts.motivational;
+
+
+            /* Labels */
+
+            document.querySelector(
+                'label[for="email"]'
+            ).textContent = texts.email;
+
+            document.querySelector(
+                'label[for="password"]'
+            ).textContent = texts.password;
+
+
+            /* Botón */
+
+            document.querySelector(
+                'button[type="submit"]'
+            ).textContent = texts.login;
+
+
+            /* Placeholders */
+
+            document.getElementById("email").placeholder =
+                lang === "es"
+                    ? "nombre@correo.com"
+                    : "name@email.com";
+
+            document.getElementById("password").placeholder =
+                lang === "es"
+                    ? "Ingresa tu contraseña"
+                    : "Enter your password";
+
+
+            /* Botón idioma */
+
+            const languageButton =
+                document.querySelector(".language-toggle");
+
+            languageButton.textContent =
+                lang === "es"
+                    ? "EN"
+                    : "ES";
+
+            languageButton.setAttribute(
+                "aria-label",
+                lang === "es"
+                    ? "Switch to English"
+                    : "Cambiar a español"
+            );
+
+
+            /* Tema */
+
+            document
+                .querySelector(".theme-toggle")
+                .setAttribute(
+                    "aria-label",
+                    lang === "es"
+                        ? "Cambiar tema"
+                        : "Change theme"
+                );
+
+
+            /* Elementos data-es / data-en */
+
+            document
+                .querySelectorAll("[data-es]")
+                .forEach(element => {
+
+                    element.textContent =
+                        element.dataset[lang];
+
+                });
+
+
+            /* Bienvenida */
+
+            document.querySelector("h3").textContent =
+                texts.welcome;
+
+
+            /* Mensaje */
+
+            document.querySelector(
+                ".motivational-message"
+            ).textContent =
+                texts.motivational;
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            updateTexts("es");
-        });
+
+        /* =====================================================
+           INICIO
+        ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                updateTexts("es");
+
+            }
+        );
     </script>
+
+    <!-- CSS adicional existente -->
+    <link rel="stylesheet" href="platform.css">
+
+    <link rel="stylesheet" href="refinamientos.css">
 </head>
-<body>
-    <div class="video-background">
-        <video autoplay muted loop playsinline>
-            <source src="img/Diseño sin título.mp4" type="video/mp4">
-            Tu navegador no soporta el elemento de video.
-        </video>
-    </div>
 
-    <div class="top-controls">
-        <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar tema">🌙</div>
-        <div class="language-toggle" onclick="toggleLanguage()" title="Change language">🌍</div>
-    </div>
 
-    <div class="login-container">
-        <img src="img/Logogen10.png" alt="Logo" class="logo">
-        <h3 class="mb-2"></h3>
-        <p class="motivational-message"></p>
-        <form onsubmit="validarLogin(event)">
-            <div class="mb-3 text-start">
-                <label for="email" class="form-label">Correo Electrónico*</label>
-                <input type="email" class="form-control" id="email" placeholder="Ingrese su correo" required>
+<body class="campus-login">
+
+    <!-- ================================
+         ENCABEZADO
+    ================================= -->
+
+    <header class="campus-header">
+
+        <div class="campus-brand">
+
+            <img
+                src="img/Logogen10.png"
+                alt="Logo Gen 10 IFOBE"
+            >
+
+            <div>
+
+                IFOBE
+
+                <small
+                    data-es="PLATAFORMA EDUCATIVA"
+                    data-en="EDUCATIONAL PLATFORM"
+                >
+                    PLATAFORMA EDUCATIVA
+                </small>
+
             </div>
-            <div class="mb-3 text-start">
-                <label for="password" class="form-label">Contraseña*</label>
-                <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
+
+        </div>
+
+
+        <div class="top-controls">
+
+            <button
+                type="button"
+                class="theme-toggle"
+                onclick="toggleTheme()"
+                aria-label="Cambiar tema"
+                aria-pressed="false"
+                title="Cambiar tema"
+            >
+                ◐
+            </button>
+
+
+            <button
+                type="button"
+                class="language-toggle"
+                onclick="toggleLanguage()"
+                aria-label="Switch to English"
+                title="Cambiar idioma"
+            >
+                EN
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================
+         CONTENIDO
+    ================================= -->
+
+    <main class="access-layout">
+
+
+        <!-- PRESENTACIÓN -->
+
+        <section
+            class="access-story"
+            aria-labelledby="story-title"
+        >
+
+            <div
+                class="access-eyebrow"
+                data-es="Formación que transforma"
+                data-en="Education that transforms"
+            >
+                Formación que transforma
             </div>
-            <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-        </form>
-    </div>
+
+
+            <h1 id="story-title">
+
+                <span
+                    data-es="El siguiente paso"
+                    data-en="The next step"
+                >
+                    El siguiente paso
+                </span>
+
+                <br>
+
+                <em
+                    data-es="comienza contigo."
+                    data-en="starts with you."
+                >
+                    comienza contigo.
+                </em>
+
+            </h1>
+
+
+            <p
+                data-es="Bienvenido a tu espacio de gestión educativa. Conectamos la formación con nuevas oportunidades para crecer."
+                data-en="Welcome to your education management space. Connecting education with new opportunities to grow."
+            >
+                Bienvenido a tu espacio de gestión educativa.
+                Conectamos la formación con nuevas oportunidades
+                para crecer.
+            </p>
+
+
+            <div class="story-note">
+
+                <span>
+                    GEN 10 · IFOBE
+                </span>
+
+                <div
+                    data-es="Cada aprendizaje abre un nuevo camino."
+                    data-en="Every learning experience opens a new path."
+                >
+                    Cada aprendizaje abre un nuevo camino.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOGIN -->
+
+        <div class="login-container">
+
+
+            <img
+                src="img/Logogen10.png"
+                alt="Logo Gen 10 IFOBE"
+                class="logo"
+            >
+
+
+            <h3 class="mb-2"></h3>
+
+
+            <p class="motivational-message"></p>
+
+
+            <form onsubmit="validarLogin(event)">
+
+
+                <div class="mb-3 text-start">
+
+                    <label
+                        for="email"
+                        class="form-label"
+                    >
+                        Correo Electrónico*
+                    </label>
+
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        autocomplete="username"
+                        placeholder="Ingrese su correo"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="mb-3 text-start">
+
+                    <label
+                        for="password"
+                        class="form-label"
+                    >
+                        Contraseña*
+                    </label>
+
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        autocomplete="current-password"
+                        placeholder="Ingrese su contraseña"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100"
+                >
+                    Iniciar Sesión
+                </button>
+
+            </form>
+            <p id="login-status" role="status" aria-live="polite"></p>
+
+
+            <p class="access-help">
+
+                <a
+                    href="inscripcion.html"
+                    data-es="¿Eres nuevo? Inscríbete aquí →"
+                    data-en="New here? Register here →"
+                >
+                    ¿Eres nuevo? Inscríbete aquí →
+                </a>
+
+            </p>
+
+
+            <p
+                class="access-help"
+                data-es="¿Necesitas ayuda para ingresar? Contacta a la administración de tu institución."
+                data-en="Need help signing in? Contact your institution administration."
+            >
+                ¿Necesitas ayuda para ingresar?
+                Contacta a la administración de tu institución.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================================
+         PIE DE PÁGINA
+    ================================= -->
+
+    <footer class="campus-footer">
+        IFOBE · Gen 10
+    </footer>
+
 </body>
 </html>

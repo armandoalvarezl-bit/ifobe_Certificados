@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <script src="inscripcion-config.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registro de Alumnos · IFOBE</title>
@@ -435,10 +436,13 @@
 
   :focus-visible{ outline:2px solid var(--dorado); outline-offset:2px; }
 </style>
+<link rel="stylesheet" href="platform.css">
+    <link rel="stylesheet" href="refinamientos.css">
 </head>
-<body>
+<body class="campus-registry">
 
 <div class="envoltura">
+  <nav class="registry-nav" aria-label="Navegación principal"><strong>IFOBE <span style="font-weight:400;letter-spacing:0">/ Gestión educativa</span></strong><a href="home.html">Volver al inicio</a></nav>
 
   <header class="marca">
     <div class="escudo">
@@ -455,7 +459,7 @@
   <div class="barra">
     <div class="buscador">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" id="buscarInput" placeholder="Buscar por cédula o nombre…">
+      <input type="text" id="buscarInput" aria-label="Buscar alumnos por cédula o nombre" placeholder="Buscar por cédula o nombre…">
     </div>
     <div style="display:flex; align-items:center; gap:18px;">
       <span class="contador" id="contador">Cargando…</span>
@@ -496,6 +500,8 @@
       <div class="error">El nombre es obligatorio.</div>
     </div>
 
+    <div class="campo"><label for="inputCorreo">Correo del estudiante</label><input type="email" id="inputCorreo" required placeholder="estudiante@correo.com"></div>
+    <div class="campo"><label for="programa">Programa académico</label><select id="programa" required disabled><option value="">Cargando programas…</option></select><p id="programasEstado" role="status"></p><button type="button" onclick="cargarProgramas()">Actualizar programas</button></div>
     <div class="modal-acciones">
       <button class="btn btn-fantasma" id="btnCancelarFormulario">Cancelar</button>
       <button class="btn btn-primario" id="btnGuardar">Guardar</button>
@@ -523,7 +529,7 @@
   // ============================================================
   // Configuración — pega aquí la URL de tu Web App desplegada
   // ============================================================
-  const API_URL = "https://script.google.com/macros/s/AKfycbxiIWmMUBCbN-iT8QgH_RevdZqGKQ3rza-AFLlS6OOCIgu5a_zxedqVF59mXzKBITf9jQ/exec";
+  const API_URL = window.IFOBE_INSCRIPCION.apiUrl;
 
   const cuerpoTabla   = document.getElementById('cuerpoTabla');
   const contador      = document.getElementById('contador');
@@ -569,7 +575,7 @@
     const resp = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({...payload, token: sessionStorage.getItem('ifobeSesion') || ''})
     });
     if (!resp.ok) {
       throw new Error(`El servidor respondió con error (${resp.status}).`);
@@ -671,8 +677,11 @@
     campo.classList.remove('con-error');
   }
 
-  function abrirFormulario(cedula = null) {
+  async function abrirFormulario(cedula = null) {
     cedulaEnEdicion = cedula;
+    document.getElementById('inputCorreo').value = '';
+    document.getElementById('programa').value = '';
+    btnGuardar.disabled = !!cedula;
     campoCedula.classList.remove('con-error');
     campoNombre.classList.remove('con-error');
 
@@ -690,6 +699,17 @@
 
     fondoFormulario.classList.add('activo');
     setTimeout(() => inputCedula.focus(), 50);
+    if (cedula) {
+      try {
+        const data = await llamarAPI({accion:'detalleAlumno',cedula});
+        if (!data.ok) throw Error(data.mensaje || 'No se pudo cargar el expediente.');
+        if (cedulaEnEdicion !== cedula) return;
+        await cargarProgramas();
+        document.getElementById('inputCorreo').value = data.alumno.correo || '';
+        document.getElementById('programa').value = data.alumno.programa || '';
+        btnGuardar.disabled = false;
+      } catch(error) { mostrarToast(error.message, 'error'); }
+    }
   }
 
   function cerrarFormulario() {
@@ -699,6 +719,11 @@
   async function guardar() {
     const cedula = inputCedula.value.trim();
     const nombre = inputNombre.value.trim();
+    const correoInput = document.getElementById('inputCorreo');
+    const correo = correoInput.value.trim();
+    const programa = document.getElementById('programa').value;
+    if (!correoInput.reportValidity()) return;
+    if (document.getElementById('programa').disabled || !programa) { mostrarToast('Selecciona un programa activo.', 'error'); return; }
 
     campoCedula.classList.toggle('con-error', !cedula);
     campoNombre.classList.toggle('con-error', !nombre);
@@ -711,8 +736,8 @@
 
     try {
       const payload = cedulaEnEdicion
-        ? { accion: 'editarAlumno', cedulaOriginal: cedulaEnEdicion, cedula, nombre }
-        : { accion: 'agregarAlumno', cedula, nombre };
+        ? { accion: 'editarAlumno', cedulaOriginal: cedulaEnEdicion, cedula, nombre, correo, programa }
+        : { accion: 'agregarAlumno', cedula, nombre, correo, programa };
 
       const data = await llamarAPI(payload);
       if (!data.ok) throw new Error(data.mensaje || 'No se pudo guardar');
@@ -782,5 +807,6 @@
   cargarAlumnos();
 </script>
 
+<script src="programas.js"></script>
 </body>
 </html>

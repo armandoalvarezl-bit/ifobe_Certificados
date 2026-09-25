@@ -1,0 +1,46 @@
+/* Identidad compartida del portal académico. */
+:root { --portal-ink:#162f4b; --portal-accent:#aa7a2c; --portal-line:#dce5ed; }
+body { background-color:#f3f6f9; }
+button, input, select { font:inherit; }
+button, a, input, select { touch-action:manipulation; }
+button:disabled { cursor:wait; opacity:.65; }
+input:focus, select:focus { border-color:#648aa7; box-shadow:0 0 0 3px #648aa71f; }
+#programasEstado { font-size:.78rem; line-height:1.6; color:#56697a; margin:8px 0; }
+button[onclick="cargarProgramas()"] { color:#244b6d; background:#edf3f8; border:1px solid #ccdce8; padding:8px 12px; border-radius:8px; font-size:.8rem; font-weight:600; }
+.campus-login { background:radial-gradient(ellipse at 12% 0%,#e0eaf1,transparent 60%),#f5f7fa; }
+.campus-login .access-layout { border-radius:28px; box-shadow:0 24px 80px #20354f12; }
+.campus-login .access-story { background:linear-gradient(145deg,#11283f,#244964); }
+.campus-login .access-eyebrow { border-left:3px solid #d4ae69; padding-left:12px; }
+.campus-login .btn-primary { min-height:50px; border-radius:10px; background:#193d59; box-shadow:0 6px 16px #193d5920; }
+.campus-login .login-container .logo { max-height:65px; margin-bottom:20px; }
+.workspace-nav { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:8px 0 24px; border-bottom:1px solid var(--portal-line); font-size:13px; }
+.workspace-nav a { color:var(--portal-ink); text-decoration:none; }
+.workspace-nav strong { letter-spacing:.12em; margin-right:12px; }
+.workspace-nav > div { display:flex; align-items:center; gap:22px; }
+.workspace-nav button { background:white; border:1px solid var(--portal-line); border-radius:8px; padding:8px 16px; color:var(--portal-ink); }
+.workspace-heading { padding:32px 0 26px; }
+.workspace-heading p { font-size:10px; font-weight:700; color:#8a662d; letter-spacing:.16em; margin:0 0 10px; }
+.workspace-heading h1 { font-family:'Source Serif 4',Georgia,serif; color:var(--portal-ink); font-size:clamp(30px,4vw,42px); margin:0 0 10px; }
+.workspace-heading > span { font-size:14px; color:#617286; }
+.card-shell { border:1px solid var(--portal-line); box-shadow:0 12px 40px #193d5909; }
+.brand-panel { background:linear-gradient(155deg,#17324d,#284e67); }
+.form-block { min-width:0; }
+.section-label { color:#31536e; letter-spacing:.04em; }
+.admissions-header { border-radius:18px; background:linear-gradient(115deg,#102b43,#2b5269); }
+.admissions-header h1 { max-width:650px; font-size:clamp(32px,4vw,49px); line-height:1.15; }
+.form-panel { box-shadow:0 12px 36px #17324d08; border-radius:16px; }
+.section-nav { border-radius:12px; }
+.form-section { scroll-margin-top:24px; }
+.registry-nav { padding-bottom:22px; }
+.ledger { box-shadow:0 12px 36px #17324d08; }
+.campo select { width:100%; min-height:46px; border:1px solid #ced9e2; background:#f8fafc; border-radius:8px; padding:10px; color:var(--portal-ink); }
+.fondo-modal .modal { max-height:90dvh; overflow-y:auto; }
+@media(max-width:720px) {
+ .workspace-nav { flex-wrap:wrap; gap:16px; }
+ .workspace-nav > div { gap:16px; width:100%; justify-content:space-between; }
+ .workspace-heading { padding:25px 0; }
+ .campus-login .access-layout { border-radius:18px; }
+ .admissions-header h1 { font-size:32px; }
+ .header-seal { display:none; }
+}
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation:none!important; transition:none!important; } }

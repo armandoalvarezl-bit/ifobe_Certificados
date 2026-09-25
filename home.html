@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <script src="inscripcion-config.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Certificados IFOBE</title>
@@ -397,12 +398,16 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="refinamientos.css">
 </head>
-<body>
+<body class="certificates-home">
 
-<div class="toast-stack" id="toastStack"></div>
+<div class="toast-stack" id="toastStack" role="status" aria-live="polite"></div>
 
 <div class="page-wrap">
+<nav class="workspace-nav" aria-label="Navegación principal"><a href="home.html"><strong>IFOBE</strong> / Gestión académica</a><div><a href="registro-alumnos (2).html">Estudiantes</a><a href="inscripcion.html">Preinscripción</a><button type="button" onclick="cerrarSesion()">Salir</button></div></nav>
+<header class="workspace-heading"><p>COORDINACIÓN ACADÉMICA</p><h1>Centro de certificación</h1><span>Consulta al estudiante, revisa su programa y emite su documento.</span></header>
   <div class="card-shell">
     <div class="brand-panel">
         <img src="img/Logogen10.png" alt="Logo IFOBE">
@@ -430,19 +435,7 @@
         <p class="section-label">2. Datos del curso</p>
         <div class="field-row">
             <label for="programa" class="form-label">Programa</label>
-            <select id="programa" class="form-select">
-                <option value="">Seleccione un programa</option>
-                <option value="Ingeniería Civil">Ingeniería Civil</option>
-                <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
-                <option value="Ingeniería Electrónica">Ingeniería Electrónica</option>
-                <option value="Curso de Office Básico">Curso de Office Básico</option>
-                <option value="Curso de Office Avanzado">Curso de Office Avanzado</option>
-                <option value="Diplomado en Administración">Diplomado en Administración</option>
-                <option value="Diplomado en Finanzas">Diplomado en Finanzas</option>
-                <option value="Seminario en Herramientas Digitales">Seminario en Herramientas Digitales</option>
-                <option value="Atencion al Usuario"> Atencion al Usuaio </option>
-                <option value="Manejo de Caja Registradora"> Manejo de Caja Resgitradora</option>
-            </select>
+            <select id="programa" class="form-select"><option value="">Cargando programas…</option></select><p id="programasEstado" role="status"></p><button type="button" onclick="cargarProgramas()">Actualizar programas</button>
         </div>
 
         <div class="field-row">
@@ -566,27 +559,15 @@
 
 <script>
     function cerrarSesion() {
+        sessionStorage.removeItem('ifobeSesion');
         window.location.href = 'index.html';
     }
 
     const HISTORIAL_KEY = "ifobe_historial_documentos_cache";
     const ALUMNOS_KEY = "ifobe_alumnos_cache";
-    const HISTORIAL_API_URL = "https://script.google.com/macros/s/AKfycbxSol-yx9_yaLFOjcQ3q7bHLraF6wJXTaZbCETjKfX2zAEu2hDVcc03y2T4O7f_hUODxg/exec";
+    const HISTORIAL_API_URL = window.IFOBE_INSCRIPCION.apiUrl;
     let historialEnMemoria = [];
     let alumnosEnMemoria = {};
-
-    const ALUMNOS_RESPALDO = {
-        "1003080612": "Álvarez Armando José",
-        "32288072": "Alvarez Orosco Cesar Augusto",
-        "7523962": "Borja Ramirez Manuel Antonio",
-        "36": "luis",
-        "1045138286": "Arroyave Madera Ingris Johana",
-        "1007027467": "Pajaro Alvarez Nabiris Mildreth",
-        "1007259821": "Luna Delgado Gabriela",
-        "1007676136": "Camargo Benitez Angelica",
-        "1043133900": "Ricardo Rodriguez Luisa Fernanda",
-        "1001534238": "Rojas Areiza Lorena"
-    };
 
     function obtenerHistorial() {
         try {
@@ -597,7 +578,7 @@
     }
 
     function guardarHistorialCache(historial) {
-        localStorage.setItem(HISTORIAL_KEY, JSON.stringify(historial));
+        try { localStorage.setItem(HISTORIAL_KEY, JSON.stringify(historial)); } catch (error) { /* El guardado remoto sigue disponible. */ }
     }
 
     function obtenerAlumnosCache() {
@@ -609,7 +590,7 @@
     }
 
     function guardarAlumnosCache(alumnos) {
-        localStorage.setItem(ALUMNOS_KEY, JSON.stringify(alumnos));
+        try { localStorage.setItem(ALUMNOS_KEY, JSON.stringify(alumnos)); } catch (error) { /* Se conserva la copia en memoria. */ }
     }
 
     async function cargarAlumnosRemotos() {
@@ -622,13 +603,12 @@
             if (!respuesta.ok) throw new Error("Respuesta no valida de alumnos");
 
             const resultado = await respuesta.json();
-            const alumnos = resultado.alumnos || {};
-            alumnosEnMemoria = Object.keys(alumnos).length ? alumnos : ALUMNOS_RESPALDO;
+            if (resultado.ok !== true || !resultado.alumnos || typeof resultado.alumnos !== "object" || Array.isArray(resultado.alumnos)) throw new Error("Respuesta de alumnos inválida");
+            alumnosEnMemoria = resultado.alumnos;
             guardarAlumnosCache(alumnosEnMemoria);
         } catch (error) {
             alumnosEnMemoria = obtenerAlumnosCache();
-            if (!Object.keys(alumnosEnMemoria).length) alumnosEnMemoria = ALUMNOS_RESPALDO;
-            showToast("No se pudo cargar la base de alumnos online. Se usara la copia local de respaldo.", "warning", 6500);
+            showToast(Object.keys(alumnosEnMemoria).length ? "No se pudo cargar la base de alumnos online. Se usará la última copia guardada." : "No se pudo cargar la base de alumnos. Revisa la conexión e inténtalo nuevamente.", "warning", 6500);
         }
     }
 
@@ -642,7 +622,8 @@
             if (!respuesta.ok) throw new Error("Respuesta no valida del historial");
 
             const resultado = await respuesta.json();
-            historialEnMemoria = Array.isArray(resultado) ? resultado : (resultado.historial || []);
+            if (!Array.isArray(resultado) && (resultado.ok !== true || !Array.isArray(resultado.historial))) throw new Error("Respuesta de historial inválida");
+            historialEnMemoria = Array.isArray(resultado) ? resultado : resultado.historial;
             guardarHistorialCache(historialEnMemoria);
             renderizarHistorial();
         } catch (error) {
@@ -677,6 +658,8 @@
 
             if (!respuesta.ok) throw new Error("No se pudo guardar en la hoja");
 
+            const resultado = await respuesta.json();
+            if (resultado.ok !== true) throw new Error("No se confirmó el guardado");
             showToast("Documento guardado en el historial online.", "success");
             cargarHistorialRemoto();
         } catch (error) {
@@ -794,7 +777,7 @@
 
         const toast = document.createElement("div");
         toast.className = `app-toast ${tipo}`;
-        toast.innerHTML = `<span class="icon">${iconos[tipo] || iconos.info}</span><span>${mensaje}</span>`;
+        toast.innerHTML = `<span class="icon">${iconos[tipo] || iconos.info}</span><span>${escapeHtml(mensaje)}</span>`;
         stack.appendChild(toast);
 
         setTimeout(() => {
@@ -858,32 +841,17 @@
 
     async function validarCedula() {
         let cedula = document.getElementById("cedula").value.trim();
-        let datosUsuarios = {
-            "1003080612": "Álvarez Armando José",
-            "32288072": "Alvarez Orosco Cesar Augusto",
-            "7523962": "Borja Ramirez Manuel Antonio",
-            "36": "luis",
-            "1045138286": "Arroyave Madera Ingris Johana",
-            "1007027467": "Pajaro Alvarez Nabiris Mildreth",
-            "1007259821": "Luna Delgado Gabriela",
-            "1007676136": "Camargo Benitez Angelica",
-            "1043133900": "Ricardo Rodriguez Luisa Fernanda",
-            "1001534238": "Rojas Areiza Lorena"
-        };
-
         if (!Object.keys(alumnosEnMemoria).length) {
             await cargarAlumnosRemotos();
         }
-        if (Object.keys(alumnosEnMemoria).length) {
-            datosUsuarios = alumnosEnMemoria;
-        }
+        const datosUsuarios = alumnosEnMemoria;
 
         if (!cedula) {
             showToast("Ingresa un número de cédula antes de validar.", "warning");
             return false;
         }
 
-        if (!datosUsuarios[cedula]) {
+        if (!Object.prototype.hasOwnProperty.call(datosUsuarios, cedula) || !datosUsuarios[cedula]) {
             document.getElementById("nombre").value = "";
             showToast("No encontramos esa cédula en la base de datos. Verifica el número e inténtalo de nuevo.", "error");
             return false;
@@ -913,6 +881,7 @@
     }
 
     async function generarDiploma() {
+        if(!await prepararEmision())return;
         let cedula = document.getElementById("cedula").value;
         let nombre = document.getElementById("nombre").value;
         let programa = document.getElementById("programa").value;
@@ -936,7 +905,7 @@
             return;
         }
 
-        let codigo = `INES-IFOBE-${programa.substr(0, 3).toUpperCase()}-${semestre}-${horas}`;
+        let codigo = `IFOBE-${crypto.randomUUID()}`;
         document.getElementById("codigo").value = codigo;
 
         const confirmado = await confirmarGeneracion(
@@ -958,7 +927,7 @@
         let anio = fecha.getFullYear();
 
         const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+        let doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4", compress: true });
 
         // Página A4 apaisada: 297 x 210 mm. Se trabaja siempre dentro de un
         // margen de 15 mm arriba/abajo para que nada quede cortado ni se
@@ -970,7 +939,18 @@
         img.src = "img/certificado.png";
 
         img.onload = function () {
-            doc.addImage(img, "JPEG", 0, 0, 297, 210);
+          const dibujar = (sinFirma) => {
+            // Rasterizar la copia elimina la firma de sus píxeles; no queda oculta en el PDF.
+            let fondoDiploma = img;
+            if(sinFirma){
+                const canvas=document.createElement('canvas');
+                canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
+                const ctx=canvas.getContext('2d');
+                ctx.drawImage(img,0,0);ctx.fillStyle='#fff';
+                ctx.fillRect(canvas.width*46/297,canvas.height*174/210,canvas.width*38/297,canvas.height*16/210);
+                fondoDiploma=canvas.toDataURL('image/png');
+            }
+            doc.addImage(fondoDiploma, "PNG", 0, 0, 297, 210, undefined, "FAST");
 
             // --- Encabezado institucional ---
             doc.setFont("times", "bold");
@@ -1027,7 +1007,12 @@
             doc.text("Jhonie Tuiran", 212, margenInferior - 8, { align: "center" });
             doc.text("Coordinador Académico", 212, margenInferior - 2, { align: "center" });
 
+          };
+          dibujar(false);
             doc.save(`Certificado_Constancia_ifobe_${nombre}.pdf`);
+            doc = new jsPDF({ orientation:"landscape",unit:"mm",format:"a4",compress:true });
+            dibujar(true);
+            enviarCopiaPDF(doc,{nombre,cedula,programa,horas,semestre,codigo});
 
             registrarHistorial(
                 { nombre, cedula, programa, horas, semestre },
@@ -1058,6 +1043,7 @@
     // recuadros, pensado para procesos de Educación para el Trabajo y el
     // Desarrollo Humano (ETDH).
     async function generarCertificadoCapacitacion() {
+        if(!await prepararEmision())return;
         let cedula = document.getElementById("cedula").value;
         let nombre = document.getElementById("nombre").value;
         let programa = document.getElementById("programa").value;
@@ -1081,7 +1067,7 @@
             return;
         }
 
-        let codigo = `IFOBE-ETDH-${programa.substr(0, 3).toUpperCase()}-${semestre}-${horas}`;
+        let codigo = `IFOBE-${crypto.randomUUID()}`;
 
         const confirmado = await confirmarGeneracion(
             { nombre, cedula, programa, horas, semestre },
@@ -1104,7 +1090,7 @@
         const { jsPDF } = window.jspdf;
         // Tamaño CARTA (US Letter): 215.9 x 279.4 mm — el mismo formato que
         // usa el SENA en sus certificados de aprobación.
-        const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "letter" });
+        const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "letter", compress: true });
 
         const pageW = 215.9, pageH = 279.4;
         const centroX = pageW / 2;
@@ -1236,6 +1222,7 @@
 
         const finalizar = () => {
             doc.save(`Certificado_Capacitacion_ifobe_${nombre}.pdf`);
+            enviarCopiaPDF(doc,{nombre,cedula,programa,horas,semestre,codigo});
             registrarHistorial(
                 { nombre, cedula, programa, horas, semestre },
                 codigo,
@@ -1264,6 +1251,8 @@
     }
 </script>
 
+<script src="programas.js"></script>
+<script src="emision.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
