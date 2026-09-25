@@ -400,22 +400,37 @@
     </style>
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="refinamientos.css">
+    <link rel="stylesheet" href="certificacion.css">
+    <link rel="stylesheet" href="portal-shell.css">
+<link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
 </head>
 <body class="certificates-home">
 
 <div class="toast-stack" id="toastStack" role="status" aria-live="polite"></div>
 
 <div class="page-wrap">
-<nav class="workspace-nav" aria-label="Navegación principal"><a href="home.html"><strong>IFOBE</strong> / Gestión académica</a><div><a href="registro-alumnos (2).html">Estudiantes</a><a href="inscripcion.html">Preinscripción</a><button type="button" onclick="cerrarSesion()">Salir</button></div></nav>
-<header class="workspace-heading"><p>COORDINACIÓN ACADÉMICA</p><h1>Centro de certificación</h1><span>Consulta al estudiante, revisa su programa y emite su documento.</span></header>
+<nav class="workspace-nav" aria-label="Navegación principal">
+  <a class="portal-brand" href="home.html"><img src="img/Logogen10.png" alt=""><span><strong>IFOBE</strong><small>PLATAFORMA EDUCATIVA</small></span></a>
+  <div class="portal-links"><a class="current" href="home.html" aria-current="page">Certificaciones</a><a href="matriculas.html">Matrículas</a><a href="registro-alumnos (2).html">Estudiantes</a><a href="#ayuda">Soporte</a></div>
+  <button type="button" onclick="cerrarSesion()">Cerrar sesión ↗</button>
+</nav>
   <div class="card-shell">
-    <div class="brand-panel">
-        <img src="img/Logogen10.png" alt="Logo IFOBE">
-        <h2>Plataforma Interna de Certificados IFOBE</h2>
-        <span class="legal-note">Al hacer uso de esta plataforma, usted acepta que sus datos serán tratados conforme a la Ley de Protección de Datos Personales.</span>
-    </div>
+    <aside class="cert-sidebar">
+      <nav aria-label="Secciones de certificación">
+        <a class="selected" href="#certificacion"><i class="bi bi-file-earmark-check" aria-hidden="true"></i> Centro de certificación</a>
+        <a href="#historial"><i class="bi bi-file-earmark-text" aria-hidden="true"></i> Mis certificaciones</a>
+        <a href="#historial"><i class="bi bi-clock-history" aria-hidden="true"></i> Historial de documentos</a>
+        <a href="#ayuda"><i class="bi bi-question-circle" aria-hidden="true"></i> Ayuda</a>
+        <a class="sidebar-page-link" href="matriculas.html"><i class="bi bi-journal-check" aria-hidden="true"></i> Matrículas</a>
+        <a class="sidebar-page-link" href="registro-alumnos (2).html"><i class="bi bi-people" aria-hidden="true"></i> Estudiantes</a>
+      </nav>
+      <div class="sidebar-brand"><div class="portal-brand"><img src="img/Logogen10.png" alt=""><span><strong>IFOBE</strong><small>PLATAFORMA EDUCATIVA</small></span></div><p>Tu formación,<br>nuestro compromiso.</p></div>
+    </aside>
 
-    <div class="container">
+    <main class="container certificate-content" id="certificacion">
+        <header class="workspace-heading"><h1>Centro de certificación</h1><span>Consulta al estudiante y genera sus certificados académicos de forma rápida y segura.</span></header>
+        <section class="certificate-form" aria-labelledby="solicitud-titulo">
+        <h2 id="solicitud-titulo">Emisión de certificado</h2>
         <div class="form-grid">
         <div class="form-block">
         <p class="section-label">1. Validación del estudiante</p>
@@ -476,10 +491,11 @@
         <div class="action-grid">
         <button class="btn btn-success mb-2" onclick="generarDiploma()">Generar diploma (PDF)</button>
         <button class="btn btn-outline-primary mb-2" onclick="generarCertificadoCapacitacion()">Generar certificado de capacitación (PDF)</button>
-        <button class="btn btn-danger" onclick="cerrarSesion()">Cerrar sesión</button>
+        <button class="btn btn-outline-primary" type="button" onclick="limpiarCertificacion()">Limpiar formulario</button>
         </div>
-        <div class="history-panel">
-            <p class="section-label">3. Historial de documentos</p>
+        </section>
+        <section class="history-panel" id="historial" aria-labelledby="historial-titulo">
+            <h2 id="historial-titulo">Mis documentos recientes</h2>
             <div class="history-toolbar">
                 <input type="search" id="historialBuscar" class="form-control" placeholder="Buscar por cedula, nombre, programa o codigo">
                 <span class="history-count" id="historialContador">0 registros</span>
@@ -504,8 +520,23 @@
                 </table>
                 <div class="history-empty" id="historialVacio">Aun no hay documentos generados.</div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
+    <aside class="certificate-info">
+      <section class="info-card">
+        <i class="bi bi-file-earmark-check certificate-icon" aria-hidden="true"></i>
+        <h2>Certificados con<br>identidad IFOBE</h2>
+        <p>Genera los documentos académicos con los datos del estudiante y un código de identificación para su consulta.</p>
+        <ul><li>Generación en formato PDF</li><li>Historial de documentos emitidos</li><li>Consulta por estudiante y programa</li><li>Copia al correo registrado</li></ul>
+      </section>
+      <section class="info-card help-card" id="ayuda">
+        <h2>¿Necesitas ayuda?</h2>
+        <p>Valida la cédula, selecciona el programa, las horas y el semestre. Luego elige el documento que deseas generar.</p>
+        <details><summary>Ayuda con la certificación</summary><p>Si el estudiante no aparece, revisa su registro en <a href="registro-alumnos (2).html">Estudiantes</a>. Si falta un programa, pulsa «Actualizar programas». Para corregir datos académicos, contacta a la administración de tu institución.</p></details>
+      </section>
+      <p class="certificate-signature">Juntos construimos<br>un mejor futuro</p>
+      <p class="privacy-note">Los datos personales se utilizan para la gestión académica y la emisión de certificados.</p>
+    </aside>
   </div>
 </div>
 
@@ -558,6 +589,13 @@
 </div>
 
 <script>
+    function limpiarCertificacion() {
+        ['cedula', 'nombre', 'programa', 'horas', 'semestre', 'codigo'].forEach(id => {
+            document.getElementById(id).value = '';
+        });
+        document.getElementById('cedula').focus();
+    }
+
     function cerrarSesion() {
         sessionStorage.removeItem('ifobeSesion');
         window.location.href = 'index.html';

@@ -438,11 +438,15 @@
 </style>
 <link rel="stylesheet" href="platform.css">
     <link rel="stylesheet" href="refinamientos.css">
+    <link rel="stylesheet" href="portal-shell.css">
+    <script src="portal-shell.js" defer></script>
+<link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
+<link rel="stylesheet" href="estudiantes.css">
 </head>
-<body class="campus-registry">
+<body class="campus-registry portal-page" data-portal-page="estudiantes">
 
 <div class="envoltura">
-  <nav class="registry-nav" aria-label="Navegación principal"><strong>IFOBE <span style="font-weight:400;letter-spacing:0">/ Gestión educativa</span></strong><a href="home.html">Volver al inicio</a></nav>
+  <nav class="registry-nav" aria-label="Navegación principal"><strong>IFOBE <span style="font-weight:400;letter-spacing:0">/ Gestión educativa</span></strong><a href="matriculas.html">Matrículas</a><a href="home.html">Volver al inicio</a></nav>
 
   <header class="marca">
     <div class="escudo">
@@ -450,21 +454,28 @@
     </div>
     <div class="titulo-bloque">
       <span class="eyebrow">Instituto de Formación · IFOBE</span>
-      <h1>Registro de Alumnos a Certificar</h1>
+      <h1>Centro de estudiantes</h1>
       <p>Consulta, agrega, edita o elimina alumnos habilitados para certificación.</p>
     </div>
     <div class="cinta"></div>
   </header>
 
+  <section class="student-summary" aria-label="Resumen del registro">
+    <article><span class="summary-icon"><i class="bi bi-people" aria-hidden="true"></i></span><div><p>Estudiantes registrados</p><strong id="studentTotal">—</strong><small>Base de estudiantes para certificar</small></div></article>
+    <article><span class="summary-icon"><i class="bi bi-search" aria-hidden="true"></i></span><div><p>Resultados de la consulta</p><strong id="studentMatches">—</strong><small id="studentFilter">Todos los estudiantes</small></div></article>
+    <a href="home.html"><span class="summary-icon"><i class="bi bi-patch-check" aria-hidden="true"></i></span><div><p>Certificaciones</p><strong class="summary-action">Emitir un documento <i class="bi bi-arrow-right" aria-hidden="true"></i></strong><small>Ir al centro de certificación</small></div></a>
+  </section>
+  <section class="student-directory" aria-labelledby="directoryTitle">
+  <div class="directory-heading"><div><p>GESTIÓN ACADÉMICA</p><h2 id="directoryTitle">Directorio de estudiantes</h2><span>Busca por nombre o documento y gestiona su información.</span></div><button type="button" class="btn btn-fantasma" onclick="cargarAlumnos()"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i> Actualizar</button></div>
   <div class="barra">
     <div class="buscador">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <i class="bi bi-search" aria-hidden="true"></i>
       <input type="text" id="buscarInput" aria-label="Buscar alumnos por cédula o nombre" placeholder="Buscar por cédula o nombre…">
     </div>
     <div style="display:flex; align-items:center; gap:18px;">
       <span class="contador" id="contador">Cargando…</span>
       <button class="btn btn-primario" id="btnAgregar">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        <i class="bi bi-person-plus" aria-hidden="true"></i>
         Agregar alumno
       </button>
     </div>
@@ -479,6 +490,8 @@
     </div>
     <div id="cuerpoTabla"></div>
   </div>
+  </section>
+  <aside class="student-guidance"><i class="bi bi-lightbulb" aria-hidden="true"></i><div><strong>Un registro completo facilita cada certificado</strong><p>Revisa el documento, el nombre, el correo y el programa desde el botón de edición. Puedes gestionar la vinculación académica en <a href="matriculas.html">Matrículas</a>.</p></div></aside>
 
 </div>
 
@@ -512,7 +525,7 @@
 <!-- Modal confirmar eliminación -->
 <div class="fondo-modal" id="fondoConfirmar">
   <div class="modal confirmar">
-    <div class="icono">✦</div>
+    <div class="icono"><i class="bi bi-info-circle" aria-hidden="true"></i></div>
     <h2>Eliminar alumno</h2>
     <p>¿Seguro que deseas eliminar a</p>
     <p class="nombre-confirmar" id="nombreAEliminar"></p>
@@ -605,12 +618,15 @@
         cedula.toLowerCase().includes(filtro) || nombre.toLowerCase().includes(filtro))
       .sort((a, b) => a[1].localeCompare(b[1], 'es'));
 
+    document.getElementById('studentTotal').textContent = Object.keys(alumnos).length;
+    document.getElementById('studentMatches').textContent = entradas.length;
+    document.getElementById('studentFilter').textContent = filtro ? 'Coincidencias de la búsqueda' : 'Todos los estudiantes';
     contador.innerHTML = `<b>${Object.keys(alumnos).length}</b> alumnos registrados`;
 
     if (entradas.length === 0) {
       cuerpoTabla.innerHTML = `
         <div class="vacio">
-          <div class="icono">✦</div>
+          <div class="icono"><i class="bi bi-info-circle" aria-hidden="true"></i></div>
           <p>${filtro ? 'Ningún alumno coincide con la búsqueda.' : 'Aún no hay alumnos registrados.'}</p>
         </div>`;
       return;
@@ -626,13 +642,13 @@
       fila.innerHTML = `
         <span class="num">${String(i + 1).padStart(2, '0')}</span>
         <span class="cedula">${cedulaSegura}</span>
-        <span class="nombre">${nombreSeguro}</span>
+        <span class="nombre"><span class="student-avatar" aria-hidden="true">${escaparHTML(nombre.trim().slice(0, 1).toUpperCase())}</span><span>${nombreSeguro}</span></span>
         <span class="acciones">
           <button class="icono-btn" title="Editar" aria-label="Editar a ${nombreSeguro}" data-editar="${cedulaSegura}">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            <i class="bi bi-pencil-square" aria-hidden="true"></i>
           </button>
           <button class="icono-btn peligro" title="Eliminar" aria-label="Eliminar a ${nombreSeguro}" data-eliminar="${cedulaSegura}">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+            <i class="bi bi-trash3" aria-hidden="true"></i>
           </button>
         </span>`;
       cuerpoTabla.appendChild(fila);
@@ -652,6 +668,9 @@
 
   // ---------- carga ----------
   async function cargarAlumnos() {
+    document.getElementById('studentTotal').textContent = '—';
+    document.getElementById('studentMatches').textContent = '—';
+    document.getElementById('studentFilter').textContent = 'Consultando el registro…';
     renderCargando();
     contador.textContent = 'Cargando…';
     try {
@@ -664,10 +683,11 @@
     } catch (err) {
       cuerpoTabla.innerHTML = `
         <div class="vacio">
-          <div class="icono">⚠</div>
+          <div class="icono"><i class="bi bi-info-circle" aria-hidden="true"></i></div>
           <p>No se pudo cargar el registro. Verifica la conexión.</p>
         </div>`;
       contador.textContent = '—';
+      document.getElementById('studentFilter').textContent = 'No se pudo actualizar';
       mostrarToast('No se pudo cargar el registro de alumnos.', 'error');
     }
   }

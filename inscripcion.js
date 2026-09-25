@@ -4,6 +4,17 @@ const fields = document.getElementById('datos');
 const submit = document.getElementById('enviar');
 const statusBox = document.getElementById('estado');
 const another = document.getElementById('otra');
+const completion = document.getElementById('inscripcionCompleta');
+const welcome = document.getElementById('bienvenida');
+welcome.addEventListener('close', () => document.getElementById('nombres').focus({preventScroll:true}));
+welcome.showModal();
+const submitSlot = document.getElementById('submitSlot');
+const submitMarkup = submit.innerHTML;
+function restoreSubmit() {
+  submit.innerHTML = submitMarkup;
+  submitSlot.append(submit);
+}
+restoreSubmit();
 const fileInput = document.getElementById('documentos');
 const fileList = document.getElementById('listaArchivos');
 const fileError = document.getElementById('adjuntosError');
@@ -67,7 +78,7 @@ async function sendRegistration(payload) {
 }
 form.addEventListener('submit', async event => {
   event.preventDefault();
-  if (busy || (fields.disabled && !uncertain)) return;
+  if (busy || !completion.hidden || (fields.disabled && !uncertain)) return;
   if (!apiUrl) { showStatus('El envío de inscripciones completas todavía no está habilitado. Contacta a la administración. No se han enviado tus datos ni documentos.','error'); statusBox.focus(); return; }
   if (!uncertain) {
     if (document.getElementById('programa').disabled || !document.getElementById('programa').value) {
@@ -78,6 +89,8 @@ form.addEventListener('submit', async event => {
   }
   const values = uncertain ? null : Object.fromEntries(new FormData(form));
   busy = true; let sent = false;
+  // Keep the retry button outside the disabled fieldset until the request is resolved.
+  fields.after(submit);
   fields.disabled = true; submit.disabled = true; form.setAttribute('aria-busy','true');
   submit.textContent = 'Enviando inscripción…'; showStatus('Estamos guardando tu solicitud. Mantén esta página abierta hasta recibir la confirmación.','pending');
   try {
@@ -88,25 +101,39 @@ form.addEventListener('submit', async event => {
     const mailNotice = result.correoEnviado === true
       ? ' Enviamos la confirmación al correo registrado. Revisa también la carpeta de spam.'
       : ' Tu inscripción quedó guardada, pero no se confirmó el envío del correo. Conserva este código.';
-    showStatus('Solicitud recibida. Código: ' + result.solicitudId + '. La institución revisará tu inscripción.' + mailNotice,'success');
+    document.getElementById('completionCode').textContent = result.solicitudId;
+    document.getElementById('completionDetail').textContent = mailNotice.trim();
+    document.getElementById('completionDetail').dataset.mail = result.correoEnviado === true ? 'sent' : 'unconfirmed';
+    statusBox.hidden = true;
+    completion.hidden = false;
+    fields.hidden = true;
+    submit.hidden = true;
+    document.body.classList.add('registration-complete');
     form.reset(); fields.disabled = false; submit.disabled = false;
-    submit.textContent = 'Enviar inscripción →'; another.hidden = true; pendingPayload = null; attachments = []; fileInput.value = ''; showFileError(''); renderFiles();
+    restoreSubmit(); another.hidden = false; pendingPayload = null; attachments = []; fileInput.value = ''; showFileError(''); renderFiles();
   } catch (error) {
     if (error.message === 'REJECTED' || !sent) {
       uncertain = false; pendingPayload = null; fields.disabled = false;
+      submitSlot.append(submit);
       showStatus(error.detail || 'No se pudieron preparar los archivos. Revisa los adjuntos e intenta de nuevo. No se envió la solicitud.','error');
     } else {
       uncertain = true;
       showStatus('Aún no podemos confirmar la recepción. Conservamos esta solicitud en la página. Pulsa «Confirmar o reintentar» para enviar el mismo registro sin duplicarlo. No cierres esta página.','error');
     }
     submit.textContent = uncertain ? 'Confirmar o reintentar' : 'Volver a enviar'; submit.disabled = false;
-  } finally { busy = false; form.removeAttribute('aria-busy'); statusBox.focus(); }
+  } finally { busy = false; form.removeAttribute('aria-busy'); (completion.hidden ? statusBox : document.getElementById('completionTitle')).focus(); }
 });
 another.addEventListener('click', () => {
+  if (busy || completion.hidden) return;
+  completion.hidden = true; fields.hidden = false; submit.hidden = false;
+  document.body.classList.remove('registration-complete');
   form.reset(); fields.disabled = false; submit.disabled = false; another.hidden = true; statusBox.hidden = true;
-  attachments = []; pendingPayload = null; uncertain = false; showFileError(''); renderFiles(); submit.textContent = 'Enviar inscripción →'; document.getElementById('nombres').focus();
+  attachments = []; pendingPayload = null; uncertain = false; showFileError(''); renderFiles(); restoreSubmit();
+  document.getElementById('completionDetail').textContent = '';
+  document.getElementById('completionCode').textContent = '';
+  delete document.getElementById('completionDetail').dataset.mail;
+  statusBox.textContent = ''; delete statusBox.dataset.kind;
+  document.getElementById('nombres').focus();
 });
-// A retry must stay operable while its original data is locked.
-fields.after(submit);
 if (!apiUrl) showStatus('Formulario en preparación: el envío de datos y documentos estará disponible cuando la institución habilite la conexión.','pending');
 window.addEventListener('beforeunload', event => { if (busy || uncertain) { event.preventDefault(); event.returnValue = ''; } });

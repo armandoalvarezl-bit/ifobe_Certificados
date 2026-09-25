@@ -1,7 +1,7 @@
 'use strict';
 let solicitudCorreo = null, enviandoCopia = false;
 const panelCorreo = document.createElement('section');
-panelCorreo.className='container my-3 p-3 border rounded';
+panelCorreo.className='email-status-panel';
 const avisoCorreo = document.createElement('p');
 avisoCorreo.setAttribute('role','status');
 avisoCorreo.textContent='La copia del PDF se enviará al correo registrado en Alumnos, sin la firma manuscrita.';
@@ -10,7 +10,7 @@ reintentarCorreo.type='button';reintentarCorreo.className='btn btn-outline-prima
 reintentarCorreo.textContent='Confirmar o reintentar la misma copia';reintentarCorreo.hidden=true;
 reintentarCorreo.addEventListener('click',()=>enviarCopiaPendiente());
 panelCorreo.append(avisoCorreo,reintentarCorreo);
-document.querySelector('.container')?.after(panelCorreo);
+document.querySelector('.certificate-content')?.append(panelCorreo);
 async function consultarExpedicion(datos) {
   // Subir el PDF y enviarlo puede tardar más que una consulta de datos.
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),datos.accion==='enviarDiploma'?180000:60000);

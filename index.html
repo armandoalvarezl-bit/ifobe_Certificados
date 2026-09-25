@@ -211,10 +211,10 @@
             const languageButton =
                 document.querySelector(".language-toggle");
 
-            languageButton.textContent =
+            languageButton.querySelector('.language-code').textContent =
                 lang === "es"
-                    ? "EN"
-                    : "ES";
+                    ? "ES"
+                    : "EN";
 
             languageButton.setAttribute(
                 "aria-label",
@@ -260,6 +260,22 @@
                 ".motivational-message"
             ).textContent =
                 texts.motivational;
+            updatePasswordLabel();
+        }
+
+        function updatePasswordLabel() {
+            const visible = document.getElementById('password').type === 'text';
+            const button = document.querySelector('.password-toggle');
+            button.setAttribute('aria-pressed', String(visible));
+            button.setAttribute('aria-label', document.documentElement.lang === 'es'
+                ? (visible ? 'Ocultar contraseña' : 'Mostrar contraseña')
+                : (visible ? 'Hide password' : 'Show password'));
+        }
+
+        function togglePassword() {
+            const input = document.getElementById('password');
+            input.type = input.type === 'password' ? 'text' : 'password';
+            updatePasswordLabel();
         }
 
 
@@ -281,6 +297,8 @@
     <link rel="stylesheet" href="platform.css">
 
     <link rel="stylesheet" href="refinamientos.css">
+    <link rel="stylesheet" href="login.css">
+<link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
 </head>
 
 
@@ -336,7 +354,8 @@
                 aria-label="Switch to English"
                 title="Cambiar idioma"
             >
-                EN
+                <i class="bi bi-globe2" aria-hidden="true"></i>
+                <span class="language-code">ES</span><span aria-hidden="true">⌄</span>
             </button>
 
         </div>
@@ -360,7 +379,7 @@
 
             <div
                 class="access-eyebrow"
-                data-es="Formación que transforma"
+                data-es="Educación que transforma"
                 data-en="Education that transforms"
             >
                 Formación que transforma
@@ -398,20 +417,13 @@
             </p>
 
 
-            <div class="story-note">
-
-                <span>
-                    GEN 10 · IFOBE
-                </span>
-
-                <div
-                    data-es="Cada aprendizaje abre un nuevo camino."
-                    data-en="Every learning experience opens a new path."
-                >
-                    Cada aprendizaje abre un nuevo camino.
-                </div>
-
-            </div>
+            <ul class="story-benefits">
+                <li><i class="bi bi-mortarboard" aria-hidden="true"></i><span data-es="Formación de calidad" data-en="Quality education">Formación de calidad</span></li>
+                <li><i class="bi bi-person" aria-hidden="true"></i><span data-es="Gestión académica" data-en="Academic management">Gestión académica</span></li>
+                <li><i class="bi bi-graph-up-arrow" aria-hidden="true"></i><span data-es="Tu progreso en línea" data-en="Your progress online">Tu progreso en línea</span></li>
+                <li><i class="bi bi-shield-check" aria-hidden="true"></i><span data-es="Seguro y confiable" data-en="Safe and reliable">Seguro y confiable</span></li>
+            </ul>
+            <p class="story-signature" data-es="Juntos construimos un mejor futuro" data-en="Together we build a better future">Juntos construimos un mejor futuro</p>
 
         </section>
 
@@ -428,6 +440,7 @@
             >
 
 
+            <p class="login-brand-caption">IFOBE <span data-es="PLATAFORMA EDUCATIVA" data-en="EDUCATIONAL PLATFORM">PLATAFORMA EDUCATIVA</span></p>
             <h3 class="mb-2"></h3>
 
 
@@ -446,6 +459,8 @@
                         Correo Electrónico*
                     </label>
 
+                    <div class="input-wrap">
+                    <i class="bi bi-envelope" aria-hidden="true"></i>
                     <input
                         type="email"
                         class="form-control"
@@ -454,6 +469,7 @@
                         placeholder="Ingrese su correo"
                         required
                     >
+                    </div>
 
                 </div>
 
@@ -467,6 +483,8 @@
                         Contraseña*
                     </label>
 
+                    <div class="input-wrap">
+                    <i class="bi bi-lock" aria-hidden="true"></i>
                     <input
                         type="password"
                         class="form-control"
@@ -475,6 +493,8 @@
                         placeholder="Ingrese su contraseña"
                         required
                     >
+                    <button type="button" class="password-toggle" onclick="togglePassword()" aria-controls="password" aria-label="Mostrar contraseña" aria-pressed="false"><i class="bi bi-eye" aria-hidden="true"></i></button>
+                    </div>
 
                 </div>
 

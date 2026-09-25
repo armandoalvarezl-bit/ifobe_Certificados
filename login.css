@@ -1,0 +1,114 @@
+/* Login inspired by the IFOBE reference. Kept separate from academic screens. */
+.campus-login {
+  --login-blue: #06285d;
+  --login-gold: #ffb923;
+  min-height: 100svh;
+  padding: 14px 32px 22px;
+  color: var(--login-blue);
+  background: linear-gradient(90deg, #edf4fb80, #f0f5faf5 44%, #f0f5fa), url('img/login-study.jpg') left center / cover fixed;
+  isolation: isolate;
+}
+.campus-login::before {
+  content: ''; position: fixed; z-index: -1; pointer-events: none;
+  width: 650px; height: 760px; right: -250px; top: 0;
+  background: url('img/Logogen10.png') center / contain no-repeat; opacity: .055;
+}
+.campus-login::after {
+  content: ''; position: fixed; z-index: -1; pointer-events: none;
+  bottom: 0; right: 0; width: 300px; height: 190px;
+  background: linear-gradient(145deg, #ffb923 0 48%, #073774 48% 64%, #05214b 64%);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+.campus-login .campus-header { width: min(1320px, 100%); margin: 0 auto 14px; padding: 0 22px; min-height: 58px; }
+.campus-login .campus-brand { gap: 12px; font-size: 27px; color: var(--login-blue); }
+.campus-login .campus-brand img { width: 66px; height: 66px; object-fit: contain; transform: scale(1.3); }
+.campus-login .campus-brand small { color: var(--login-blue); font-size: 11px; letter-spacing: .24em; }
+.campus-login .language-toggle { width: 118px; border-radius: 28px; display: flex; align-items: center; justify-content: space-evenly; box-shadow: 0 2px 6px #08285d12; }
+.campus-login .theme-toggle { border-radius: 50%; }
+.campus-login svg { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; width: 23px; height: 23px; }
+.campus-login .access-layout { width: min(1320px, 100%); margin: auto; grid-template-columns: 1.13fr 1fr; border: 1px solid #fff; border-radius: 24px; box-shadow: 0 18px 65px #284f7c16; }
+.campus-login .access-story {
+  padding: 66px 34px 58px clamp(40px, 6.5vw, 110px);
+  background: linear-gradient(100deg, #02172eb0, #03224ae8 48%, #073570ed), url('img/login-study.jpg') 35% center / cover;
+}
+.campus-login .access-story::before { content: ''; position: absolute; width: 42px; height: 220px; background: linear-gradient(90deg, #ffcf61, #ffb923); top: -67px; left: 23px; transform: rotate(40deg); }
+.campus-login .access-story::after { inset: 0; width: auto; height: auto; border: 0; border-radius: 0; box-shadow: none; background: linear-gradient(128deg, transparent 67%, #1361b215 67% 72%, transparent 72% 84%, #1361b21a 84% 90%, transparent 90%); }
+.campus-login .access-story > * { position: relative; z-index: 1; }
+.campus-login .access-eyebrow { display: flex; align-items: center; gap: 15px; padding: 0; border: 0; color: white; font-size: 12px; letter-spacing: .13em; margin-bottom: 28px; }
+.campus-login .access-eyebrow::before { content: ''; width: 35px; height: 5px; border-radius: 1px; background: var(--login-gold); flex-shrink: 0; }
+.campus-login .access-story h1 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: clamp(35px, 3.6vw, 58px); letter-spacing: -.045em; line-height: 1.13; margin-bottom: 24px; }
+.campus-login .access-story h1 em { color: var(--login-gold); }
+.campus-login .access-story > p { max-width: 420px; color: #f3f6ff; font-size: 17px; line-height: 1.5; }
+.campus-login .story-benefits { display: grid; grid-template-columns: repeat(4, 1fr); padding: 0; margin: 30px 0 0; list-style: none; }
+.story-benefits li { text-align: center; position: relative; padding: 0 12px; font-size: 13px; line-height: 1.4; }
+.story-benefits li + li::before { content: ''; position: absolute; left: 0; top: 12px; bottom: 0; width: 1px; background: #d9e7ff70; }
+.campus-login .story-benefits svg { display: block; margin: 0 auto 12px; width: 34px; height: 34px; color: var(--login-gold); }
+.story-benefits span { display: block; max-width: 95px; margin: auto; }
+.campus-login .access-story .story-signature { align-self: center; max-width: 270px; margin: 49px 0 14px; text-align: center; font: italic 30px/1.25 'Segoe Script', 'Brush Script MT', cursive; transform: rotate(-9deg); }
+.story-signature::after { content: ''; display: block; height: 17px; margin-top: 8px; border-top: 4px solid var(--login-gold); border-radius: 50%; transform: rotate(-4deg); }
+.campus-login .login-container { padding: 30px clamp(30px, 3.6vw, 58px) 32px; background: #fffffffa; color: var(--login-blue); }
+.campus-login .login-container .logo { display: block; width: 116px; height: 94px; max-width: none; max-height: none; object-fit: contain; margin: 0 auto; transform: scale(1.25); }
+.login-brand-caption { text-align: center; font-size: 14px; font-weight: 700; margin: 0 0 25px; letter-spacing: .06em; }
+.login-brand-caption span { display: block; font-size: 10px; letter-spacing: .28em; }
+.campus-login .login-container h3 { font-size: 40px; font-weight: 700; margin-bottom: 8px; }
+.campus-login .motivational-message { color: #617ba4; font-size: 17px; line-height: 1.45; margin: 8px 0 28px; max-width: 370px; }
+.campus-login .form-label { color: inherit; font-size: 14px; margin-bottom: 8px; }
+.input-wrap { position: relative; }
+.campus-login .language-toggle > .bi { font-size:21px; }
+.campus-login .story-benefits .bi { display:block; color:var(--login-gold); font-size:34px; line-height:1; margin-bottom:12px; }
+.input-wrap > .bi { position:absolute; left:17px; top:12px; font-size:22px; pointer-events:none; }
+.password-toggle > .bi { font-size:21px; }
+.input-wrap > svg { position: absolute; top: 15px; left: 16px; pointer-events: none; }
+.campus-login .form-control { height: 52px; padding: 12px 48px 12px 52px; border: 1px solid #d1dff1; border-radius: 11px; background: #f9fbfe; font-size: 14px; color: var(--login-blue); }
+.campus-login .form-control::placeholder { color: #6a84ae; opacity: 1; }
+.campus-login .mb-3 { margin-bottom: 21px !important; }
+.password-toggle { position: absolute; right: 4px; top: 4px; width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: transparent; color: inherit; border-radius: 8px; }
+.password-toggle:hover { background: #e6eef9; }
+.password-toggle[aria-pressed='true'] { color: #0b65c6; background: #e6eef9; }
+.campus-login .btn-primary { min-height: 53px; margin: 0; border-radius: 12px; background: linear-gradient(100deg, #052a60, #073b81); border-color: #063577; font-size: 15px; box-shadow: 0 7px 18px #153f7810; }
+.campus-login .btn-primary::after { content: '→'; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; margin-left: 14px; background: #0a50b4; font-size: 20px; font-weight: 400; }
+.campus-login .btn-primary:hover { background: #064697; }
+.campus-login .access-help { font-size: 14px; color: #617ba4; line-height: 1.55; margin-top: 16px; padding-top: 17px; border-color: #dce5f1; }
+.campus-login .access-help:has(a) { border: 0; padding-top: 0; margin-top: 29px; }
+.campus-login .access-help a { font-weight: 400; color: #003dc4; text-underline-offset: 3px; }
+.campus-login .campus-footer { padding-top: 20px; color: #617ba4; }
+.campus-login.dark-mode { background: #0c1c30; }
+.campus-login.dark-mode .campus-brand, .campus-login.dark-mode .campus-brand small { color: #eef3fa; }
+.campus-login.dark-mode .login-container { background: #152b47; color: #eef3fa; }
+.campus-login.dark-mode .motivational-message, .campus-login.dark-mode .access-help { color: #b7c9e3; }
+.campus-login.dark-mode .form-control { background: #102038; color: #fff; border-color: #4a6485; }
+.campus-login.dark-mode .access-help a { color: #a7ceff; }
+.campus-login.dark-mode .btn-primary { color: #fff; }
+@media (max-width: 1050px) {
+  .campus-login { padding: 16px 22px; }
+  .campus-login .access-story { padding: 48px 30px; }
+  .campus-login .access-story h1 { font-size: 39px; }
+  .campus-login .login-container { padding: 30px; }
+  .story-benefits li { padding: 0 6px; font-size: 12px; }
+}
+@media (max-width: 760px) {
+  .campus-login { padding: 12px; background: #eef3f9; }
+  .campus-login .campus-header { padding: 0 4px; gap: 10px; }
+  .campus-login .campus-brand { font-size: 20px; gap: 5px; }
+  .campus-login .campus-brand img { width: 48px; height: 48px; }
+  .campus-login .campus-brand small { font-size: 7px; letter-spacing: .14em; }
+  .campus-login .top-controls { gap: 5px; }
+  .campus-login .language-toggle { width: 82px; }
+  .campus-login .access-layout { display: flex; flex-direction: column; border-radius: 20px; }
+  .campus-login .login-container { order: 0; padding: 26px 24px; }
+  .campus-login .access-story { order: 1; padding: 38px 26px 25px; }
+  .campus-login .access-story h1 { font-size: clamp(30px, 7vw, 44px); }
+  .campus-login .login-container h3 { font-size: 34px; }
+  .campus-login .motivational-message { font-size: 15px; }
+  .campus-login .access-eyebrow { font-size: 10px; margin-bottom: 20px; }
+  .campus-login .access-story > p { font-size: 15px; }
+  .campus-login .story-benefits { margin-top: 24px; }
+  .campus-login .access-story .story-signature { margin-top: 32px; font-size: 27px; }
+}
+@media (max-width: 360px) {
+  .campus-login .theme-toggle { width: 34px; }
+  .campus-login .language-toggle { width: 70px; }
+  .campus-login .login-container { padding: 24px 18px; }
+  .campus-login .story-benefits { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .story-benefits li:nth-child(3)::before { display: none; }
+}

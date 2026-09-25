@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Matrículas | IFOBE</title>
+    <link rel="stylesheet" href="matriculas.css">
+    <script src="inscripcion-config.js"></script>
+    <script src="matriculas.js" defer></script>
+    <link rel="stylesheet" href="portal-shell.css">
+    <script src="portal-shell.js" defer></script>
+<link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
+</head>
+
+<body class="portal-page" data-portal-page="matriculas">
+    <nav><a href="home.html"><strong>IFOBE</strong> / Gestión académica</a>
+        <div><a href="home.html">Certificados</a><a href="registro-alumnos (2).html">Estudiantes</a><button id="salir">Salir</button></div>
+    </nav>
+    <main>
+        <header>
+            <div>
+                <p class="eyebrow">GESTIÓN ACADÉMICA</p>
+                <h1>Matrículas</h1>
+                <p>Organiza la vinculación de cada estudiante a su programa y período.</p>
+            </div><button id="nueva" disabled>Nueva matrícula</button>
+        </header>
+        <p id="mensaje" role="status" aria-live="polite">Cargando matrículas…</p>
+        <section class="stats" aria-label="Resumen">
+            <article>Total registradas<strong id="total">—</strong></article>
+            <article>Activas<strong id="activas">—</strong></article>
+            <article>Pendientes<strong id="pendientes">—</strong></article>
+        </section>
+        <section class="panel">
+            <div class="filters"><label>Buscar estudiante<input id="buscar" type="search"
+                        placeholder="Nombre, documento o código"></label><label>Estado<select id="filtroEstado">
+                        <option value="">Todos los estados</option>
+                        <option>Pendiente</option>
+                        <option>Activa</option>
+                        <option>Finalizada</option>
+                        <option>Cancelada</option>
+                    </select></label><label>Período<select id="filtroPeriodo">
+                        <option value="">Todos los períodos</option>
+                    </select></label><button id="actualizar" class="secondary">Actualizar</button></div>
+            <p id="cantidad"></p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Estudiante</th>
+                            <th>Programa</th>
+                            <th>Período / jornada</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filas"></tbody>
+                </table>
+            </div>
+            <p id="vacio" hidden>No hay matrículas para mostrar.</p>
+        </section>
+        <dialog id="editor">
+            <form id="formulario">
+                <div class="dialog-heading">
+                    <h2 id="titulo">Nueva matrícula</h2><button type="button" id="cerrar"
+                        class="secondary">Cerrar</button>
+                </div>
+                <p>El estudiante debe estar registrado previamente en <a
+                        href="registro-alumnos (2).html">Estudiantes</a>.</p><label>Estudiante<select id="estudiante"
+                        required></select></label><label>Programa<select id="programa" required></select></label>
+                <div class="columns"><label>Período<input id="periodo" required maxlength="40"
+                            placeholder="Ej. 2026-2"></label><label>Jornada<select id="jornada" required>
+                            <option>Mañana</option>
+                            <option>Tarde</option>
+                            <option>Noche</option>
+                            <option>Fin de semana</option>
+                            <option>Flexible</option>
+                        </select></label></div><label>Estado<select id="estado">
+                        <option>Pendiente</option>
+                        <option>Activa</option>
+                        <option>Finalizada</option>
+                        <option>Cancelada</option>
+                    </select></label><label>Observaciones<textarea id="observaciones" maxlength="2000"
+                        rows="3"></textarea></label>
+                <p id="error" role="alert"></p><button id="guardar" type="submit">Guardar matrícula</button>
+            </form>
+        </dialog>
+    </main>
+</body>
+
+</html>

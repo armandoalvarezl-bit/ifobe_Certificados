@@ -1,0 +1,150 @@
+/* Public admissions form, independent of the administrative shell. */
+.admissions-page > main { padding-top:24px; }
+.admissions-page .form-heading h1 { font-size:26px; line-height:1.2; color:#082c60; margin:0 0 8px; }
+.welcome-dialog { width:min(560px,calc(100% - 28px)); max-height:calc(100svh - 32px); overflow-y:auto; border:1px solid #cddff6; border-top:5px solid #ffbf36; border-radius:20px; padding:28px 34px; color:#082c60; box-shadow:0 24px 90px #001a4560; }
+.welcome-dialog::backdrop { background:#021936b8; backdrop-filter:blur(5px); }
+.welcome-logo { display:block; width:85px; height:85px; object-fit:contain; margin:0 auto; }
+.welcome-eyebrow { text-align:center; letter-spacing:.17em; font-size:10px; font-weight:700; color:#607da5; }
+.welcome-dialog h2 { text-align:center; font-size:25px; line-height:1.25; margin:14px 0; }
+.welcome-dialog > p:not(.welcome-eyebrow) { font-size:13px; line-height:1.7; color:#587297; }
+.welcome-steps { padding-left:23px; display:grid; gap:14px; font-size:13px; line-height:1.7; }
+.welcome-steps li::marker { color:#0c55ae; font-weight:700; }
+.welcome-note { background:#edf4ff; border-radius:10px; padding:13px; }
+.welcome-dialog button { background:linear-gradient(100deg,#063373,#0752b6); }
+.welcome-dialog button .bi { margin-left:12px; }
+.completion-card { text-align:center; padding:48px 32px; background:white; border:1px solid #d6e5f8; border-radius:20px; box-shadow:0 15px 45px #17395d0b; }
+.completion-card > .bi { display:block; font-size:58px; color:#218660; margin-bottom:20px; }
+.completion-eyebrow { font-size:10px; letter-spacing:.16em; color:#218660; font-weight:700; }
+.completion-card h2 { font-size:30px; margin:14px 0; }
+.completion-card > p { line-height:1.8; font-size:14px; color:#577397; }
+.completion-detail { background:#edf5ff; padding:18px; border-radius:12px; overflow-wrap:anywhere; }
+.admissions-page .completion-card #otra { max-width:none; background:#073c81; color:white; margin-top:18px; }
+.registration-complete .section-nav,.registration-complete .admissions-guide,.registration-complete .form-heading,.registration-complete .help { display:none; }
+.registration-complete .admissions-layout { display:block; max-width:680px; margin:40px auto; }
+.admissions-page #inscripcionForm > #enviar { margin-top:16px; }
+.admissions-page .completion-card h2:focus { outline:none; }
+.admissions-page:has(.welcome-dialog[open]) { overflow:hidden; }
+@media(max-width:640px) { .welcome-dialog { padding:22px; } .completion-card { padding:32px 20px; } }
+.admissions-page { background:linear-gradient(135deg,#edf3fb,#f8faff 60%); color:#082c60; }
+.admissions-page .institution-strip { background:#052452; color:#d9e8ff; }
+.admissions-page .topbar { background:linear-gradient(110deg,#031b40,#063c7e); border-bottom:3px solid #ffbd2e; padding-top:20px; padding-bottom:20px; }
+.admissions-page .brand { color:white; font-size:29px; }
+.admissions-page .brand img { filter:brightness(0) invert(1); width:66px; height:66px; }
+.admissions-page .brand small { color:#d7e6fb; letter-spacing:.17em; }
+.admissions-page .back { border-radius:9px; color:white; background:#ffffff0a; border-color:#ffffff55; padding:14px 20px; }
+.admissions-page .back:hover { color:#ffcd63; background:#ffffff15; border-color:#ffcd63; }
+.admissions-page main { max-width:1200px; }
+.admissions-page .admissions-header { isolation:isolate; min-height:340px; padding:48px 52px; border-radius:20px; border:1px solid #174a86; border-bottom:6px solid #ffbf36; background:linear-gradient(100deg,#021a40 5%,#042757ee 58%,#063c78bb),url('img/login-study.jpg') center 55% / cover; box-shadow:0 18px 42px #082c6025; }
+.admissions-page .admissions-header::after { content:''; position:absolute; z-index:-1; inset:0; pointer-events:none; background:linear-gradient(125deg,transparent 65%,#ffffff06 65% 73%,transparent 73% 87%,#ffbd2e24 87% 89%,transparent 89%); }
+.admissions-page h1 { font-family:Inter,sans-serif; font-weight:700; font-size:clamp(36px,4.7vw,60px); letter-spacing:-.045em; line-height:1.07; margin-bottom:22px; }
+.admissions-page h1 em { font-style:normal; color:#ffc239; }
+.admissions-page .eyebrow { display:flex; align-items:center; gap:12px; color:#ffcd63; font-size:11px; margin-bottom:22px; }
+.admissions-page .eyebrow::before { content:''; width:30px; height:4px; flex-shrink:0; background:#ffbf36; border-radius:2px; }
+.admissions-page .admissions-description { font-size:15px; color:#e4edfb; line-height:1.75; }
+.admissions-page .document-meta { font-size:11px; color:#f4f7ff; margin-top:26px; }
+.admissions-page .header-seal { width:210px; height:230px; background:#03235166; border:1px solid #ffffff35; border-radius:22px; box-shadow:0 14px 35px #00112d30; transform:rotate(3deg); }
+.admissions-page .header-seal img { filter:brightness(0) invert(1); width:160px; height:160px; }
+.admissions-page .header-seal span { color:#ffcd63; font-size:10px; letter-spacing:.2em; }
+.admissions-page .section-nav { top:10px; z-index:10; padding:8px; border:1px solid #d6e3f5; border-radius:14px; box-shadow:0 8px 24px #0b34600b; margin-bottom:28px; }
+.admissions-page .section-nav a { color:#244c83; padding:12px; }
+.admissions-page .section-nav a > span { color:#0750ae; background:#edf4ff; border-color:#d2e3fa; font-weight:700; }
+.admissions-page .section-nav a:hover { background:#edf4ff; }
+.admissions-layout { display:grid; grid-template-columns:270px minmax(0,1fr); gap:28px; align-items:start; }
+.admissions-guide { position:sticky; top:102px; border:1px solid #d6e3f5; border-radius:16px; overflow:hidden; background:#fff; }
+.guide-intro { padding:26px 24px; background:linear-gradient(145deg,#eaf2ff,#f8fbff); }
+.guide-icon { display:grid; place-items:center; width:50px; height:50px; border:1px solid #cadcf6; border-radius:14px; background:white; color:#0750ae; font-size:28px; }
+.guide-intro p { color:#5b7fac; font-size:9px; letter-spacing:.16em; margin:22px 0 10px; font-weight:600; }
+.guide-intro h2 { font-size:25px; line-height:1.25; margin-bottom:14px; }
+.guide-intro > span:last-child { color:#5c789f; font-size:12px; line-height:1.8; display:block; }
+.guide-checklist,.guide-next { padding:24px; }
+.admissions-guide h3 { font-size:14px; margin:0 0 16px; }
+.guide-checklist ul { display:grid; gap:20px; list-style:none; margin:0; padding:0; }
+.guide-checklist li { display:flex; gap:12px; align-items:flex-start; font-size:12px; line-height:1.7; color:#58759a; }
+.guide-checklist .bi { font-size:19px; color:#0a53a9; }
+.guide-next { border-top:1px solid #e2ebf8; background:#fbfdff; }
+.guide-next > .bi { color:#0750ae; font-size:26px; display:block; margin-bottom:14px; }
+.guide-next p { color:#58759a; font-size:12px; line-height:1.8; margin:0; }
+.guide-signature { margin:0; padding:22px 24px; background:#052b61; color:white; font-size:16px; line-height:1.6; border-bottom:3px solid #ffbf36; }
+.admissions-page .form-panel { box-shadow:none; border-radius:0; }
+.admissions-page .form-heading { margin:0 0 22px; padding:4px 0; }
+.admissions-page .form-heading h2 { font-size:24px; }
+.admissions-page .required-note { border:1px solid #dce6f5; border-radius:20px; padding:8px 11px; background:white; font-size:10px; }
+.admissions-page .form-section { padding:26px 28px; border:1px solid #d9e5f6; border-radius:16px; box-shadow:0 6px 22px #133e7005; margin-bottom:20px; scroll-margin-top:100px; }
+.admissions-page .form-section h3 { color:#082c60; border-color:#e7eef8; font-size:16px; gap:12px; }
+.admissions-page .form-section h3 > span { display:grid; place-items:center; width:40px; height:40px; padding:0; border-radius:11px; background:#edf4ff; color:#0c56b1; font-size:21px; flex-shrink:0; }
+.form-section h3 small { margin-left:auto; white-space:nowrap; font-size:10px; letter-spacing:.06em; font-weight:500; color:#859bb9; }
+.admissions-page .field-grid { gap:22px; }
+.admissions-page label { color:#214776; font-size:12px; font-weight:600; }
+.admissions-page input,.admissions-page select { background:#fbfdff; border:1px solid #cfdef2; border-radius:9px; min-height:49px; color:#173e73; padding:13px; }
+.admissions-page input::placeholder { color:#8298b6; }
+.admissions-page input:focus,.admissions-page select:focus { outline:0; border-color:#387ed8; box-shadow:0 0 0 4px #307ce913; }
+.admissions-page .hint,.admissions-page .section-description { color:#6c83a3; line-height:1.7; }
+.admissions-page .upload-box { border:1px dashed #87aee0; background:#f4f8ff; padding:28px 20px; border-radius:13px; gap:12px; }
+.admissions-page .upload-box:hover { background:#edf4ff; border-color:#286dc2; }
+.admissions-page .upload-symbol { width:54px; height:54px; border-radius:14px; color:#0b55b0; font-size:30px; }
+.admissions-page #documentos { background:white; font-size:12px; padding:7px; }
+.admissions-page #documentos::file-selector-button { background:#eaf2ff; color:#174d96; border-radius:6px; padding:10px 12px; }
+.submission-panel { border:1px solid #d9e5f6; background:white; border-radius:16px; padding:26px 28px; }
+.submission-panel h3 { font-size:17px; margin:0 0 16px; }
+.admissions-page .review-note { margin:0 0 20px; background:#edf4ff; border:1px solid #dce9fb; border-radius:10px; }
+.review-note > .bi { color:#0951a9; font-size:19px; }
+.admissions-page .confirmation { font-weight:400; line-height:1.8; }
+.admissions-page .confirmation input { min-height:19px; height:19px; width:19px; padding:0; accent-color:#0750ae; }
+.admissions-page #enviar { display:flex; align-items:center; justify-content:center; gap:18px; max-width:none; border-radius:10px; background:linear-gradient(100deg,#063373,#0752b6); min-height:53px; font-size:14px; box-shadow:0 6px 16px #0a489a16; }
+.admissions-page #enviar:hover { background:#064392; }
+.admissions-page #enviar .bi { font-size:18px; }
+.admissions-page .help { padding:20px 10px; margin-top:8px; border:0; text-align:center; color:#7085a2; }
+@media(max-width:1250px) { .admissions-page main { margin-left:24px; margin-right:24px; } }
+@media(max-width:1000px) { .admissions-layout { grid-template-columns:220px minmax(0,1fr); gap:18px; } .guide-intro,.guide-checklist,.guide-next { padding:20px; } .admissions-page .form-section,.submission-panel { padding:22px; } .admissions-page .form-heading { flex-wrap:wrap; } }
+@media(max-width:800px) { .admissions-layout { grid-template-columns:1fr; } .admissions-guide { display:none; } .admissions-page .admissions-header { padding:30px; } }
+@media(max-width:640px) { .admissions-page main { margin-left:14px; margin-right:14px; } .admissions-page .admissions-header { padding:28px 22px; } .admissions-page .section-nav { top:6px; padding:5px; } .admissions-page .section-nav a { font-size:10px; padding:8px 6px; } .admissions-page .form-section,.submission-panel { padding:22px 18px; } .admissions-page .form-section { scroll-margin-top:135px; } .admissions-page .form-section h3 { font-size:14px; gap:9px; } .admissions-page .form-section h3 > span { width:33px; height:33px; font-size:18px; } .admissions-page .form-heading h2 { font-size:22px; } .admissions-page input,.admissions-page select { font-size:16px; } }
+@media(max-width:640px) { .admissions-page .brand { font-size:23px; } .admissions-page .brand img { width:46px; height:46px; } .admissions-page .brand small { font-size:6px; letter-spacing:.08em; } .admissions-page .back { padding:10px; } .admissions-page .admissions-header { min-height:0; } .admissions-page .admissions-description { font-size:13px; } .admissions-page .eyebrow { font-size:9px; gap:9px; } }
+/* Final receipt: shown only after the server confirms the registration. */
+.admissions-page .completion-card { padding:0; overflow:hidden; border-radius:24px; box-shadow:0 22px 70px #14386718; }
+.registration-complete .admissions-layout { max-width:740px; margin:20px auto; }
+.completion-hero { position:relative; isolation:isolate; padding:38px 32px 34px; background:linear-gradient(120deg,#031e49,#07468d); color:white; border-bottom:4px solid #ffc23b; overflow:hidden; }
+.completion-hero::after { content:''; position:absolute; z-index:-1; width:260px; height:260px; border:40px solid #ffffff05; border-radius:50%; right:-130px; top:-80px; }
+.completion-seal { display:grid; place-items:center; width:68px; height:68px; margin:0 auto 20px; border-radius:50%; color:#063475; background:#fff; box-shadow:0 0 0 8px #ffffff0c; font-size:36px; }
+.completion-hero .completion-eyebrow { color:#ffd373; font-size:10px; letter-spacing:.18em; font-weight:600; }
+.completion-hero h2 { font-size:clamp(28px,4vw,38px); line-height:1.15; letter-spacing:-.04em; color:white; margin:15px 0; }
+.completion-hero > p:last-child { max-width:430px; margin:0 auto; color:#d5e6fc; font-size:13px; line-height:1.8; }
+.completion-body { padding:28px 36px; text-align:left; }
+.receipt-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; font-size:13px; font-weight:600; color:#123c72; }
+.receipt-heading .bi { margin-right:8px; font-size:20px; vertical-align:-2px; }
+.receipt-badge { background:#e7f6ee; color:#217a52; padding:6px 11px; border-radius:20px; font-size:10px; }
+.receipt-code { padding:20px; border:1px dashed #afc9ec; background:#f7faff; border-radius:12px; }
+.receipt-code > span { display:block; font-size:9px; font-weight:600; letter-spacing:.14em; color:#6581a6; margin-bottom:12px; }
+.receipt-code strong { display:block; font:600 17px/1.6 ui-monospace,Consolas,monospace; color:#073b7f; overflow-wrap:anywhere; user-select:all; }
+.receipt-code small { display:block; color:#7187a4; font-size:11px; line-height:1.7; margin-top:10px; }
+.completion-body .completion-detail { font-size:12px; line-height:1.8; padding:14px 16px; background:#eef6ff; color:#3b628f; margin:14px 0 26px; border-left:3px solid #4e8dd9; }
+.completion-detail[data-mail='unconfirmed'] { background:#fff8e9; color:#806023; border-left-color:#e3af3c; }
+.next-title { font-size:16px; color:#092f64; margin:0 0 20px; }
+.completion-steps { list-style:none; padding:0; margin:0; display:grid; gap:20px; }
+.completion-steps li { display:flex; position:relative; align-items:flex-start; gap:14px; }
+.step-symbol { flex-shrink:0; width:34px; height:34px; display:grid; place-items:center; background:#edf4ff; color:#1252a0; border:1px solid #dbe7f8; border-radius:50%; font-size:16px; }
+.completion-steps li:first-child .step-symbol { background:#e7f6ee; border-color:#cbe9da; color:#217a52; }
+.completion-steps li:not(:last-child)::after { content:''; position:absolute; top:38px; bottom:-16px; left:16px; width:1px; background:#dfe8f5; }
+.completion-steps strong { font-size:12px; color:#173f73; }
+.completion-steps p { font-size:12px; color:#6981a0; line-height:1.7; margin:4px 0 0; }
+.completion-disclaimer { display:flex; align-items:flex-start; gap:9px; font-size:11px; line-height:1.8; color:#788ca6; margin:24px 0; }
+.completion-disclaimer .bi { flex-shrink:0; }
+.completion-actions { border-top:1px solid #e1eaf6; padding-top:22px; text-align:center; }
+.completion-actions > span { font-size:12px; color:#67809f; }
+.admissions-page .completion-actions #otra { display:flex; align-items:center; justify-content:center; gap:10px; margin-top:12px; background:linear-gradient(100deg,#073473,#0852ad); border-radius:10px; }
+.completion-signoff { text-align:center; color:#8b9ab0; font-size:10px; margin:22px 0 0; }
+.completion-signoff strong { display:block; margin-top:8px; color:#335884; letter-spacing:.16em; }
+@media(max-width:640px) { .completion-hero { padding:30px 22px; } .completion-body { padding:24px 20px; } .receipt-heading { font-size:12px; } .receipt-code strong { font-size:14px; } .registration-complete .admissions-layout { margin:0 auto; } }
+/* Fluid public form with institute identity beside the title. */
+.admissions-page > main { width:100%; max-width:none; margin:0; padding:24px clamp(16px,2.5vw,48px) 28px; }
+.admissions-page > footer { max-width:none; margin:0; padding:12px clamp(16px,2.5vw,48px) 28px; }
+.admissions-page .admissions-layout { grid-template-columns:260px minmax(0,1fr); gap:28px; }
+.admissions-page .form-heading { align-items:center; }
+.form-identity { display:flex; align-items:center; gap:18px; min-width:0; }
+.form-identity > div { min-width:0; }
+.form-institute-logo { width:86px; height:86px; object-fit:contain; flex-shrink:0; }
+.admissions-page .form-identity h1 { margin-bottom:8px; }
+.admissions-page.registration-complete .admissions-layout { display:block; max-width:740px; margin:20px auto; }
+@media(min-width:1400px) { .admissions-page .field-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(max-width:1000px) { .admissions-page .admissions-layout { grid-template-columns:220px minmax(0,1fr); gap:20px; } .form-institute-logo { width:70px; height:70px; } .form-identity { gap:12px; } }
+@media(max-width:800px) { .admissions-page .admissions-layout { grid-template-columns:1fr; } }
+@media(max-width:640px) { .admissions-page > main { padding:14px 14px 24px; } .admissions-page .form-heading { align-items:flex-start; } .form-institute-logo { width:60px; height:60px; } .admissions-page .form-identity h1 { font-size:22px; } .form-identity .intro { font-size:11px; } .admissions-page.registration-complete .admissions-layout { margin:0 auto; } }
