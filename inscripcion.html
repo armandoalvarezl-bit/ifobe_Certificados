@@ -11,42 +11,53 @@
   <script src="inscripcion.js" defer></script>
   <script src="programas.js" defer></script>
 <link rel="stylesheet" href="refinamientos.css">
+<link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
+<link rel="stylesheet" href="admisiones.css">
 </head>
-<body>
-  <div class="institution-strip"><span>IFOBE · GEN 10</span><span>Portal de admisiones</span></div>
-  <header class="topbar">
-    <a class="brand" href="index.html"><img src="img/Logogen10.png" alt=""><span>IFOBE<small>GESTIÓN ACADÉMICA · GEN 10</small></span></a>
-    <a class="back" href="index.html">Acceso institucional</a>
-  </header>
+<body class="admissions-page">
+  <dialog id="bienvenida" class="welcome-dialog" aria-labelledby="welcomeTitle" aria-describedby="welcomeIntro">
+    <img src="img/Logogen10.png" alt="IFOBE" class="welcome-logo">
+    <p class="welcome-eyebrow">ADMISIONES IFOBE</p>
+    <h2 id="welcomeTitle">¡Bienvenido a tu próxima etapa!</h2>
+    <p id="welcomeIntro">Completa esta solicitud para que podamos acompañarte en tu proceso de inscripción.</p>
+    <ol class="welcome-steps">
+      <li>Escribe tus datos como aparecen en tu documento. Los campos con * son obligatorios.</li>
+      <li>Revisa tu correo y celular, y selecciona el programa que deseas estudiar.</li>
+      <li>Si tienes tu documento, adjunta un PDF o hasta dos fotos de máximo 5 MB cada una. Es opcional.</li>
+      <li>Confirma la información y pulsa «Enviar inscripción». Espera la confirmación antes de cerrar la página.</li>
+    </ol>
+    <p class="welcome-note">Esta solicitud será revisada por la institución; no confirma una matrícula.</p>
+    <form method="dialog"><button autofocus>Entendido, comenzar <i class="bi bi-arrow-right" aria-hidden="true"></i></button></form>
+  </dialog>
   <main>
-    <nav class="breadcrumb" aria-label="Ubicación"><a href="index.html">Inicio</a><span aria-hidden="true">/</span><span>Admisiones</span><span aria-hidden="true">/</span><strong>Inscripción</strong></nav>
-    <header class="admissions-header">
-      <div class="header-content">
-      <p class="eyebrow">ADMISIONES Y REGISTRO ACADÉMICO</p>
-      <h1>Tu próximo paso empieza aquí.</h1>
-      <p class="admissions-description">Preinscríbete en el programa de tu interés. Completa tus datos y nuestro equipo revisará tu solicitud.</p>
-      <div class="document-meta"><span>Solicitud de admisión</span><span>Formulario en línea</span></div>
-      </div>
-      <div class="header-seal" aria-hidden="true"><img src="img/Logogen10.png" alt=""><span>IFOBE · GEN 10</span></div>
-    </header>
     <nav class="section-nav" aria-label="Secciones de la inscripción">
       <a href="#personal-title"><span>01</span>Datos personales</a>
       <a href="#contacto-title"><span>02</span>Contacto</a>
       <a href="#academico-title"><span>03</span>Formación académica</a>
       <a href="#documentos-title"><span>04</span>Documentos</a>
     </nav>
+    <div class="admissions-layout">
+    <aside class="admissions-guide" aria-label="Guía de inscripción">
+      <div class="guide-intro"><span class="guide-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></span><p>ESTÁS A UN PASO</p><h2>Comienza tu<br>próxima etapa.</h2><span>Queremos conocerte y acompañarte en tu formación.</span></div>
+      <section class="guide-checklist"><h3>Antes de empezar</h3><ul><li><i class="bi bi-person-vcard" aria-hidden="true"></i><span>Ten a mano tu número de documento.</span></li><li><i class="bi bi-envelope" aria-hidden="true"></i><span>Usa un correo y un celular donde podamos contactarte.</span></li><li><i class="bi bi-journal-bookmark" aria-hidden="true"></i><span>Elige el programa que te interesa estudiar.</span></li></ul></section>
+      <section class="guide-next"><i class="bi bi-chat-square-heart" aria-hidden="true"></i><h3>¿Qué pasa después?</h3><p>El equipo de admisiones revisará tu solicitud y te indicará cómo continuar. El envío del formulario no confirma la matrícula. Podras comunicarte al Numero de Coordinacion Academica </p>+573127947484 </p></section>
+      <p class="guide-signature">Tu formación,<br>nuestro compromiso.</p>
+    </aside>
     <section class="form-panel" aria-labelledby="form-title">
       <div class="form-heading">
+      <div class="form-identity">
+      <img class="form-institute-logo" src="img/Logogen10.png" alt="Instituto IFOBE">
       <div>
-      <h2 id="form-title">Información del aspirante</h2>
+      <h1 id="form-title">Formulario de inscripción</h1>
       <p class="intro">Complete cada sección para presentar su solicitud.</p>
+      </div>
       </div><span class="required-note">* Campos obligatorios</span>
       </div>
       <form id="inscripcionForm">
         <fieldset id="datos">
           <legend class="sr-only">Datos de la solicitud</legend>
           <section class="form-section" aria-labelledby="personal-title">
-            <h3 id="personal-title"><span>01</span> Información personal</h3>
+            <h3 id="personal-title"><span><i class="bi bi-person-vcard" aria-hidden="true"></i></span> Información personal <small>01 / 04</small></h3>
             <p class="section-description">Escribe tus datos tal como aparecen en tu documento.</p>
             <div class="field-grid">
               <div><label for="nombres">Nombres *</label><input id="nombres" name="nombres" autocomplete="given-name" maxlength="80" required></div>
@@ -65,7 +76,7 @@
             </div>
           </section>
           <section class="form-section" aria-labelledby="contacto-title">
-            <h3 id="contacto-title"><span>02</span> Datos de contacto</h3>
+            <h3 id="contacto-title"><span><i class="bi bi-envelope" aria-hidden="true"></i></span> Datos de contacto <small>02 / 04</small></h3>
             <div class="field-grid">
               <div><label for="correo">Correo electrónico *</label><input type="email" id="correo" name="correo" autocomplete="email" maxlength="150" required></div>
               <div><label for="telefono">Celular / WhatsApp *</label><input type="tel" id="telefono" name="telefono" autocomplete="tel" placeholder="Ej. +57 300 123 4567" pattern="[0-9\+\(\)\. \x2D]{7,25}" maxlength="25" required></div>
@@ -76,7 +87,7 @@
             </div>
           </section>
           <section class="form-section" aria-labelledby="academico-title">
-            <h3 id="academico-title"><span>03</span> Información académica</h3>
+            <h3 id="academico-title"><span><i class="bi bi-mortarboard" aria-hidden="true"></i></span> Información académica <small>03 / 04</small></h3>
             <div class="field-grid">
               <div class="full"><label for="programa">Programa de interés *</label><select id="programa" name="programa" required disabled><option value="">Cargando programas…</option></select><p class="hint" id="programasEstado" role="status">Consultando programas disponibles.</p><button type="button" onclick="cargarProgramas()">Actualizar programas</button></div>
               <div><label for="nivelEstudios">Último nivel de estudios *</label><select id="nivelEstudios" name="nivelEstudios" required><option value="">Selecciona una opción</option><option>Primaria</option><option>Secundaria</option><option>Bachiller</option><option>Técnico</option><option>Tecnólogo</option><option>Universitario</option><option>Posgrado</option></select></div>
@@ -84,23 +95,49 @@
             </div>
           </section>
           <section class="form-section" aria-labelledby="documentos-title">
-            <h3 id="documentos-title"><span>04</span> Documento de identidad</h3>
+            <h3 id="documentos-title"><span><i class="bi bi-file-earmark-text" aria-hidden="true"></i></span> Documento de identidad <small>04 / 04</small></h3>
             <p class="section-description">Adjunta un PDF con ambas caras o dos fotos: frente y reverso. Puedes seleccionarlas desde tu celular.</p>
-            <label for="documentos" class="upload-box"><span class="upload-symbol" aria-hidden="true">↑</span><strong>Selecciona la copia de tu documento</strong><span>PDF, JPG o PNG · Máximo 2 archivos, 5 MB cada uno</span></label>
+            <label for="documentos" class="upload-box"><span class="upload-symbol" aria-hidden="true"><i class="bi bi-cloud-arrow-up"></i></span><strong>Selecciona la copia de tu documento</strong><span>PDF, JPG o PNG · Máximo 2 archivos, 5 MB cada uno</span></label>
             <input type="file" id="documentos" accept="application/pdf,image/jpeg,image/png,.pdf,.jpg,.jpeg,.png" multiple aria-describedby="adjuntosAyuda adjuntosError">
             <p class="hint" id="adjuntosAyuda">Opcional en esta solicitud. Si aún no lo tienes, puedes presentarlo cuando la institución lo solicite. Los archivos se envían únicamente al confirmar la inscripción.</p>
             <p id="adjuntosError" class="file-error" role="alert" hidden></p>
             <ul id="listaArchivos" class="file-list" aria-label="Archivos seleccionados"></ul>
           </section>
-          <div class="review-note"><span aria-hidden="true">ⓘ</span><p>Esta es una solicitud de admisión. La institución revisará la información y te indicará los siguientes pasos.</p></div>
+          <div class="submission-panel">
+          <h3>Revisa y envía tu solicitud</h3>
+          <div class="review-note"><i class="bi bi-info-circle" aria-hidden="true"></i><p>Esta es una solicitud de admisión. La institución revisará la información y te indicará los siguientes pasos.</p></div>
           <label class="confirmation"><input type="checkbox" id="confirmacion" name="confirmacion" required><span>Confirmo que los datos son correctos y solicito que la institución me contacte para gestionar mi inscripción. *</span></label>
-          <button type="submit" id="enviar">Enviar inscripción <span aria-hidden="true">→</span></button>
+          <div id="submitSlot"></div>
+          </div>
         </fieldset>
+        <button type="submit" id="enviar">Enviar inscripción <i class="bi bi-send" aria-hidden="true"></i></button>
         <div id="estado" role="status" aria-live="polite" tabindex="-1" hidden></div>
-        <button type="button" id="otra" class="secondary" hidden>Registrar otro estudiante</button>
+        <section id="inscripcionCompleta" class="completion-card" aria-labelledby="completionTitle" hidden>
+          <div class="completion-hero">
+            <span class="completion-seal"><i class="bi bi-check-lg" aria-hidden="true"></i></span>
+            <p class="completion-eyebrow">PREINSCRIPCIÓN RECIBIDA</p>
+            <h2 id="completionTitle" tabindex="-1">¡Tu próximo paso<br>ya está en marcha!</h2>
+            <p>Formulario completado. Gracias por elegir IFOBE para continuar tu formación.</p>
+          </div>
+          <div class="completion-body">
+            <div class="receipt-heading"><span><i class="bi bi-file-earmark-check" aria-hidden="true"></i> Constancia de solicitud</span><span class="receipt-badge">Guardada</span></div>
+            <div class="receipt-code"><span>CÓDIGO DE SOLICITUD</span><strong id="completionCode"></strong><small>Conserva este código para consultar tu proceso con la institución.</small></div>
+            <p id="completionDetail" class="completion-detail"></p>
+            <h3 class="next-title">¿Qué sigue ahora?</h3>
+            <ol class="completion-steps">
+              <li><span class="step-symbol"><i class="bi bi-check2" aria-hidden="true"></i></span><div><strong>Solicitud registrada</strong><p>Recibimos la información de tu preinscripción.</p></div></li>
+              <li><span class="step-symbol"><i class="bi bi-search" aria-hidden="true"></i></span><div><strong>Revisión de admisiones</strong><p>La institución revisará tus datos y los documentos que hayas adjuntado.</p></div></li>
+              <li><span class="step-symbol"><i class="bi bi-chat-dots" aria-hidden="true"></i></span><div><strong>Próximas indicaciones</strong><p>Mantente atento al correo y celular que registraste.</p></div></li>
+            </ol>
+            <p class="completion-disclaimer"><i class="bi bi-info-circle" aria-hidden="true"></i> Esta constancia confirma la recepción de tu solicitud; la matrícula está sujeta al proceso de admisión.</p>
+            <div class="completion-actions"><span>¿Quieres registrar a otra persona?</span><button type="button" id="otra" class="secondary" hidden><i class="bi bi-person-plus" aria-hidden="true"></i> Hacer otra preinscripción</button></div>
+            <p class="completion-signoff">Tu formación, nuestro compromiso. <strong>IFOBE</strong></p>
+          </div>
+        </section>
       </form>
       <p class="help">¿Necesitas corregir un registro existente?<br>Comunícate con la administración de tu institución.</p>
     </section>
+    </div>
   </main>
   <footer>IFOBE · Gen 10 <span>Admisiones y registro académico</span></footer>
 </body>
