@@ -32,6 +32,21 @@
         ===================================================== */
 
         let loginEnCurso = false;
+        function mostrarLoginCarga(mensaje) {
+            const modal = document.getElementById('login-loading');
+            const text = document.getElementById('login-loading-text');
+            if (!modal || !text) return;
+            text.textContent = mensaje;
+            modal.hidden = false;
+            modal.classList.add('activo');
+            modal.removeAttribute('aria-hidden');
+        }
+        function ocultarLoginCarga() {
+            const modal = document.getElementById('login-loading');
+            if (!modal) return;
+            modal.classList.remove('activo');
+            modal.setAttribute('aria-hidden', 'true');
+        }
         async function validarLogin(event) {
             event.preventDefault();
             if (loginEnCurso) return;
@@ -44,6 +59,7 @@
             loginEnCurso = true;
             button.disabled = true;
             form.setAttribute('aria-busy', 'true');
+            mostrarLoginCarga(document.documentElement.lang === 'es' ? 'Verificando acceso institucional...' : 'Verifying institutional access...');
             status.textContent = document.documentElement.lang === 'es' ? 'Verificando acceso…' : 'Signing in…';
             try {
                 const params = new URLSearchParams({accion: 'login', email: document.getElementById('email').value.trim(), password: document.getElementById('password').value});
@@ -53,15 +69,18 @@
                 if (result.ok !== true || typeof result.autorizado !== 'boolean') throw new Error('CONNECTION');
                 if (!result.autorizado) {
                     status.textContent = texts.error_message;
+                    ocultarLoginCarga();
                     return;
                 }
                 if(result.token)sessionStorage.setItem('ifobeSesion',result.token);
                 status.textContent = texts.success_title;
+                mostrarLoginCarga(document.documentElement.lang === 'es' ? 'Acceso confirmado. Entrando al portal...' : 'Access confirmed. Opening portal...');
                 window.location.href = 'home.html';
             } catch (error) {
                 status.textContent = document.documentElement.lang === 'es'
                     ? 'No se pudo conectar con la plataforma. Revisa tu conexión e inténtalo nuevamente.'
                     : 'Unable to connect. Check your connection and try again.';
+                ocultarLoginCarga();
             } finally {
                 clearTimeout(timeout);
                 loginEnCurso = false;
@@ -544,6 +563,14 @@
     <footer class="campus-footer">
         IFOBE · Gen 10
     </footer>
+
+    <div class="login-loading" id="login-loading" hidden aria-hidden="true" aria-live="polite">
+        <div class="login-loading-card">
+            <img src="img/Logogen10.png" alt="">
+            <h2>IFOBE</h2>
+            <p id="login-loading-text">Verificando acceso institucional...</p>
+        </div>
+    </div>
 
 </body>
 </html>

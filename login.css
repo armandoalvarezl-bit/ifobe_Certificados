@@ -79,6 +79,14 @@
 .campus-login.dark-mode .form-control { background: #102038; color: #fff; border-color: #4a6485; }
 .campus-login.dark-mode .access-help a { color: #a7ceff; }
 .campus-login.dark-mode .btn-primary { color: #fff; }
+.login-loading[hidden] { display: none !important; }
+.login-loading { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: 24px; background: rgba(4, 20, 44, .62); opacity: 0; pointer-events: none; transition: opacity .18s ease; }
+.login-loading.activo { opacity: 1; pointer-events: auto; }
+.login-loading-card { width: min(360px, 92vw); padding: 30px 28px; border-radius: 18px; border: 1px solid #d9e6f8; background: #fff; color: var(--login-blue); text-align: center; box-shadow: 0 28px 80px -30px rgba(4, 20, 44, .65); }
+.login-loading-card img { width: 82px; height: 82px; object-fit: contain; margin-bottom: 12px; animation: loginPulse 1.1s ease-in-out infinite; }
+.login-loading-card h2 { margin: 0 0 8px; font-size: 24px; letter-spacing: .16em; }
+.login-loading-card p { margin: 0; color: #617ba4; line-height: 1.55; }
+@keyframes loginPulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(.94);opacity:.72} }
 @media (max-width: 1050px) {
   .campus-login { padding: 16px 22px; }
   .campus-login .access-story { padding: 48px 30px; }

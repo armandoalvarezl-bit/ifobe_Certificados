@@ -23,7 +23,7 @@
                 <p class="eyebrow">GESTIÓN ACADÉMICA</p>
                 <h1>Matrículas</h1>
                 <p>Organiza la vinculación de cada estudiante a su programa y período.</p>
-            </div><button id="nueva" disabled>Nueva matrícula</button>
+            </div><div class="header-actions"><button id="masiva" class="secondary" disabled>Matrícula masiva</button><button id="nueva" disabled>Nueva matrícula</button></div>
         </header>
         <p id="mensaje" role="status" aria-live="polite">Cargando matrículas…</p>
         <section class="stats" aria-label="Resumen">
@@ -67,7 +67,9 @@
                 </div>
                 <p>El estudiante debe estar registrado previamente en <a
                         href="registro-alumnos (2).html">Estudiantes</a>.</p><label>Estudiante<select id="estudiante"
-                        required></select></label><label>Programa<select id="programa" required></select></label>
+                        required></select></label>
+                <section id="fichaEstudiante" class="student-card" hidden aria-live="polite"></section>
+                <label>Programa<select id="programa" required></select></label>
                 <div class="columns"><label>Período<input id="periodo" required maxlength="40"
                             placeholder="Ej. 2026-2"></label><label>Jornada<select id="jornada" required>
                             <option>Mañana</option>
@@ -80,9 +82,56 @@
                         <option>Activa</option>
                         <option>Finalizada</option>
                         <option>Cancelada</option>
-                    </select></label><label>Observaciones<textarea id="observaciones" maxlength="2000"
+                    </select></label>
+                <section class="academic-panel" aria-labelledby="academicoTitulo">
+                    <h3 id="academicoTitulo">Seguimiento académico</h3>
+                    <div class="columns"><label>Ciclo académico<input id="cicloAcademico" maxlength="60"
+                                placeholder="Ej. Ciclo 1 / Semestre 2"></label><label>Nota final<input id="notaFinal"
+                                inputmode="decimal" maxlength="20" placeholder="Ej. 4.5"></label></div>
+                    <label>Estado académico<select id="estadoAcademico">
+                        <option value="">Sin definir</option>
+                        <option>En curso</option>
+                        <option>Aprobado</option>
+                        <option>No aprobado</option>
+                        <option>Certificado</option>
+                        <option>Graduado</option>
+                        <option>Retirado</option>
+                    </select></label>
+                    <label>Notas / seguimiento<textarea id="seguimientoAcademico" maxlength="700"
+                        rows="3" placeholder="Notas, competencias, novedades o seguimiento del ciclo"></textarea></label>
+                    <div id="historialAcademico" class="history-box" hidden></div>
+                    <label id="nuevoCicloWrap" class="check-line" hidden><input id="guardarNuevoCiclo" type="checkbox"> Guardar como nuevo ciclo sin borrar la matrícula actual</label>
+                </section>
+                <label>Observaciones administrativas<textarea id="observaciones" maxlength="1200"
                         rows="3"></textarea></label>
                 <p id="error" role="alert"></p><button id="guardar" type="submit">Guardar matrícula</button>
+            </form>
+        </dialog>
+        <dialog id="masivo">
+            <form id="formularioMasivo">
+                <div class="dialog-heading">
+                    <h2>Matrícula masiva</h2><button type="button" id="cerrarMasivo"
+                        class="secondary">Cerrar</button>
+                </div>
+                <p>Selecciona un programa, define el período y marca los estudiantes que vas a vincular.</p>
+                <div class="columns"><label>Programa<select id="programaMasivo" required></select></label><label>Período<input id="periodoMasivo" required maxlength="40"
+                            placeholder="Ej. 2026-2"></label></div>
+                <div class="columns"><label>Jornada<select id="jornadaMasiva" required>
+                            <option>Mañana</option>
+                            <option>Tarde</option>
+                            <option>Noche</option>
+                            <option>Fin de semana</option>
+                            <option>Flexible</option>
+                        </select></label><label>Estado<select id="estadoMasivo">
+                        <option>Pendiente</option>
+                        <option>Activa</option>
+                    </select></label></div>
+                <label>Buscar estudiantes<input id="buscarMasivo" type="search" placeholder="Nombre o documento"></label>
+                <div class="bulk-toolbar"><label><input id="soloPrograma" type="checkbox" checked> Solo estudiantes de este programa</label><button type="button" id="seleccionarTodos" class="secondary">Seleccionar visibles</button></div>
+                <div id="listaMasiva" class="bulk-list" aria-label="Estudiantes disponibles"></div>
+                <label>Observaciones<textarea id="observacionesMasivas" maxlength="2000" rows="3"></textarea></label>
+                <p id="resumenMasivo"></p>
+                <p id="errorMasivo" role="alert"></p><button id="guardarMasivo" type="submit">Matricular seleccionados</button>
             </form>
         </dialog>
     </main>
