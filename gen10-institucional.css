@@ -1,0 +1,671 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+.exam-question{min-width:0;border:1px solid #dce6f3;border-radius:10px;padding:18px;margin:22px 0}
+.exam-question legend{padding:0 8px;font-weight:600;font-size:14px;white-space:normal;overflow-wrap:anywhere}
+.exam-option{display:flex;align-items:flex-start;gap:12px;padding:12px;background:#f6f8fc;border-radius:6px;cursor:pointer;font-weight:400;line-height:1.6}
+.exam-option input[type=radio]{width:18px;min-height:18px;height:18px;flex:0 0 18px;margin:3px 0 0;accent-color:#063784}
+.exam-option:has(input:checked){background:#e7effc;outline:1px solid #8caad5}
+.exam-progress{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;color:#142d4e}
+.exam-progress span{font-size:13px;color:#637185}
+.exam-progress progress{width:100%;height:10px;accent-color:#b78a37}
+.grade-student{border:1px solid #dce6f3;border-radius:10px;padding:12px 14px;margin-top:10px}
+.grade-student>summary{cursor:pointer;line-height:1.6}
+.grade-student>summary>span{display:block;margin-left:18px;font-size:12px;color:var(--muted)}
+.grade-student .table-wrap{max-height:360px;overflow:auto}
+.grade-student .stats-grid{margin:12px 0;gap:8px}
+.grade-student .stat{padding:12px}
+.grade-student .stat strong{font-size:26px}
+
+/* Identidad institucional y presentación del inicio de sesión. */
+#access .access-story{display:flex;flex-direction:column;padding:40px 48px;min-height:640px;background:linear-gradient(145deg,#052759,#021a3e)}
+.institute-logo{display:block;width:220px;max-width:100%;height:auto;object-fit:contain;align-self:flex-start;margin:0 0 24px}
+#access .access-story h1{font-size:clamp(34px,3.7vw,52px);font-weight:700;letter-spacing:-.04em;margin:0 0 20px}
+#access .access-story>.eyebrow{font-size:10px;letter-spacing:.14em;color:#ffbc2d}
+#access .access-story>p:not(.eyebrow){max-width:420px;line-height:1.8}
+.access-capabilities{list-style:none;padding:0;margin:18px 0 32px;display:grid;gap:16px;font-size:13px;color:#d8e6fa}
+.access-capabilities li{display:flex;align-items:center;gap:12px}
+.access-capabilities .bi{color:#ffbc2d;font-size:18px}
+#access .story-footer{margin-top:auto;flex-wrap:wrap;font-size:10px;line-height:1.6}
+.access-identity{display:flex;align-items:center;gap:18px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid #dce6f3}
+.access-identity img{display:block;width:88px;height:88px;object-fit:contain;flex-shrink:0}
+.access-identity span{font-size:22px;font-weight:800;letter-spacing:.08em;color:#052759}
+.access-identity p{font-size:12px;color:#60738f;margin:6px 0 0}
+#access .access-form{min-width:0;max-width:500px}
+@media(max-width:700px){
+ #access.access-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+ #access .access-story{min-height:0;padding:28px}
+ .institute-logo{width:160px;margin-bottom:18px}
+ #access .access-story h1{font-size:34px}
+ .access-capabilities{margin-bottom:24px;gap:12px}
+ #access .access-form{max-width:none;padding:28px 22px}
+ .access-identity{margin-bottom:24px;gap:14px}
+ .access-identity img{width:72px;height:72px}
+}
+
+/* Acceso diario y activación inicial. */
+.access-layout{overflow:hidden;border:1px solid #dce6f3;border-radius:24px;box-shadow:0 18px 60px #142d4e12}
+.access-form{background:#fff;padding:clamp(24px,5vw,64px)}
+.access-form h2{font-size:clamp(26px,3vw,36px);letter-spacing:-.035em;margin-bottom:12px}
+.access-form #accessHelp{color:#586b84;line-height:1.7;margin-bottom:28px}
+.access-form input{min-height:50px;border-radius:10px;background:#f8fafd;border:1px solid #cbd7e6}
+.access-form input:focus{outline:3px solid #d5e5ff;outline-offset:1px;border-color:#315fc3}
+.access-form form>button[type="submit"]{min-height:50px;border-radius:10px;margin-top:24px}
+#recoverPassword{border:0;background:transparent;color:#24559c;font-size:14px}
+.activation-options{margin-top:20px;border-top:1px solid #e0e7ef;padding-top:20px;font-size:14px}
+.activation-options summary{cursor:pointer;color:#344b6c;font-weight:600;padding:8px 0}
+.activation-options p{line-height:1.6;color:#60738f}
+.activation-options button{width:100%;margin-top:10px}
+@media(max-width:600px){.access-layout{border-radius:16px;margin:16px}.access-form{padding:26px 20px}}
+
+/* Identidad compartida con certificados, matrículas y notas. */
+.course-card{display:flex;flex-direction:column;transition:box-shadow .18s ease}
+.course-card:hover{box-shadow:0 8px 28px #05275914}
+.course-card .course-cover{height:190px;position:relative;overflow:hidden;background:linear-gradient(135deg,#dce8f9,#f1f5fc)}
+.course-cover>.bi{font-size:60px;opacity:.3}
+.course-cover .g10-cover-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.course-cover .badge{position:absolute;top:14px;right:14px;z-index:1;background:white;box-shadow:0 2px 10px #0002}
+.course-body{display:flex;flex-direction:column;flex:1}
+.course-kicker{color:#60738f;font-size:9px;letter-spacing:.12em;font-weight:700;margin-bottom:12px}
+.course-body h3{font-size:22px;line-height:1.35}
+.course-body>button{margin-top:auto}
+.course-meta{border-top:1px solid #e5eefb;padding-top:16px;margin:12px 0}
+.course-hero:empty{display:none}
+.course-hero img{width:100%;max-height:300px;object-fit:cover;border-radius:12px;margin:12px 0}
+#editor{width:min(720px,94vw);max-height:90svh;padding:0;border:1px solid #dce6f3;border-radius:16px}
+#editor>.dialog-heading{padding:22px 28px;background:#f1f5fc;margin:0;border-bottom:1px solid #dce6f3}
+#editorForm{padding:8px 28px 24px}
+.editor-intro{color:#60738f;font-size:14px;margin:16px 0 24px}
+.upload-section{min-width:0;margin:24px 0;padding:18px;border:1px solid #dce6f3;border-radius:12px}
+.upload-section legend{padding:0 8px;font-weight:700;font-size:14px}
+.upload-zone{background:#f5f8fe;border:1px dashed #7e9ac4;border-radius:10px;padding:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;cursor:pointer}
+.upload-zone:hover,.upload-zone:focus-within{border-color:#063784;background:#edf4ff}
+.upload-zone>.bi{font-size:30px;color:#28599c}
+.upload-zone input{max-width:100%;background:white;font-size:12px}
+.upload-selection{font-weight:400;font-size:12px;overflow-wrap:anywhere;max-width:100%;color:#60738f}
+.existing-files label{padding:12px;background:#f5f8fe;border-radius:8px;overflow-wrap:anywhere}
+.existing-files small{display:block;color:#60738f;font-weight:400;margin-top:4px}
+.cover-preview{width:100%;height:180px;object-fit:cover;border-radius:8px;margin-top:16px}
+.materials-list{display:grid;gap:10px;margin:20px 0}
+.material-file{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px;background:#f7faff!important}
+.material-file>span{flex:1;min-width:0}.material-file strong{display:block;overflow-wrap:anywhere;font-size:13px}
+.material-file small{display:block;margin-top:5px;color:#60738f;font-size:11px}
+.material-file>.bi:first-child{font-size:26px;color:#28599c}
+.file-viewer{width:min(1100px,96vw);max-height:94svh;border:1px solid #dce6f3;border-radius:14px;padding:24px}
+.file-viewer h2{font-size:20px;overflow-wrap:anywhere}
+#fileContent{background:#f1f5fc;padding:12px;min-height:160px;border-radius:8px}
+#fileContent iframe,#fileContent object{display:block;width:100%;height:65svh;border:0;background:white}
+#fileContent img,#fileContent video{display:block;max-width:100%;max-height:65svh;margin:auto;object-fit:contain}
+#fileContent audio{width:100%}#fileContent pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:65svh;overflow:auto}
+.file-viewer .dialog-actions{display:flex;gap:12px;flex-wrap:wrap;position:sticky;bottom:0;background:white;padding:16px 0 0}
+.course-settings dl{display:grid;grid-template-columns:minmax(130px,1fr) 3fr;gap:16px;margin:24px 0}
+.course-settings dt{font-weight:700;color:#344b6c}.course-settings dd{margin:0;overflow-wrap:anywhere}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
+.tabs button{min-height:44px}
+#campus[data-role="estudiante"] .welcome-banner{background:linear-gradient(120deg,#143c55,#176b73)}
+#campus[data-role="estudiante"] .course-cover>.badge{display:none}
+#campus[data-role="estudiante"] .course-card{border-top:3px solid #27858b}
+#campus[data-role="estudiante"] .course-body progress{accent-color:#17767e}
+#campus[data-role="docente"] .course-card{border-top:3px solid #315fc3}
+#campus[data-role="admin"] .course-card{border-top:3px solid #b78a37}
+.course-body{display:flex;flex-direction:column;flex:1}.course-body>button:last-child{margin-top:auto}
+@media(max-width:600px){.course-settings dl{grid-template-columns:1fr;gap:8px}.course-settings dd{margin-bottom:12px}.tabs button{flex:1 1 140px}}
+.download-file{display:inline-block;background:#063784;color:white;padding:12px 18px;border-radius:7px;text-decoration:none}
+@media(max-width:600px){#editorForm{padding:8px 16px 20px}#editor>.dialog-heading{padding:16px}.upload-section{padding:12px}.file-viewer{padding:14px}.course-card .course-cover{height:170px}}
+:root{font-family:Inter,system-ui,sans-serif;color:#15365e;background:#edf4fb;--green:#063784;--muted:#60738f;--line:#dce6f3;--lime:#ffbc2d}
+body{background:linear-gradient(125deg,#edf4fb,#f9fbff);min-height:100svh}
+h1,h2,h3,h4,.stat strong{font-family:Inter,system-ui,sans-serif}
+button{background:linear-gradient(100deg,#062e75,#0648ae);border-radius:7px}
+button:hover{background:#0d3870}
+button:focus-visible,a:focus-visible{outline-color:#f2b632}
+input,select,textarea{border-color:#ccdff8;color:#254982;border-radius:7px}
+input:focus,select:focus,textarea:focus{outline-color:#598ac9}
+.quiet{background:transparent;color:#063784}
+.quiet:hover{background:#edf4ff}
+.campus-top{max-width:none;background:linear-gradient(110deg,#041f48,#063374);color:white;border-bottom:3px solid #ffbc2d;padding:0 26px}
+.campus-brand{color:white;font-family:Inter,system-ui,sans-serif;letter-spacing:.025em}
+.campus-brand img{filter:brightness(0) invert(1);width:60px;height:60px}
+.campus-brand small{font-family:Inter,system-ui,sans-serif;color:white}
+.brand-ten{color:#ffbc2d}
+.top-caption{color:#d8e6fa}
+#account .quiet{color:white;border-color:#ffffff40;border-radius:24px}
+#account .quiet:hover{background:#ffffff20}
+.access-layout{gap:0;margin:32px 24px;padding:0;background:white;border:1px solid var(--line);border-radius:14px;overflow:hidden;align-items:stretch}
+.access-story{background:linear-gradient(145deg,#052759,#021a3e);border-radius:0;border-bottom:4px solid #ffbc2d;color:white}
+.access-story>p:not(.eyebrow),.story-footer{color:#d8e6fa}
+.access-form{max-width:480px;align-self:center;justify-self:center;padding:42px}
+.art-card{background:#edf4ff;box-shadow:10px 12px 0 #021a3e}
+.art-circle{border-color:#5480b2}
+.art-lines b{background:#7294bf}.art-lines b:last-child{background:#ccdff8}
+.campus-layout{grid-template-columns:220px minmax(0,1fr);padding:0;max-width:none;min-height:calc(100svh - 160px)}
+#contenido:has(.campus-layout:not([hidden])){max-width:none}
+.campus-sidebar{position:relative;background:linear-gradient(145deg,#052759,#021a3e);color:white;padding:28px 12px;border:0}
+.campus-sidebar>.eyebrow{padding-left:15px;color:#aec5e5}
+.campus-sidebar nav button{color:white;border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:14px 12px}
+.campus-sidebar nav button[aria-current=page],.campus-sidebar nav button:hover{background:#0d3870;color:#ffbc2d;border-left-color:#ffbc2d}
+.sidebar-note{background:#ffffff08;border:1px solid #23558f;color:white;border-radius:14px}
+.sidebar-note>.bi{color:#ffbc2d}
+.campus-content{margin:24px;padding:24px;background:white;border:1px solid #e5eefb;border-radius:14px}
+.workspace-bar{padding-bottom:18px;border-bottom:1px solid var(--line)}
+.welcome-banner{background:linear-gradient(110deg,#052759,#073c80);border-bottom:3px solid #ffbc2d;border-radius:10px;color:white}
+.welcome-banner .eyebrow{color:#ffbc2d}.welcome-banner p{color:#d8e6fa}
+.stat{background:linear-gradient(125deg,#f8fbff,#edf4ff);border-radius:10px}.stat strong{color:#0748aa}
+.panel,.course-card{border-radius:10px;box-shadow:none}
+.course-cover{background:#edf4ff;color:#063784}
+.course-card:nth-child(3n+2) .course-cover{background:#fff4d9}
+.course-card:nth-child(3n) .course-cover{background:#e4edf9}
+.badge{color:#254982}.notice{background:#edf4ff;border-color:#ccdff8}
+.campus-footer{color:#60738f;padding:20px 26px}
+@media(min-width:901px){.campus-sidebar nav{position:static}}
+@media(max-width:900px){
+ .campus-layout{grid-template-columns:1fr}
+ .campus-sidebar{padding:12px}
+ .campus-sidebar>.eyebrow,.sidebar-note{display:none}
+ .campus-sidebar nav{display:flex;flex-wrap:wrap;gap:6px}
+ .campus-sidebar nav button{flex:1 1 140px;min-height:44px}
+ .campus-content{margin:12px;padding:20px 14px}
+ .access-layout{margin:20px 12px}.access-form{padding:30px}
+}
+@media(max-width:600px){
+ .campus-top{height:auto;min-height:88px;padding:14px;flex-wrap:wrap;gap:12px}
+ .campus-brand{font-size:26px}.campus-brand img{width:46px;height:46px}
+ #account{max-width:100%;flex-wrap:wrap}.top-caption{display:none}
+ .access-layout{grid-template-columns:1fr}.access-story{min-height:0;padding:28px}
+ .access-story h1{font-size:36px}.learning-art{display:none}
+ .access-form{padding:28px 22px}.access-form h2{font-size:28px}
+ .campus-footer{padding:20px 14px}
+}
+
+.mobile-menu-toggle{display:none}
+/* Keep navigation anchored while the document content scrolls. */
+:root{--campus-header-height:80px;--campus-menu-height:76px}
+html{scroll-padding-top:calc(var(--campus-header-height) + 16px)}
+body{padding-top:var(--campus-header-height)}
+.campus-top{position:fixed;inset:0 0 auto;z-index:100;height:var(--campus-header-height);min-height:0;flex-wrap:nowrap;margin:0;width:100%}
+.campus-brand{flex-shrink:0}
+#account{min-width:0;flex-wrap:nowrap}
+#accountName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#logout{flex-shrink:0}
+.skip-link{position:fixed;z-index:110}
+.campus-sidebar{position:fixed;inset:var(--campus-header-height) auto 0 0;z-index:90;width:220px;overflow-y:auto;overscroll-behavior:contain}
+.campus-content{grid-column:2;min-width:0}
+body:has(#campus:not([hidden])) .campus-footer{margin-left:220px}
+@media(max-width:900px){
+ .top-caption{display:none}
+ body:has(#campus:not([hidden])){padding-top:calc(var(--campus-header-height) + var(--campus-menu-height))}
+ html:has(#campus:not([hidden])){scroll-padding-top:calc(var(--campus-header-height) + var(--campus-menu-height) + 16px)}
+ .campus-sidebar{inset:var(--campus-header-height) 0 auto;width:100%;height:var(--campus-menu-height);padding:8px 12px;overflow:hidden}
+ .campus-sidebar nav{height:100%;flex-wrap:nowrap;overflow-x:auto;align-items:center;overscroll-behavior-x:contain}
+ .campus-sidebar nav button{flex:0 0 auto;white-space:nowrap}
+ .campus-content{grid-column:1}
+ body:has(#campus:not([hidden])) .campus-footer{margin-left:0}
+}
+@media(max-width:600px){
+ :root{--campus-header-height:88px}
+ .campus-top{padding:10px 14px;gap:8px}
+}
+
+/* Acceso universitario: escudo sobre blanco y sin cabecera superior. */
+body:has(#access:not([hidden])){padding-top:0;background:#f3f4f6}
+body:has(#access:not([hidden])) .campus-top{display:none}
+html:has(#access:not([hidden])){scroll-padding-top:16px}
+body:has(#access:not([hidden])) #contenido{max-width:1120px;padding:clamp(24px,6vh,64px) 24px 24px}
+body:has(#access:not([hidden])) .notice{max-width:1072px;margin:20px auto 0}
+#access.access-layout{grid-template-columns:1fr 1fr;margin:0;border:1px solid #e0e4ea;border-radius:12px;box-shadow:0 20px 65px #1527440d}
+#access .access-story{background:#fff;color:#172c50;border-bottom:0;border-right:1px solid #e4e7ed;padding:44px 48px;min-height:640px;align-items:center;text-align:center}
+#access .institute-logo{width:200px;height:200px;align-self:center;margin:0 0 28px;filter:none;object-fit:contain}
+#access .access-story>.eyebrow{color:#7b683e;font-size:9px;letter-spacing:.16em}
+#access .access-story h1{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:44px;line-height:1.15;letter-spacing:-.025em}
+#access .access-story h1 em{color:#172c50}
+#access .access-story>p:not(.eyebrow){color:#657084;font-size:13px;max-width:330px;line-height:1.8}
+#access .access-capabilities{color:#4f5e74;text-align:left;font-size:12px;gap:14px;margin:20px 0 28px}
+#access .access-capabilities .bi{color:#927a45;font-size:17px}
+#access .story-footer{width:100%;justify-content:center;border-top:1px solid #e4e7ed;color:#748093;font-size:9px;letter-spacing:.04em}
+#access .access-form{background:#fbfcfe;padding:48px;max-width:none;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+#access .access-identity{border:0;margin-bottom:28px;padding:0}
+#access .access-identity span{font-size:15px;letter-spacing:.18em;font-weight:700}
+#access .access-identity p{font-size:11px;margin-top:8px}
+#access .access-form>.eyebrow{color:#7b683e;font-size:9px;letter-spacing:.14em;margin-bottom:10px}
+#access .access-form h2{font-size:28px;font-weight:600;letter-spacing:-.025em;margin:0 0 12px}
+#access .access-form #accessHelp{font-size:13px;line-height:1.7;margin:0 0 8px}
+#access .access-form input{background:white;border-color:#d6dce5;border-radius:6px}
+#access .access-form form>button[type=submit]{background:#172c50;border-radius:6px;font-size:13px}
+#access .access-form form>button[type=submit]:hover{background:#233e67}
+body:has(#access:not([hidden])) .campus-footer{max-width:1072px;border:0;padding:12px 24px 24px;font-size:10px}
+@media(max-width:700px){
+ body:has(#access:not([hidden])) #contenido{padding:20px 14px 14px}
+ #access.access-layout{grid-template-columns:minmax(0,1fr)}
+ #access .access-story{min-height:0;padding:28px 24px;border-right:0;border-bottom:1px solid #e4e7ed}
+ #access .institute-logo{width:144px;height:144px;margin-bottom:18px}
+ #access .access-story h1{font-size:34px;margin-bottom:12px}
+ #access .access-capabilities,#access .story-footer{display:none}
+ #access .access-story>p:not(.eyebrow){margin-bottom:0}
+ #access .access-form{padding:32px 24px}
+ body:has(#access:not([hidden])) .notice{margin:14px}
+}
+
+/* Presentación del campus y acceso. */
+body{background:#f3f6fb}
+body:has(#access:not([hidden])){background:radial-gradient(ellipse at 15% 10%,#dfe9f7,transparent 55%),#f4f6fa}
+body:has(#access:not([hidden])) main{max-width:1180px;padding-top:clamp(24px,5vh,64px)}
+body:has(#access:not([hidden])) #access{border-radius:24px;border:1px solid #dce3ed;box-shadow:0 24px 70px #142d4e14;overflow:hidden;grid-template-columns:1.05fr 1fr}
+body:has(#access:not([hidden])) #access .access-story{background:linear-gradient(145deg,#112e53,#081d38);color:#fff;text-align:left;align-items:flex-start;padding:48px;position:relative;border-right:0}
+body:has(#access:not([hidden])) #access .institute-logo{width:180px;height:180px;align-self:flex-start;background:#fff;border-radius:24px;padding:10px;margin-bottom:32px}
+body:has(#access:not([hidden])) #access .access-story h1{color:white;font-size:clamp(38px,4vw,54px);line-height:1.12;letter-spacing:-.04em}
+body:has(#access:not([hidden])) #access .access-story h1 em{color:#e8c17a}
+body:has(#access:not([hidden])) #access .access-story>p:not(.eyebrow){color:#ccdaeb;font-size:15px;line-height:1.8}
+body:has(#access:not([hidden])) #access .access-story>.eyebrow{color:#e8c17a}
+body:has(#access:not([hidden])) .access-capabilities{color:#e0e9f5;gap:18px;margin:26px 0}
+body:has(#access:not([hidden])) .story-footer{color:#c2cfe0;border-top:1px solid #ffffff24;padding-top:22px;width:100%}
+body:has(#access:not([hidden])) #access .access-form{padding:48px;background:#fff}
+#access form label{font-size:13px;font-weight:600;margin-top:16px}
+#access form input{min-height:50px;border-radius:10px;background:#f8fafc;border-color:#d8e0eb;font-size:15px}
+#access form input:focus{background:white;outline:3px solid #b8cce766;outline-offset:2px;border-color:#4774ad}
+#access form button[type=submit]{min-height:50px;border-radius:10px;margin-top:22px;box-shadow:0 5px 14px #142d4e18;font-size:14px}
+#access .access-note{border:1px solid #e3e9f1;background:#f7f9fc;border-radius:12px;padding:16px;line-height:1.7}
+#activationOptions{border:1px solid #dce4ef;border-radius:10px;padding:14px 16px;margin-top:18px}
+#activationOptions summary{cursor:pointer;font-weight:600}
+.password-field{position:relative;width:100%}
+#access .password-field input{padding-right:82px}
+#access .password-toggle{position:absolute;right:8px;top:8px;min-height:34px;padding:6px 10px;border:0;background:transparent;color:#24559c;font-size:12px;box-shadow:none;border-radius:6px}
+#code{text-transform:uppercase;letter-spacing:.2em;font-weight:700}
+.campus-content{min-width:0}
+.panel,.course-card,.stat{border-color:#e0e7f0;box-shadow:0 5px 20px #142d4e05;border-radius:16px}
+.course-card{transition:box-shadow .2s,transform .2s}
+.course-card:hover{box-shadow:0 12px 30px #142d4e12;transform:translateY(-2px)}
+.course-card .course-cover{height:220px;padding:0;background:#eef2f7}
+.course-cover .g10-cover-image{display:block;object-fit:cover;object-position:center;padding:0}
+.course-cover:has(.g10-cover-image:not([hidden]))>.bi{visibility:hidden}
+.course-cover .badge{top:auto;bottom:10px;right:10px;font-size:10px}
+.course-hero{background:#eef2f7;border-radius:16px;overflow:hidden;margin:20px 0}
+.course-hero img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain;margin:0;border-radius:0;padding:16px}
+.cover-preview{height:220px;object-fit:contain;background:#eef2f7;padding:12px}
+.loading-dialog{width:min(360px,calc(100vw - 40px));padding:36px 28px;text-align:center;border:1px solid #dce4ef;border-radius:22px;box-shadow:0 24px 80px #081d3833;color:#142d4e}
+.loading-dialog::backdrop{background:#081d3870;backdrop-filter:blur(5px)}
+.loading-dialog h2{font-size:22px;margin:22px 0 10px}
+.loading-dialog p{font-size:14px;line-height:1.6;color:#536780}
+.loading-dialog>span{display:block;font-size:11px;color:#7b899c;margin-top:26px;letter-spacing:.08em}
+.loading-spinner{width:48px;height:48px;margin:auto;border:4px solid #e8edf5;border-top-color:#b78a37;border-right-color:#142d4e;border-radius:50%;animation:campus-spin 1s linear infinite}
+@keyframes campus-spin{to{transform:rotate(360deg)}}
+@media(max-width:700px){body:has(#access:not([hidden])) #access{grid-template-columns:1fr;border-radius:18px}body:has(#access:not([hidden])) #access .access-story{padding:28px;min-height:0}body:has(#access:not([hidden])) #access .institute-logo{width:100px;height:100px;margin-bottom:20px;border-radius:16px}body:has(#access:not([hidden])) #access .access-story h1{font-size:36px}body:has(#access:not([hidden])) #access .access-form{padding:28px 24px}.course-card .course-cover{height:220px}}
+@media(prefers-reduced-motion:reduce){.course-card{transition:none}.course-card:hover{transform:none}.loading-spinner{animation-duration:2.5s}}
+/* Compact decorative banner. */
+#campus .campus-slider{position:relative;width:100%;height:auto;min-height:0;max-height:none;overflow:hidden;margin:0 0 20px;padding:0;border:0;border-radius:12px;box-sizing:border-box;background:#fff}
+#campus .campus-slider[hidden]{display:none}
+#campus .campus-slider .campus-banner-image{position:static;display:block;width:100%;height:auto;max-width:100%;max-height:none;margin:0;object-fit:contain;object-position:center}
+@media(max-width:600px){#campus .campus-slider{height:auto;max-height:none;margin-bottom:12px;border-radius:9px}}
+
+/* Mantiene la información dentro de una columna de lectura compacta. */
+#campus.campus-layout{width:100%;max-width:none;margin:0;grid-template-columns:220px minmax(0,1fr)}
+#campus .campus-content{width:calc(100% - 40px);max-width:1080px;justify-self:center;margin:20px;padding:0;box-sizing:border-box;background:transparent;border:0;border-radius:0}
+#view{min-width:0;overflow-wrap:anywhere}
+.course-lifecycle{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 20px;margin:16px 0;border:1px solid #dce5ef;border-left:4px solid #b78a37;border-radius:12px;background:#fff}
+.course-lifecycle p{font-size:13px;color:#52657e;margin:6px 0 0}
+#view .panel,#view .course-card,#view .stat,#view .learning-overview>*,#view .agenda-item>div{min-width:0;max-width:100%;box-sizing:border-box}
+#view .prose{max-width:76ch;line-height:1.65}
+#view .panel p{line-height:1.65}
+#view .panel{padding:20px;margin:14px 0}
+#view .section-heading{margin:20px 0 14px;flex-wrap:wrap}
+#view .task-top{flex-wrap:wrap}
+#view .task-top>div{min-width:0;flex:1 1 220px}
+#view .task-top small{white-space:normal}
+#view .resource{max-width:100%;white-space:normal}
+#view .table-wrap{max-width:100%;overflow-x:auto}
+#view th,#view td{overflow-wrap:anywhere;max-width:320px}
+#view input,#view select,#view textarea{min-width:0;max-width:100%;box-sizing:border-box}
+#view .course-card .course-cover{height:160px}
+#view .course-body{padding:18px}
+#view .course-hero img{max-height:340px}
+#campus .workspace-bar{margin-bottom:18px;gap:12px;flex-wrap:wrap}
+@media(max-width:1100px){#view .learning-overview{grid-template-columns:minmax(0,1fr);gap:16px}}
+@media(max-width:900px){#campus.campus-layout{grid-template-columns:minmax(0,1fr)}#campus .campus-content{width:calc(100% - 32px);margin:16px;padding:0}}
+@media(max-width:600px){#campus .campus-content{width:100%;margin:12px 0;padding:14px}#view .stats-grid{grid-template-columns:minmax(0,1fr)}#view .stat{display:flex;align-items:center;gap:14px;padding:12px 14px}#view .stat strong{font-size:24px;margin:0}#view .stat span{font-size:12px}#view .panel{padding:16px}#view .course-card .course-cover{height:140px}}
+
+/* Keep notices below fixed navigation and align them with the workspace. */
+body:has(#campus:not([hidden])) #notice{position:sticky;top:calc(var(--campus-header-height) + 8px);z-index:105;width:calc(100% - 260px);max-width:1080px;margin:12px max(20px,calc((100vw - 220px - 1080px)/2)) 0 auto;padding:12px 16px;box-sizing:border-box;overflow-wrap:anywhere;box-shadow:0 4px 18px #142d4e15}
+#campus .welcome-banner{padding:22px 24px;border-radius:14px}
+#campus .welcome-banner h1{font-size:26px;margin-bottom:8px}
+#campus .welcome-banner p{font-size:13px;max-width:64ch}
+#view .stats-grid{gap:12px;margin:16px 0 20px}
+#view .stat{padding:14px 16px;border-radius:12px}
+#view .stat strong{font-size:26px;margin-bottom:4px}
+#view .section-heading h2{font-size:21px}
+#view .course-grid{gap:16px}
+#view .course-body{padding:16px}
+#view .course-hero img{max-height:240px;object-fit:contain}
+@media(max-width:900px){
+ body:has(#campus:not([hidden])) #notice{top:calc(var(--campus-header-height) + var(--campus-menu-height) + 8px);width:calc(100% - 32px);margin:12px 16px 0}
+ #campus .campus-content{max-width:1080px}
+ .campus-sidebar{width:100%}
+}
+@media(max-width:600px){
+ body:has(#campus:not([hidden])) #notice{width:calc(100% - 24px);margin:10px 12px 0;max-height:30svh;overflow-y:auto}
+ #campus .welcome-banner{padding:18px}
+ #campus .welcome-banner h1{font-size:23px}
+}
+
+/* Desktop density: fit the campus at normal browser zoom. */
+@media(min-width:901px){
+ :root{--campus-header-height:64px}
+ .campus-top{padding:0 20px}
+ .campus-brand{font-size:26px;gap:9px}
+ .campus-brand img{width:40px;height:40px}
+ .campus-brand small{font-size:7px;margin-top:6px}
+ #account{font-size:12px;gap:12px}
+ #logout{min-height:34px;padding:7px 12px;font-size:12px}
+ .campus-sidebar{padding:18px 10px}
+ .campus-sidebar>.eyebrow{font-size:9px;margin-bottom:14px;padding-left:10px}
+ .campus-sidebar nav{display:flex;flex-direction:column;gap:4px}
+ .campus-sidebar nav button{min-height:36px;margin:0;padding:9px 10px;font-size:12px;line-height:1.3}
+ .campus-sidebar .bi{font-size:15px;margin-right:7px}
+ .sidebar-note{margin-top:24px;padding:14px;font-size:11px}
+ #campus .campus-content{margin:16px 20px}
+ #campus .workspace-bar{margin-bottom:12px;padding-bottom:10px}
+ #campus .workspace-bar button,#view button{min-height:34px;padding:8px 12px;font-size:12px}
+ #campus .campus-slider{height:auto;max-height:none;margin-bottom:12px}
+ #campus .welcome-banner{padding:16px 20px;border-radius:12px}
+ #campus .welcome-banner .eyebrow{font-size:9px;margin-bottom:6px}
+ #campus .welcome-banner h1{font-size:23px;margin-bottom:6px}
+ #campus .welcome-banner p{font-size:12px;line-height:1.5;max-width:78ch}
+ #view .stats-grid{gap:10px;margin:12px 0 16px}
+ #view .stat{padding:10px 14px}
+ #view .stat strong{font-size:23px;margin-bottom:2px}
+ #view .stat span{font-size:11px}
+ #view .section-heading{margin:16px 0 10px}
+ #view .section-heading h2{font-size:19px}
+ #view .course-card{border-radius:12px}
+ #view .course-card .course-cover{height:110px}
+ #view .course-cover>.bi{font-size:30px}
+ #view .course-body{padding:14px}
+ #view .course-body h3{font-size:16px;line-height:1.3;margin:0 0 8px}
+ #view .course-body p{font-size:12px;line-height:1.5;min-height:0;margin:8px 0}
+ #view .course-body button{margin-top:8px}
+ #view .panel{padding:16px;margin:12px 0}
+ #view .panel h3{font-size:17px}
+ #view .learning-overview{gap:16px;margin:18px 0}
+ #view .agenda-item,#view .grade-preview-row{padding:12px 0;gap:12px}
+ #view .agenda-item h3{font-size:14px}
+}
+@media(min-width:1200px){#view .course-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}}
+
+/* Espacio de lectura para el resumen del estudiante. */
+#view .payment-panel{padding:0;margin:10px 0;border-radius:10px}
+#view .payment-panel>summary,#view .payment-record>summary{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;cursor:pointer;list-style:none;line-height:1.4}
+#view .payment-panel>summary{padding:12px 14px;font-size:14px}
+#view .payment-panel>summary::-webkit-details-marker,#view .payment-record>summary::-webkit-details-marker{display:none}
+#view .payment-panel>summary::before,#view .payment-record>summary::before{content:'›';font-size:18px;line-height:1}
+#view .payment-panel[open]>summary::before,#view .payment-record[open]>summary::before{transform:rotate(90deg)}
+#view .payment-panel summary>span{margin-left:auto;font-size:12px;color:#637185}
+#view .payment-content{padding:0 14px 12px;border-top:1px solid #dce4ed}
+#view .payment-content>p{font-size:12px;margin:10px 0;line-height:1.5}
+#view .payment-content>h3{font-size:14px;margin:12px 0 6px}
+#view .payment-panel button{min-height:30px;padding:6px 10px;font-size:11px}
+#view .payment-course{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid #dce4ed;flex-wrap:wrap;font-size:12px}
+#view .payment-course>strong{flex:1 1 220px;min-width:0}
+#view .payment-record{padding:0;border-top:1px solid #dce4ed}
+#view .payment-record>summary{padding:10px 0;font-size:12px}
+#view .payment-record-content{padding:0 0 10px 16px}
+#view .payment-record p{margin:6px 0;font-size:12px}
+#view .payment-record-content>button{margin-top:8px}
+#paymentTotal{padding:14px;background:#edf3f8;border-radius:8px;font-weight:700}
+#view .learning-overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
+#view .learning-overview>.panel{margin:0;padding:24px;border-radius:14px}
+#view .learning-overview .section-heading{min-height:36px;margin:0 0 18px;gap:12px;align-items:center}
+#view .learning-overview .section-heading h2{margin:0;line-height:1.35}
+#view .learning-overview .section-heading button{flex-shrink:0;white-space:nowrap}
+#view .agenda-panel .empty{margin:0;padding:24px 20px;line-height:1.65}
+#view .grade-preview-row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px 20px;padding:18px 0}
+#view .grade-preview-row:last-child{padding-bottom:0}
+#view .grade-preview-row>div{flex:1 1 180px;min-width:0;line-height:1.55}
+#view .grade-preview-row>div>small{margin-top:6px}
+#view .grade-preview-row>span{flex:0 0 auto;margin-left:auto;font-size:22px;line-height:1.35;white-space:nowrap;overflow-wrap:normal}
+#view .grade-preview-row>span>small{margin-top:6px;font-weight:500}
+@media(max-width:1100px){#view .learning-overview{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){#view .learning-overview>.panel{padding:20px}#view .grade-preview-row>span{font-size:20px}}
+
+/* Compact access form on desktop. */
+@media(min-width:901px){
+ body:has(#access:not([hidden])) #contenido{max-width:960px;padding:24px 20px 16px}
+ body:has(#access:not([hidden])) #access .access-story{min-height:470px;padding:28px}
+ body:has(#access:not([hidden])) #access .institute-logo{width:110px;height:110px;margin-bottom:18px}
+ body:has(#access:not([hidden])) #access .access-story h1{font-size:36px;margin:16px 0}
+ body:has(#access:not([hidden])) #access .access-story>p:not(.eyebrow){font-size:13px;line-height:1.6}
+ body:has(#access:not([hidden])) #access .access-form{padding:28px}
+ #access .access-identity{margin-bottom:18px}
+ #access .access-form h2{font-size:24px}
+ #access form label{margin-top:12px;font-size:12px}
+ #access form input{min-height:42px;font-size:14px;padding:10px 12px}
+ #access form button[type=submit]{min-height:42px;margin-top:16px}
+ #access .password-toggle{top:4px;min-height:34px}
+ #access .access-note{padding:12px;font-size:12px}
+}
+
+/* Notification bell and compact expandable records. */
+.notification-menu{position:relative;flex-shrink:0;color:#142d4e}
+.notification-menu>summary{position:relative;display:flex;align-items:center;justify-content:center;width:36px;height:36px;cursor:pointer;list-style:none;border:1px solid #ffffff40;border-radius:50%;color:#fff}
+.notification-menu>summary::-webkit-details-marker{display:none}
+.notification-menu>summary:focus-visible{outline:3px solid #ffbc2d;outline-offset:3px}
+#notificationCount{position:absolute;top:-5px;right:-6px;min-width:17px;padding:2px 4px;background:#ffbc2d;color:#142d4e;border-radius:12px;font-size:10px;font-weight:700;text-align:center}
+.notification-dropdown{position:absolute;right:0;top:calc(100% + 10px);width:min(350px,calc(100vw - 28px));max-height:min(420px,65svh);overflow-y:auto;padding:14px;background:white;border:1px solid #dce5ef;border-radius:12px;box-shadow:0 12px 36px #061d4830;font-size:12px;white-space:normal}
+.notification-item{padding:10px 0;border-bottom:1px solid #e7edf4}
+.notification-item>summary{cursor:pointer;font-weight:600;line-height:1.5;overflow-wrap:anywhere}
+.notification-item p{font-size:12px;line-height:1.6;margin:8px 0;overflow-wrap:anywhere}
+#account .notification-item .quiet{color:#142d4e;border-color:#dce5ef;font-size:11px;padding:6px 9px;min-height:30px}
+#account .notification-item .quiet:hover{background:#eef3f9}
+.student-record>summary{cursor:pointer;font-weight:700;font-size:15px;overflow-wrap:anywhere}
+.document-section{padding:12px;margin:10px 0;border:1px solid #dce5ef;border-radius:9px;background:#f8fafc}
+.document-section>summary{cursor:pointer;font-size:13px;font-weight:600}
+.document-section[open]>summary{margin-bottom:10px}
+@media(max-width:600px){.notification-dropdown{position:fixed;top:calc(var(--campus-header-height) + 4px);left:12px;right:12px;width:auto;max-height:60svh}}
+/* Menú móvil desplegable: todas las secciones al alcance del pulgar. */
+@media(max-width:900px){
+ :root{--campus-menu-height:58px}
+ #campus .campus-sidebar{height:auto;max-height:calc(100svh - var(--campus-header-height));padding:0 12px;overflow-y:auto;box-shadow:0 4px 12px #041f4820}
+ #campus .mobile-menu-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:var(--campus-menu-height);min-height:44px;padding:8px 4px;border:0;background:transparent;color:white;border-radius:0;font-size:14px;text-align:left}
+ .mobile-menu-toggle>span:first-child{display:flex;align-items:center;gap:8px;flex-shrink:0;font-weight:700}
+ #mobileMenuLabel{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right;color:#e4c58b;font-size:12px}
+ #campus .mobile-menu-toggle .bi{margin:0}
+ #campus .campus-sidebar nav{display:none;height:auto;overflow:visible;flex-direction:column;align-items:stretch;gap:5px;padding:4px 0 14px}
+ #campus .campus-sidebar.menu-open nav{display:flex}
+ #campus .campus-sidebar nav button{flex:none;width:100%;min-height:46px;white-space:normal;padding:12px;font-size:13px;line-height:1.4;text-align:left;margin:0}
+ #campus .campus-sidebar.menu-open .bi-chevron-down{transform:rotate(180deg)}
+ .campus-top #account{gap:8px}
+ .campus-top #accountName{display:none}
+ .campus-top .campus-brand{font-size:25px;gap:7px}
+ .campus-top .campus-brand img{width:36px;height:40px}
+ .campus-top #logout{padding:8px;min-height:44px;font-size:12px}
+}
+.profile-avatar{display:block;width:96px;height:96px;object-fit:cover;border-radius:50%;border:3px solid #b78a37;background:#edf3f8;margin:0 0 16px}
+.profile-placeholder{display:grid;place-items:center;font-size:40px;color:#142d4e}
+#account .account-profile{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;min-height:44px;padding:3px;border:0;border-radius:50%;background:transparent}
+#account .account-profile .profile-avatar{box-sizing:border-box;width:38px;height:38px;margin:0;border:2px solid #e4c58b;font-size:22px}
+#account .account-profile:hover{background:#ffffff20}
+#account .account-profile:focus-visible{outline:3px solid #ffbc2d;outline-offset:2px}
+@media(max-width:380px){.campus-top{padding-left:10px;padding-right:10px}.campus-top #account{gap:4px}.campus-top .campus-brand{font-size:21px;gap:4px}}
+.welcome-dialog{width:min(510px,calc(100% - 28px));padding:0;overflow:auto;border:0;border-radius:20px;box-shadow:0 24px 80px #041f4855}
+.welcome-brand{display:flex;align-items:center;gap:18px;padding:26px;background:linear-gradient(120deg,#041f48,#124678);border-bottom:4px solid #b78a37;color:#fff;font-size:12px;font-weight:700;letter-spacing:1.5px}
+.welcome-brand img{width:70px;height:70px;object-fit:contain;background:white;border-radius:14px;padding:4px}
+.welcome-body{padding:28px;color:#142d4e}
+.welcome-body .eyebrow{color:#8a6525;font-size:10px;margin-bottom:12px}
+.welcome-body h2{font-size:29px;line-height:1.2}
+#welcomeName{font-size:18px;font-weight:700;overflow-wrap:anywhere}
+#welcomeDescription{font-size:14px;color:#52647a}
+.welcome-tip{display:flex;gap:12px;align-items:center;background:#f2f5f8;padding:16px;border-radius:12px;font-size:13px;line-height:1.6;margin:22px 0}
+.welcome-tip .bi{font-size:25px;color:#b78a37}
+#welcomeContinue{width:100%;min-height:46px;background:#142d4e;color:white}
+@media(max-width:600px){.welcome-brand{padding:20px;gap:12px;font-size:10px}.welcome-body{padding:22px}.welcome-body h2{font-size:25px}}
+
+/* Las notas usan la columna completa cuando el menu esta oculto. */
+#campus.campus-layout[data-grades-view="true"][data-grades-menu="false"]{grid-template-columns:minmax(0,1fr);padding:0 20px}
+#campus[data-grades-view="true"][data-grades-menu="false"]>.campus-content{grid-column:1;width:100%;max-width:none;justify-self:stretch;margin:16px 0;padding:0;min-width:0}
+#campus[data-grades-view="true"] .campus-slider{display:none!important}
+@media(max-width:600px){#campus.campus-layout[data-grades-view="true"][data-grades-menu="false"]{padding:0 12px}}
+
+/* Dashboard de datos y documentos */
+.record-dashboard{--record-ink:#142d4e;--record-muted:#617187;margin:20px 0 32px;color:var(--record-ink)}
+.record-hero{background:linear-gradient(115deg,#102b4b,#214b72);color:#fff;padding:30px 32px;border-radius:18px;display:flex;justify-content:space-between;gap:24px;align-items:center;border-bottom:4px solid #c69b50}
+.record-kicker{font-size:10px;letter-spacing:2px;color:#e4c58b;font-weight:700}.record-hero h2{color:#fff;font-size:28px;line-height:1.25;margin:12px 0 10px;overflow-wrap:anywhere}.record-hero p{color:#d7e3ef;margin:0;font-size:14px}.record-privacy{display:flex;align-items:center;gap:8px;white-space:nowrap;border:1px solid #ffffff38;border-radius:30px;padding:9px 13px;font-size:12px}
+.record-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:20px 0}.record-stats article{background:#fff;border:1px solid #dce4ed;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:7px}.record-stats article>span{font-size:12px;font-weight:600;color:var(--record-muted)}.record-stats strong{font-size:32px;line-height:1.2;font-variant-numeric:tabular-nums}.record-stats small{font-size:11px;color:var(--record-muted)}
+.record-layout{display:grid;grid-template-columns:minmax(240px,.85fr) minmax(0,1.65fr);gap:20px;align-items:start}.record-info,.record-documents{background:#fff;border:1px solid #dce4ed;border-radius:16px;padding:24px;min-width:0}.record-section-heading{display:flex;align-items:center;gap:12px;margin-bottom:22px}.record-section-heading>.bi{font-size:23px;color:#96702c;background:#faf4e8;border-radius:10px;padding:10px}.record-section-heading h3{margin:0;font-size:17px}.record-section-heading p{margin:5px 0 0;font-size:12px;color:var(--record-muted)}
+.record-info dl{margin:0}.record-info dl>div{padding:14px 0;border-bottom:1px solid #edf0f5}.record-info dt{font-size:11px;color:var(--record-muted);margin-bottom:6px}.record-info dd{margin:0;font-size:14px;font-weight:600;overflow-wrap:anywhere}.record-info dd.record-missing{color:#956923;font-weight:400}.record-info-note,.record-review-note{font-size:11px;line-height:1.7;color:var(--record-muted)}.record-info-note{background:#f4f7fa;border-radius:9px;padding:12px;margin:20px 0 0}.record-progress-heading{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin-bottom:9px}.record-progress{height:7px;overflow:hidden;background:#e9eef4;border-radius:20px}.record-progress>span{display:block;height:100%;background:#267969;border-radius:20px}.record-review-note{margin:10px 0 22px}
+.record-document-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.record-document{padding:18px;border:1px solid #dde5ed;border-radius:12px;background:#fbfcfe;min-width:0}.record-document-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:19px}.record-file-icon{color:#285680;background:#eaf0f7;padding:9px;border-radius:9px;font-size:22px}.record-status{padding:5px 8px;border-radius:20px;font-size:10px;font-weight:700}.record-status.is-delivered{color:#216b55;background:#e5f3ec}.record-status.is-pending{color:#8c621f;background:#fbf0d9}.record-step{font-size:9px;letter-spacing:1.5px;color:var(--record-muted)}.record-document h4{font-size:15px;margin:8px 0;line-height:1.4}.record-document-help{font-size:12px;line-height:1.6;color:var(--record-muted);margin:0 0 14px}.record-document a,.record-document button{max-width:100%;overflow-wrap:anywhere}.record-other{margin-top:20px;padding-top:18px;border-top:1px solid #e4eaf0}.record-other h4{font-size:14px;margin:0 0 12px}.record-admin{border:1px solid #dce4ed;background:#fff;border-radius:14px;margin:16px 0;padding:18px}.record-admin>summary{cursor:pointer;font-weight:700}.record-admin>summary span{font-weight:400;font-size:12px;color:#617187;margin-left:12px}
+@media(max-width:1000px){.record-layout{grid-template-columns:1fr}.record-info dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}}
+@media(max-width:600px){.record-hero{padding:24px 20px;align-items:flex-start;flex-direction:column;gap:18px}.record-hero h2{font-size:24px}.record-stats{gap:8px}.record-stats article{padding:14px 10px}.record-stats strong{font-size:26px}.record-stats small{line-height:1.5}.record-layout{gap:14px}.record-info,.record-documents{padding:18px}.record-document-grid,.record-info dl{grid-template-columns:1fr}.record-admin{padding:12px}}
+
+.record-filters{display:flex;align-items:end;flex-wrap:wrap;gap:18px;padding:20px 24px;background:white;border:1px solid #dce4ed;border-radius:14px;margin:18px 0}.record-filters label{flex:1 1 220px;margin:0;font-size:12px}.record-filters input,.record-filters select{margin:8px 0 0;width:100%;min-height:44px}.record-filters p{font-size:12px;color:#617187;margin:0 0 14px}.record-pagination{display:flex;justify-content:center;align-items:center;gap:18px;margin:24px 0;font-size:13px}.record-admin>summary{padding:8px;min-height:44px}.record-admin[open]>summary{border-bottom:1px solid #e4eaf0;padding-bottom:18px}
+
+/* Expedientes compactos con miniaturas y apertura del visor */
+.record-admin[open]>summary{margin-bottom:14px}
+.record-hero{padding:16px 20px;border-radius:12px;gap:12px}.record-hero h2{font-size:21px;margin:6px 0}.record-hero p{font-size:12px}.record-privacy{padding:6px 10px}
+.record-stats{gap:10px;margin:12px 0}.record-stats article{padding:12px;gap:3px}.record-stats strong{font-size:23px}
+.record-info,.record-documents{padding:16px}.record-layout{gap:12px}.record-section-heading{margin-bottom:12px}.record-section-heading>.bi{font-size:18px;padding:7px}
+.record-document-grid{gap:10px}.record-document{padding:12px}.record-document-top{margin-bottom:8px}.record-file-icon{font-size:16px;padding:6px}.record-document h4{font-size:13px;margin:5px 0}.record-document-help{font-size:11px;margin-bottom:8px;line-height:1.4}
+.record-document .material-file,.record-other .material-file{padding:8px;gap:9px}.document-thumbnail{position:relative;flex:0 0 52px!important;width:52px;height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#e8eef5;border-radius:6px;overflow:hidden;color:#285680}.document-thumbnail>.bi{font-size:24px}.document-thumbnail small{font-size:9px;margin:2px 0}.g10-document-thumbnail{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.g10-document-thumbnail[hidden]{display:none}.record-document .material-file strong,.record-other .material-file strong{font-size:11px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.record-document .material-file small{font-size:10px}
+@media(max-width:600px){.record-hero{padding:14px;gap:10px}.record-hero h2{font-size:19px}.record-stats article{padding:10px 8px}.record-stats strong{font-size:21px}.record-info,.record-documents{padding:12px}}
+
+/* Pie institucional y usuario conectado */
+body .campus-footer,body:has(#access:not([hidden])) .campus-footer,body:has(#campus:not([hidden])) .campus-footer{display:block;max-width:none;margin:0;padding:0;border:0;background:#102743;color:#fff;font-size:12px}
+.footer-main{max-width:1280px;margin:auto;padding:26px 32px;display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:32px;align-items:start}.footer-main h2{font-family:inherit;font-size:13px;letter-spacing:0;margin:0 0 10px;color:#fff}.footer-main a{display:block;color:#fff;text-decoration:none;line-height:1.9;overflow-wrap:anywhere}.footer-main a:hover{text-decoration:underline}.footer-main p{margin:6px 0;line-height:1.6;color:#dce5ee}.footer-session{text-align:center}.footer-session #footerIdentity{color:#fff;overflow-wrap:anywhere}.footer-session button{min-height:36px;padding:4px 12px;background:transparent;color:#fff;border:0;font-weight:400;text-decoration:underline}.footer-session button:hover{background:#ffffff15}.footer-links{text-align:right}.footer-bottom{background:#e5e5e5;color:#4a5666;display:flex;justify-content:center;gap:40px;padding:14px 24px;text-align:center;font-size:10px;line-height:1.7}
+@media(max-width:700px){.footer-main{grid-template-columns:1fr;padding:22px 20px;gap:20px;text-align:center}.footer-links{text-align:center}.footer-bottom{flex-direction:column;gap:4px}}
+
+/* Soporte: casos y seguimiento */
+.community-ticket{border:1px solid #dae3ef;border-left:4px solid #b78a37;border-radius:12px;margin:16px 0;padding:22px;background:#fff;box-shadow:0 3px 14px #142d4e08}.community-ticket h3{font-size:19px;margin-bottom:8px}.community-ticket .ticket-reference{background:#edf3f8;padding:12px 14px;border-radius:8px;font-size:12px;overflow-wrap:anywhere}.community-ticket dl{display:grid;grid-template-columns:minmax(130px,1fr) 3fr;gap:8px 16px;font-size:13px}.community-ticket dd{margin:0;min-width:0}.community-ticket blockquote{margin:18px 0;padding:12px 16px;border-left:3px solid #b9cde2;background:#f5f8fc;border-radius:0 8px 8px 0}.community-ticket details{margin:16px 0}.community-ticket summary{cursor:pointer;font-weight:600}.ticket-closed{padding:12px;border:1px solid #c7dfd3;border-radius:8px;background:#eef7f1;color:#285e44;font-size:13px}.materials-list .material-file{gap:10px}.materials-list .document-thumbnail{flex:0 0 52px!important}
+@media(max-width:600px){.community-ticket{padding:15px}.community-ticket dl{grid-template-columns:1fr;gap:4px}.community-ticket dd{margin-bottom:10px}}
+
+/* Contenido de adjuntos desplegable; las portadas no son visores */
+.attachment-panel{min-width:0;border:1px solid #dce4ee;border-radius:9px;background:#f8fafd;overflow:hidden}.attachment-panel>summary{display:flex;align-items:center;gap:10px;cursor:pointer;padding:12px;list-style:none}.attachment-panel>summary::after{content:'+';margin-left:auto;font-size:20px;color:#285680}.attachment-panel[open]>summary::after{content:'\2212'}.attachment-panel>summary>span{min-width:0}.attachment-panel strong{font-size:12px;overflow-wrap:anywhere;display:block}.attachment-panel small{display:block;font-size:10px;color:#617187;margin-top:4px}.attachment-preview{height:300px;max-height:46svh;min-height:120px;overflow:auto;background:#edf1f6;border-top:1px solid #dce4ee;padding:8px}.attachment-preview object{display:block;width:100%;height:100%;min-height:260px;border:0}.attachment-preview img,.attachment-preview video{display:block;width:100%;height:100%;object-fit:contain}.attachment-preview pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}.attachment-preview audio{width:100%}.attachment-panel>button{margin:8px;font-size:11px;padding:7px 10px;min-height:34px}.file-viewer{width:min(780px,94vw);max-height:86svh;padding:18px}#fileContent object,#fileContent iframe{height:52svh}#fileContent img,#fileContent video{max-height:52svh}.file-viewer h2{font-size:17px}
+@media(max-width:600px){.attachment-preview{height:250px}.attachment-preview object{min-height:220px}}
+
+/* Coleccion compacta de modulos y talleres */
+.activity-collection{border:1px solid #dce4ed;border-radius:14px;padding:16px;background:#f4f7fb;max-height:650px;max-height:min(650px,72svh);overflow:auto;scrollbar-gutter:stable;overscroll-behavior:contain}.activity-collection>.section-heading{margin-top:0}.activity-card{border:1px solid #dce4ed;background:#fff;border-radius:10px;margin:10px 0;min-width:0}.activity-card>summary{display:flex;align-items:center;gap:12px;padding:13px 15px;cursor:pointer;list-style:none}.activity-card>summary::-webkit-details-marker{display:none}.activity-card>summary>span:nth-child(2){flex:1;min-width:0}.activity-card>summary strong{display:block;font-size:14px;overflow-wrap:anywhere}.activity-card>summary small{display:block;font-size:11px;color:#617187;margin-top:4px}.activity-card-icon{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;background:#edf3f8;color:#285680;border-radius:8px}.activity-card[open]>summary{border-bottom:1px solid #dce4ed}.activity-card[open]>summary>.bi{transform:rotate(180deg)}.activity-card-content>.panel{margin:0;border:0;box-shadow:none;padding:16px;border-radius:0 0 10px 10px}.activity-card-content .materials-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:8px}.activity-card-content .attachment-panel{margin:0;align-self:start}.activity-card-content .attachment-panel[open]{grid-column:1/-1}.activity-card-content .attachment-panel>summary{padding:10px}.activity-card-content .attachment-panel strong{font-size:11px}.activity-card-content .prose{font-size:13px}.course-hero .g10-cover-image{cursor:default}
+@media(max-width:600px){.activity-collection{padding:10px;max-height:72svh}.activity-card>summary{padding:11px}.activity-card>summary strong{font-size:13px}.activity-card-content>.panel{padding:12px}}
+
+.course-cover-status{display:block;padding:20px;text-align:center;color:#617187;font-size:12px}.course-cover .course-cover-status{position:absolute;inset:0;display:grid;place-items:center}
+
+/* Vista academica y habilitacion de cursos. */
+#view .courses-page-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:12px 0 24px;flex-wrap:wrap}
+#view .enrollment-kicker{font-size:10px;font-weight:750;letter-spacing:1.6px;color:#8a682b;margin:0 0 8px;line-height:1.4}
+#view .courses-page-heading h1{margin:0;font-size:30px;letter-spacing:-1px;color:#142d4e}
+#view .courses-page-heading p:not(.enrollment-kicker){font-size:13px;color:#66768b;margin:8px 0 0}
+#view .courses-page-heading>span{border:1px solid #dce4ed;border-radius:20px;background:white;padding:8px 14px;font-size:12px;color:#52657e}
+#view .enrollment-status{background:#fff;border:1px solid #dce4ed;border-radius:16px;overflow:hidden;margin:16px 0 24px;box-shadow:0 8px 28px #142d4e06}
+#view .enrollment-heading{display:flex;align-items:center;gap:14px;padding:22px 24px;background:linear-gradient(110deg,#f2f6fc,#fff);border-bottom:1px solid #e5ebf2;flex-wrap:wrap}
+#view .enrollment-icon{display:grid;place-items:center;flex:0 0 46px;width:46px;height:46px;background:#142d4e;color:#e7bd64;border-radius:12px;font-size:23px}
+#view .enrollment-heading>div{flex:1 1 240px}
+#view .enrollment-heading h2{margin:0;font-size:22px;line-height:1.3;letter-spacing:-.6px;color:#142d4e}
+#view .enrollment-heading p:last-child{font-size:12px;color:#66768b;margin:7px 0 0;line-height:1.5}
+#view .enrollment-badge{display:inline-flex;gap:6px;align-items:center;padding:7px 10px;border:1px solid #edd9ab;background:#fff8e9;color:#805d1a;border-radius:20px;font-size:11px;font-weight:650}
+#view .enrollment-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px;padding:20px 24px}
+#view .enrollment-course{display:flex;gap:14px;align-items:flex-start;border:1px solid #e1e7ef;border-radius:12px;padding:16px;background:#fff;min-width:0}
+#view .enrollment-course-icon{display:grid;place-items:center;flex:0 0 38px;height:42px;border-radius:9px;background:#edf3fa;color:#28527f;font-size:20px}
+#view .enrollment-course small{font-size:9px;letter-spacing:1px;font-weight:700;color:#7b889a}
+#view .enrollment-course h3{font-size:15px;line-height:1.5;margin:5px 0 10px;letter-spacing:-.2px;color:#142d4e}
+#view .enrollment-course span{font-size:11px;color:#7b889a}
+#view .enrollment-footer{display:flex;align-items:center;gap:20px;justify-content:space-between;padding:16px 24px;background:#fafbfd;border-top:1px solid #e5ebf2;flex-wrap:wrap}
+#view .enrollment-footer>div{flex:1 1 300px}
+#view .enrollment-footer strong{font-size:12px;color:#294361}
+#view .enrollment-footer p{font-size:12px;color:#66768b;line-height:1.6;margin:5px 0 0;max-width:75ch}
+#view .enrollment-footer button{font-size:12px;min-height:36px;padding:9px 13px;background:#fff;border:1px solid #cfdbea;color:#183f6d;white-space:nowrap}
+#view .enrollment-help{padding:12px 24px;border-top:1px solid #e5ebf2;font-size:12px;color:#66768b;line-height:1.7}
+#view .enrollment-help summary{cursor:pointer;color:#355575;font-weight:600}
+#view .enrollment-help ol{padding-left:20px;margin:10px 0}
+#view .enrollment-help p{margin:8px 0}
+#view .courses-waiting-note{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:10px;background:#eaf0f7;color:#526b87;font-size:12px;line-height:1.6}
+@media(max-width:600px){#view .courses-page-heading h1{font-size:26px}#view .enrollment-heading{padding:18px}#view .enrollment-heading h2{font-size:20px}#view .enrollment-courses{padding:16px}#view .enrollment-footer{padding:16px}#view .enrollment-help{padding:12px 16px}}
+
+/* Espaciado fluido del espacio academico. */
+#campus .campus-content:has(.courses-page-heading){max-width:1200px;width:calc(100% - 64px);margin:28px 32px}
+#view .courses-page-heading{margin:4px 0 32px;gap:24px}
+#view .courses-page-heading p:not(.enrollment-kicker){font-size:14px;line-height:1.7;max-width:60ch}
+#view .courses-page-heading>span{line-height:1.6;padding:10px 16px}
+#view .enrollment-status{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,1fr);margin:0 0 32px;border-radius:18px}
+#view .enrollment-heading{grid-column:1/-1;display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:20px;padding:28px 32px}
+#view .enrollment-heading>div{min-width:0}
+#view .enrollment-heading h2{font-size:24px;line-height:1.4}
+#view .enrollment-heading p:last-child{font-size:14px;line-height:1.7;margin-top:8px}
+#view .enrollment-badge{font-size:12px;line-height:1.5;white-space:normal}
+#view .enrollment-courses{grid-template-columns:minmax(0,1fr);align-content:start;gap:18px;padding:32px}
+#view .enrollment-course{padding:24px;gap:18px;align-items:flex-start;background:#f8fafc}
+#view .enrollment-course>div:last-child{min-width:0}
+#view .enrollment-course small{font-size:10px;line-height:1.6}
+#view .enrollment-course h3{font-size:18px;line-height:1.6;margin:8px 0 16px;overflow-wrap:anywhere}
+#view .enrollment-course span{display:inline-flex;align-items:center;gap:7px;font-size:12px;line-height:1.7}
+#view .enrollment-footer{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:22px;padding:32px;border-top:0;border-left:1px solid #e5ebf2;background:#fff}
+#view .enrollment-footer>div{flex:0 1 auto}
+#view .enrollment-footer strong{font-size:16px;line-height:1.5}
+#view .enrollment-footer p{font-size:14px;line-height:1.85;margin:12px 0 0;max-width:48ch}
+#view .enrollment-footer button{min-height:44px;padding:12px 18px;font-size:13px;white-space:normal}
+#view .enrollment-help{grid-column:1/-1;padding:20px 32px;font-size:14px;line-height:1.85;background:#fafbfd}
+#view .enrollment-help summary{padding:3px 0}
+#view .enrollment-help ol{display:grid;gap:12px;margin:20px 0;padding-left:24px}
+#view .enrollment-help p{max-width:80ch}
+@media(max-width:1100px){#view .enrollment-heading{grid-template-columns:48px minmax(0,1fr)}#view .enrollment-badge{grid-column:2;justify-self:start}#view .enrollment-status{grid-template-columns:minmax(0,1fr)}#view .enrollment-footer{border-left:0;border-top:1px solid #e5ebf2;padding-top:24px}#view .enrollment-footer p{max-width:70ch}}
+@media(max-width:600px){#campus .campus-content:has(.courses-page-heading){width:100%;margin:16px 0;padding:0 16px}#view .courses-page-heading{margin-bottom:24px;gap:16px}#view .courses-page-heading h1{font-size:28px}#view .enrollment-heading{padding:24px 20px;gap:14px;grid-template-columns:38px minmax(0,1fr)}#view .enrollment-icon{width:38px;height:38px;font-size:20px}#view .enrollment-heading h2{font-size:20px}#view .enrollment-heading p:last-child{font-size:13px}#view .enrollment-courses,#view .enrollment-footer{padding:24px 20px}#view .enrollment-course{padding:20px 16px;gap:12px}#view .enrollment-course h3{font-size:16px}#view .enrollment-help{padding:18px 20px}#view .enrollment-footer button{width:100%}}
+
+/* Identidad del portal academico. */
+#campus .welcome-banner{padding:32px 36px;border-radius:12px;background:#142d4e;border-left:4px solid #b78a37;color:#fff;margin-bottom:24px}
+#campus .welcome-banner h1{font-size:34px;line-height:1.25;color:#fff;margin:12px 0}
+#campus .welcome-banner p{max-width:72ch;line-height:1.8;color:#d8e2ee;font-size:14px}
+#campus .welcome-banner .eyebrow{color:#e4c58b;font-size:11px;letter-spacing:2px}
+#view .academic-shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:24px 0 32px}
+#view .academic-shortcuts button{display:flex;align-items:center;text-align:left;gap:14px;padding:22px 18px;background:#fff;border:1px solid #dce4ed;border-radius:10px;color:#142d4e;min-width:0;box-shadow:0 3px 12px #142d4e04}
+#view .academic-shortcuts button:hover{border-color:#b78a37;background:#faf8f3}
+#view .academic-shortcuts button>i:first-child{font-size:24px;color:#8a682b}
+#view .academic-shortcuts button>i:last-child{margin-left:auto;font-size:12px;color:#7b899c}
+#view .academic-shortcuts strong,#view .academic-shortcuts small{display:block;line-height:1.5}
+#view .academic-shortcuts strong{font-size:14px}
+#view .academic-shortcuts small{font-size:11px;color:#6d7c8f;margin-top:5px;font-weight:400}
+#view .academic-enrollments{margin:28px 0}
+#view .academic-pending-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,310px),1fr));gap:24px}
+#view .academic-pending-card{min-width:0;border:1px solid #dce4ed;border-radius:12px;overflow:hidden;background:#fff}
+#view .academic-course-art{height:130px;background:linear-gradient(120deg,#183b60,#285878);display:flex;flex-direction:column;justify-content:center;padding:26px;gap:15px;color:#e4c58b;border-bottom:3px solid #b78a37}
+#view .academic-course-art i{font-size:34px}
+#view .academic-course-art span{font-size:10px;letter-spacing:2px;color:#e0e8f1}
+#view .academic-pending-body{padding:24px}
+#view .academic-pending-body h3{font-size:19px;color:#142d4e;line-height:1.5;margin:18px 0 12px}
+#view .academic-pending-body details{border-top:1px solid #e5ebf2;margin-top:20px;padding-top:18px;font-size:13px;line-height:1.8;color:#637185}
+#view .academic-pending-body summary{cursor:pointer;font-weight:600;color:#294d72}
+#view .academic-pending-body details p{margin:16px 0}
+#view .academic-pending-body details button{margin-top:8px}
+#view .course-grid{gap:24px;margin-bottom:32px}
+#view .course-body{padding:24px}
+#view .course-body h3{font-size:20px;line-height:1.5}
+#view .course-body>p{line-height:1.8}
+#view .section-heading h2{font-size:21px;letter-spacing:-.4px}
+#campus .sidebar-note{background:transparent;border-color:#ffffff24;line-height:1.8}
+@media(max-width:1200px){#view .academic-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){#campus .welcome-banner{padding:26px 22px}#campus .welcome-banner h1{font-size:28px}#view .academic-shortcuts{gap:10px;margin:20px 0 26px}#view .academic-shortcuts button{padding:16px 12px;gap:10px}#view .academic-shortcuts button>i:first-child{font-size:19px}#view .academic-shortcuts button>i:last-child{display:none}#view .academic-shortcuts strong{font-size:12px}#view .academic-shortcuts small{font-size:10px}#view .academic-pending-body{padding:22px}}
+
+/* Portada sin franjas laterales ni fondo a todo el ancho */
+#view .course-hero{width:fit-content;max-width:100%;margin:18px auto;background:transparent;border-radius:10px;overflow:hidden}#view .course-hero img{display:block;width:auto;height:auto;max-width:100%;max-height:300px;object-fit:contain;margin:0;padding:0;border-radius:10px}
+
+/* Espacios independientes del aula, a partir de la referencia visual facilitada. */
+#campus .classroom-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:30px 0 48px}
+#campus .classroom-tile{display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-height:200px;padding:24px;border:0;border-top:5px solid #b78a37;border-radius:4px;background:linear-gradient(145deg,#142d4e,#203f63);color:white;box-shadow:0 3px 8px #142d4e25;cursor:pointer}
+#campus .classroom-tile:hover{background:#294d74;transform:translateY(-2px)}
+#campus .classroom-tile:focus-visible{outline:3px solid #b78a37;outline-offset:4px}
+#campus .classroom-tile>i{font-size:28px;color:#e4c58b;margin-bottom:18px}
+#campus .classroom-tile strong{font-size:19px;line-height:1.4}
+#campus .classroom-tile span{font-size:12px;line-height:1.7;color:#dbe5ef;margin:9px 0 20px}
+#campus .classroom-tile small{margin-top:auto;color:#e4c58b;font-size:11px}
+#campus .course-hero:empty{display:none}
+@media(max-width:1100px){#campus .classroom-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:750px){#campus .classroom-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){#campus .classroom-tiles{grid-template-columns:1fr}}
+
+/* Navegacion superior y aula amplia para el estudiante. */
+body:has(#campus[data-role="estudiante"]:not([hidden])){padding-top:calc(var(--campus-header-height) + 58px)}
+html:has(#campus[data-role="estudiante"]){scroll-padding-top:calc(var(--campus-header-height) + 74px)}
+#campus.campus-layout[data-role="estudiante"]{grid-template-columns:minmax(0,1fr);padding:0}
+#campus[data-role="estudiante"] .campus-sidebar{display:block!important;position:fixed;inset:var(--campus-header-height) 0 auto;width:100%;height:58px;max-height:none;padding:0 28px;overflow:hidden;background:#142d4e;border:0;box-shadow:0 2px 5px #142d4e20}
+#campus[data-role="estudiante"] .campus-sidebar .session-role,#campus[data-role="estudiante"] .sidebar-note,#campus[data-role="estudiante"] .mobile-menu-toggle{display:none}
+#campus[data-role="estudiante"] .campus-sidebar nav{display:flex!important;flex-direction:row;align-items:stretch;flex-wrap:nowrap;gap:8px;height:58px;padding:0;overflow-x:auto;overflow-y:hidden}
+#campus[data-role="estudiante"] .campus-sidebar nav button{flex:0 0 auto;width:auto;min-height:44px;margin:0;padding:12px 18px;white-space:nowrap;text-align:center;border:0;border-bottom:3px solid transparent;border-radius:0;font-size:13px;color:#e6edf5;background:transparent}
+#campus[data-role="estudiante"] .campus-sidebar nav button[aria-current="page"]{color:#fff;border-bottom-color:#e4c58b;background:#ffffff0c}
+#campus[data-role="estudiante"] .campus-content,#campus[data-role="estudiante"] .campus-content:has(.courses-page-heading){grid-column:1;width:calc(100% - 64px);max-width:1440px;margin:28px auto;padding:0}
+body:has(#campus[data-role="estudiante"]:not([hidden])) .campus-footer{margin-left:0}
+@media(max-width:750px){
+ #campus[data-role="estudiante"] .campus-sidebar{padding:0 8px}
+ #campus[data-role="estudiante"] .campus-sidebar nav{gap:0}
+ #campus[data-role="estudiante"] .campus-sidebar nav button{padding:12px;font-size:12px}
+ #campus[data-role="estudiante"] .campus-content,#campus[data-role="estudiante"] .campus-content:has(.courses-page-heading){width:calc(100% - 28px);margin:18px auto}
+}

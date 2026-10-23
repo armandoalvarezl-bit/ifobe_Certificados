@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#041f48">
+  <title>Notas y avance | IFOBE</title>
+  <link rel="icon" data-ifobe-imagen="icono">
+  <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="gen10.css?v=notas-ancho-total-22">
+  <link rel="stylesheet" href="gen10-institucional.css?v=banner-inicio-48">
+  <link rel="stylesheet" href="gen10-acceso.css?v=guia-institucional-4">
+  <script src="inscripcion-config.js?v=banner-48" defer></script>
+  <script src="gen10-archivos.js?v=paginas-38" defer></script>
+  <script src="vendor/jspdf.umd.min.js" defer></script>
+  <script src="gen10-pdf.js" defer></script>
+  <script src="gen10-perfil.js" defer></script>
+  <script src="gen10-soporte.js?v=compacto-40" defer></script>
+  <script src="gen10-expedientes.js?v=paginas-38" defer></script>
+  <script src="gen10-rutas.js?v=aula-tarjetas-51" defer></script>
+  <script src="gen10.js?v=avisos-sonido-52" defer></script>
+  <script src="gen10-slider.js?v=banner-48" defer></script>
+  <script src="gen10-menu.js" defer></script>
+<link rel="stylesheet" href="ajustes-interfaz.css?v=44"></head>
+
+<body data-campus-page="seguimiento">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="campus-top">
+    <a class="campus-brand" href="gen10.html" aria-label="Gen10 IFOBE, inicio"><img data-ifobe-imagen="logo"
+        alt=""><span>Gen<span class="brand-ten">10</span><small>EL CAMPUS DE IFOBE</small></span></a>
+    <span class="top-caption"></span>
+    <div id="account" hidden><span id="accountName"></span>
+      <details id="notifications" class="notification-menu">
+        <summary aria-label="Notificaciones"><i class="bi bi-bell" aria-hidden="true"></i><span id="notificationCount"
+            hidden></span></summary>
+        <div class="notification-dropdown"><strong>Mis avisos</strong>
+          <div id="notificationList"></div>
+        </div>
+      </details><button id="accountProfile" class="account-profile" type="button" data-view="perfil"
+        aria-label="Abrir mi perfil" title="Mi perfil"><span class="profile-avatar profile-placeholder"><i
+            class="bi bi-person" aria-hidden="true"></i></span></button><button id="logout" class="quiet"
+        type="button">Salir <i class="bi bi-box-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </header>
+  <div id="notice" class="notice" role="status" aria-live="polite" tabindex="-1" hidden></div>
+  <main id="contenido">
+    <section id="access" hidden class="access-layout" aria-labelledby="accessTitle">
+      <div class="access-story">
+        <div class="access-institute"><img class="institute-logo" data-ifobe-imagen="logo" width="500" height="500"
+            alt="Escudo del Instituto IFOBE">
+          <div><strong>INSTITUTO IFOBE</strong><span>PLATAFORMA ACADÉMICA INSTITUCIONAL</span></div>
+        </div>
+        <p class="eyebrow">BIENVENIDO A TU</p>
+        <h1 id="accessTitle">Campus Virtual<br><em>Gen10</em></h1>
+        <p>Tu espacio de aprendizaje, donde la educación y la tecnología se unen para potenciar tu futuro profesional.
+        </p>
+        <ul class="access-capabilities">
+          <li><i class="bi bi-mortarboard" aria-hidden="true"></i>
+            <div><strong>Cursos y recursos académicos</strong><small>Accede a tus asignaturas, materiales y
+                actividades.</small></div>
+          </li>
+          <li><i class="bi bi-calendar-check" aria-hidden="true"></i>
+            <div><strong>Actividades y entregas</strong><small>Gestiona tus tareas y evaluaciones.</small></div>
+          </li>
+          <li><i class="bi bi-bar-chart" aria-hidden="true"></i>
+            <div><strong>Calificaciones y avance</strong><small>Consulta tu progreso académico.</small></div>
+          </li>
+        </ul>
+        <div class="story-footer"><span>INSTITUTO IFOBE</span><span>Docente · Alumno · Administración</span></div>
+      </div>
+      <div class="access-form">
+        <div class="access-identity">
+          <div><span>GEN10</span>
+            <p>Campus académico · Instituto IFOBE</p>
+          </div>
+          <img class="access-guide" src="img/gen10-guia.svg" width="88" height="88" alt="" aria-hidden="true">
+        </div>
+        <p class="eyebrow">ACCESO INSTITUCIONAL</p>
+        <h2 id="accessFormTitle">Iniciar sesión</h2>
+        <p id="accessHelp">Ingresa con tu correo y la contraseña que creaste al activar tu cuenta.</p>
+        <form id="loginForm">
+          <label for="loginEmail">Correo electrónico registrado</label><input id="loginEmail" name="username"
+            type="email" autocomplete="username" placeholder="nombre@correo.com" maxlength="150" required>
+          <label for="loginPassword">Contraseña</label>
+          <div class="password-field"><input id="loginPassword" name="password" type="password"
+              autocomplete="current-password" minlength="12" maxlength="128" required><button type="button"
+              class="password-toggle" data-password="loginPassword" aria-label="Mostrar contraseña"
+              aria-pressed="false">Mostrar</button></div>
+          <button type="submit"><i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Iniciar sesión</button>
+          <button id="recoverPassword" class="quiet" type="button">Olvidé mi contraseña</button>
+          <details id="activationOptions" class="activation-options">
+            <summary>¿Es tu primer ingreso?</summary>
+            <p>Activa tu cuenta una sola vez para crear tu contraseña. Tu correo debe estar habilitado por IFOBE.</p>
+            <button id="activateAccount" class="quiet" type="button">Activar mi cuenta</button>
+          </details>
+        </form>
+        <form id="requestCode" hidden><label for="email">Tu correo electrónico</label><input id="email" name="email"
+            type="email" autocomplete="email" placeholder="nombre@correo.com" maxlength="150" required><button
+            type="submit">Recibir código único <i class="bi bi-arrow-right" aria-hidden="true"></i></button><button
+            id="backToLogin" class="quiet" type="button">Volver al inicio de sesión</button></form>
+        <form id="verifyCode" hidden>
+          <label for="code">Código único recibido por correo</label><input id="code" name="code"
+            autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" placeholder="8 caracteres"
+            pattern="[A-Fa-f0-9]{8}" minlength="8" maxlength="8" required aria-describedby="codeHelp">
+          <p id="codeHelp" class="hint">Válido durante 10 minutos. Utiliza el último código recibido para crear tu
+            contraseña.</p>
+          <label for="newPassword">Nueva contraseña</label>
+          <div class="password-field"><input id="newPassword" name="newPassword" type="password"
+              autocomplete="new-password" minlength="12" maxlength="128" required
+              aria-describedby="passwordHelp"><button type="button" class="password-toggle" data-password="newPassword"
+              aria-label="Mostrar contraseña" aria-pressed="false">Mostrar</button></div>
+          <p id="passwordHelp" class="hint">Entre 12 y 128 caracteres. Puedes usar una frase que recuerdes.</p>
+          <label for="confirmPassword">Repite la contraseña</label>
+          <div class="password-field"><input id="confirmPassword" name="confirmPassword" type="password"
+              autocomplete="new-password" minlength="12" maxlength="128" required><button type="button"
+              class="password-toggle" data-password="confirmPassword" aria-label="Mostrar contraseña"
+              aria-pressed="false">Mostrar</button></div>
+          <button type="submit">Guardar contraseña y entrar</button><button id="changeEmail" class="quiet"
+            type="button">Cambiar correo o pedir otro código</button><button id="cancelActivation" class="quiet"
+            type="button">Ya tengo contraseña: iniciar sesión</button>
+        </form>
+        <div class="access-note"><i class="bi bi-envelope-check" aria-hidden="true"></i>
+          <p>Un solo inicio de sesión para Docente, Alumno y Administración. Tu cuenta determina el rol y las opciones disponibles. Si tu correo no está habilitado,
+            contacta a Coordinación Académica.</p>
+        </div>
+        <p class="admissions-link">¿Aún no eres parte de IFOBE? <a href="inscripcion.html">Solicita tu inscripción ↗</a>
+        </p>
+      </div>
+    </section>
+    <section id="campus" class="campus-layout" hidden aria-label="Mi campus">
+      <aside class="campus-sidebar">
+        <div class="session-role"><strong id="sessionRole">Mi acceso</strong><span id="sessionRoleDescription"></span></div><button type="button" id="mobileMenuToggle" class="mobile-menu-toggle"
+          aria-expanded="false" aria-controls="campusNavigation"><span><i class="bi bi-list" aria-hidden="true"></i>
+            Menú</span><span id="mobileMenuLabel">Mi inicio</span><i class="bi bi-chevron-down"
+            aria-hidden="true"></i></button>
+        <nav id="campusNavigation" aria-label="Campus"><button type="button" id="profileNav" data-view="perfil"><i
+              class="bi bi-person" aria-hidden="true"></i> Mi perfil</button><button type="button" id="studentDataNav"
+            data-view="expediente" hidden><i class="bi bi-folder" aria-hidden="true"></i> Datos y documentos del
+            alumno</button><button type="button" data-view="inicio"><i class="bi bi-grid" aria-hidden="true"></i> Mi
+            inicio</button><button type="button" data-view="cursos"><i class="bi bi-collection" aria-hidden="true"></i>
+            Mis cursos</button><button
+            type="button" data-view="soporte"><i class="bi bi-headset" aria-hidden="true"></i> Soporte
+            web</button><button type="button" id="adminNav" data-view="administracion" hidden><i class="bi bi-people"
+              aria-hidden="true"></i> Administración</button><div id="gestionUnificada" hidden><button type="button" data-view="certificados">Certificados</button><button type="button" data-view="matriculas">Matrículas</button><button type="button" data-view="estudiantes">Estudiantes</button><button type="button" data-view="registroNotas">Registro académico</button></div></nav>
+        <div class="sidebar-note"><i class="bi bi-lightbulb" aria-hidden="true"></i>
+          <p>Un sitio web.<br>Hecho en casa</p>
+        </div>
+      </aside>
+      <div class="campus-content">
+        <div class="campus-slider" aria-hidden="true"><img class="campus-banner-image" src="img/banner-gen10-aprendizaje.png" alt="" width="2103" height="748"></div>
+        <div class="workspace-bar"><span id="breadcrumb">Mi inicio</span><button type="button" class="quiet"
+            id="refresh"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i> Actualizar</button></div>
+        <div id="view"></div>
+      </div>
+    </section>
+  </main>
+  
+  <dialog id="editor" aria-labelledby="editorTitle">
+    <div class="dialog-heading">
+      <h2 id="editorTitle"></h2><button type="button" id="closeEditor" class="quiet" aria-label="Cerrar">✕</button>
+    </div>
+    <form id="editorForm">
+      <div id="editorFields"></div>
+      <p id="editorError" class="form-error" role="alert" hidden></p>
+      <div class="dialog-actions"><button type="submit" id="saveEditor">Guardar</button></div>
+    </form>
+  </dialog>
+  <dialog id="fileViewer" class="file-viewer" aria-labelledby="fileTitle">
+    <div class="dialog-heading">
+      <h2 id="fileTitle">Archivo</h2><button id="closeFile" class="quiet" type="button">Cerrar</button>
+    </div>
+    <div id="fileContent"></div>
+    <div class="dialog-actions"><a id="fileOpen" class="download-file" target="_blank" rel="noopener noreferrer"
+        hidden>Abrir en otra pestaña</a><a id="fileDownload" class="download-file" download hidden>Descargar archivo</a>
+    </div>
+  </dialog>
+  <dialog id="loadingDialog" class="loading-dialog" aria-labelledby="loadingTitle" aria-describedby="loadingMessage">
+    <div class="loading-spinner" aria-hidden="true"></div>
+    <h2 id="loadingTitle">Un momento</h2>
+    <p id="loadingMessage" role="status" aria-live="polite">Preparando tu campus…</p><span>Gen10 · Instituto
+      IFOBE</span>
+  </dialog>
+  <dialog id="welcomeDialog" class="welcome-dialog" aria-labelledby="welcomeTitle"
+    aria-describedby="welcomeDescription">
+    <div class="welcome-brand"><img src="img/Logogen10.png" alt="Instituto IFOBE"><span>GEN10 · INSTITUTO IFOBE</span>
+    </div>
+    <div class="welcome-body">
+      <p class="eyebrow">TU FORMACIÓN CONTINÚA AQUÍ</p>
+      <h2 id="welcomeTitle">Bienvenido a tu campus</h2>
+      <p id="welcomeName"></p>
+      <p id="welcomeDescription">Un espacio para aprender, compartir y avanzar. Encuentra tus cursos, consulta tus
+        actividades y sigue tus resultados desde el menú.</p>
+      <div class="welcome-tip"><i class="bi bi-person-circle" aria-hidden="true"></i><span>Hazlo tuyo: completa tus
+          datos y añade tu foto en <strong>Mi perfil</strong>.</span></div><button type="button" id="welcomeContinue"
+        autofocus>Comenzar <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </dialog>
+</body>
+
+</html>
