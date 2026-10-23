@@ -102,7 +102,7 @@ form.addEventListener('submit', async event => {
       ? ' Enviamos la confirmación al correo registrado. Revisa también la carpeta de spam.'
       : ' Tu inscripción quedó guardada, pero no se confirmó el envío del correo. Conserva este código.';
     document.getElementById('completionCode').textContent = result.solicitudId;
-    document.getElementById('completionDetail').textContent = mailNotice.trim();
+    document.getElementById('completionDetail').textContent = mailNotice.trim() + (result.whatsappEstado === 'Aceptado por Meta' ? ' La confirmación por WhatsApp está en proceso de envío.' : '');
     document.getElementById('completionDetail').dataset.mail = result.correoEnviado === true ? 'sent' : 'unconfirmed';
     statusBox.hidden = true;
     completion.hidden = false;

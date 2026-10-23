@@ -23,10 +23,7 @@
   function mensajePostGuardado(result) {
     if (result.correoEnviado) return 'Confirmación enviada al correo del estudiante.';
     const tecnico = String(result.correoMensaje || '');
-    if (/formato de n[uú]mero|number format|columna con texto/i.test(tecnico)) {
-      return 'Matrícula guardada. Revisa o completa el correo del estudiante para enviar la confirmación.';
-    }
-    return tecnico || 'La confirmación se envía al activar la matrícula.';
+    return tecnico || 'El servidor no informó el resultado del correo. Revisa que esté publicada la última versión de Apps Script.';
   }
   function opciones(select, values, placeholder) {
     select.replaceChildren();
@@ -76,7 +73,7 @@
       nota: matricula.notaFinal || separado.nota || '',
       estado: matricula.estadoAcademico || separado.estado || '',
       seguimiento: matricula.seguimientoAcademico || separado.seguimiento || '',
-      historial: Array.isArray(matricula.historialAcademico) ? matricula.historialAcademico : (separado.historial || [])
+      historial: Array.isArray(matricula.historialAcademico) && matricula.historialAcademico.length ? matricula.historialAcademico : (separado.historial || [])
     };
   }
   function datosAcademicosFormulario(previo = {}) {
@@ -87,17 +84,6 @@
       seguimiento: $('seguimientoAcademico').value.trim(),
       historial: Array.isArray(previo.historial) ? previo.historial : []
     };
-  }
-  function armarObservaciones(texto, academico) {
-    const limpio = {
-      ciclo: academico.ciclo || '',
-      nota: academico.nota || '',
-      estado: academico.estado || '',
-      seguimiento: academico.seguimiento || '',
-      historial: (academico.historial || []).slice(-8)
-    };
-    const tieneDatos = limpio.ciclo || limpio.nota || limpio.estado || limpio.seguimiento || limpio.historial.length;
-    return [texto.trim(), tieneDatos ? `${ACADEMIC_START}\n${JSON.stringify(limpio)}\n${ACADEMIC_END}` : ''].filter(Boolean).join('\n\n');
   }
   function renderHistorialAcademico(historial = []) {
     const box = $('historialAcademico');
@@ -242,13 +228,13 @@
   @page{size:letter;margin:14mm}
   *{box-sizing:border-box}
   body{margin:0;color:#10233d;font-family:Arial,Helvetica,sans-serif;background:white}
-  .sheet{position:relative;min-height:245mm;padding:24px 28px 34px;border:1.4px solid #10233d;overflow:hidden}
+  .sheet{position:relative;padding:16px 20px;border:1px solid #10233d;max-width:188mm;margin:auto;overflow-wrap:anywhere}
   .sheet::before{content:"";position:absolute;inset:12px;border:1px solid #d5dee9;pointer-events:none}
   .sheet>*{position:relative;z-index:1}
-  .top{display:grid;grid-template-columns:78px 1fr 170px;gap:16px;align-items:center;border-bottom:3px solid #10233d;padding:0 0 12px}
-  .logo{width:68px;height:68px;object-fit:contain;border:1px solid #d5dee9;border-radius:6px;padding:6px;background:#fff}
+  .top{display:grid;grid-template-columns:60px minmax(0,1fr) 135px;gap:12px;align-items:center;border-bottom:3px solid #10233d;padding:0 0 12px}
+  .logo{width:54px;height:54px;object-fit:contain;border:1px solid #d5dee9;border-radius:6px;padding:6px;background:#fff}
   .eyebrow{margin:0 0 5px;font-size:10px;letter-spacing:.18em;color:#7f5c1b;font-weight:800;text-transform:uppercase}
-  h1{margin:0;color:#10233d;font-family:Georgia,serif;font-size:25px}
+  h1{margin:0;color:#10233d;font-family:Georgia,serif;font-size:21px}
   .sub{margin:5px 0 0;color:#526172;font-size:12px}
   .code{border:1px solid #10233d;padding:9px 10px;text-align:left;background:#f8fafc}
   .code span{display:block;font-size:9px;color:#526172;text-transform:uppercase;letter-spacing:.12em}
@@ -261,26 +247,28 @@
   .stamp-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
   .stamp{border:1px solid #b78a37;color:#73531a;padding:6px 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;background:#fffaf0}
   .stamp.blue{border-color:#10233d;color:#10233d;background:#f8fafc}
-  .section{margin-top:14px;border:1px solid #d5dee9;overflow:hidden;background:#fff}
+  .section{margin-top:9px;border:1px solid #d5dee9;background:#fff}
   .section h2{margin:0;padding:9px 12px;background:#f1f5f9;color:#10233d;border-bottom:1px solid #d5dee9;font-size:11px;text-transform:uppercase;letter-spacing:.12em}
-  .grid{display:grid;grid-template-columns:1fr 1fr}
-  .pdf-row{min-height:52px;padding:11px 12px;border-top:1px solid #edf1f6;border-right:1px solid #edf1f6}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .pdf-row{min-width:0;break-inside:avoid;padding:7px 10px;border-top:1px solid #edf1f6;border-right:1px solid #edf1f6}
   .pdf-row:nth-child(2n){border-right:0}
   .pdf-row span{display:block;color:#697b8e;font-size:10px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
-  .pdf-row strong{display:block;color:#132b4a;font-size:14px;line-height:1.35}
-  .note{padding:12px;min-height:70px;color:#223a58;line-height:1.5;font-size:13px}
+  .pdf-row strong{display:block;color:#132b4a;font-size:12px;line-height:1.35;white-space:pre-wrap}
+  .note{padding:10px;white-space:pre-wrap;orphans:3;widows:3;color:#223a58;line-height:1.5;font-size:13px}
   .legal{margin:14px 0 0;padding:11px 13px;border-left:4px solid #b78a37;background:#f8fafc;color:#3d5067;line-height:1.45;font-size:12px}
-  .signatures{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;margin-top:48px}
+  .signatures{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:30px;break-inside:avoid}
   .sig{border-top:1px solid #10233d;text-align:center;padding-top:8px;color:#263b56;font-size:11px;min-height:34px}
-  .seal{position:absolute;right:42px;bottom:64px;width:96px;height:96px;border:2px solid #b78a37;border-radius:50%;display:grid;place-items:center;text-align:center;color:#8c651d;font-weight:800;font-size:10px;letter-spacing:.1em;opacity:.55}
-  .foot{position:absolute;left:28px;right:28px;bottom:18px;border-top:1px solid #d8e0ec;padding-top:8px;color:#6b7c8e;font-size:9.5px;text-align:center}
+  .seal{margin:12px 0 0;text-align:center;color:#8c651d;font-weight:800;font-size:9px;letter-spacing:.1em}
+  .foot{margin-top:10px;border-top:1px solid #d8e0ec;padding-top:8px;color:#6b7c8e;font-size:9.5px;text-align:center}
+  .closing{break-inside:avoid}.section h2{break-after:avoid}.top{break-inside:avoid}
+  .control{margin-top:9px}.stamp-row{margin:9px 0}.stamp{padding:4px 8px}.section h2{padding:6px 10px;font-size:10px}.pdf-row span{font-size:9px;margin-bottom:3px}.pdf-row{padding:5px 9px}.legal{margin-top:9px;padding:8px 10px;font-size:10px}.sub{font-size:10px}.code strong{font-size:10px}.sig{font-size:10px;min-height:24px}.note{font-size:11px}.signatures{margin-top:24px}
   @media print{.no-print{display:none}.sheet{border-color:#10233d}body{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style>
 </head>
 <body>
 <main class="sheet">
   <header class="top">
-    <img class="logo" src="img/Logogen10.png" alt="Logo IFOBE">
+    <img class="logo" src="${window.IFOBE_CONFIG.imagenes.logo}" alt="Logo IFOBE">
     <div>
       <p class="eyebrow">Secretaría Académica · Registro y Control</p>
       <h1>Ficha universitaria de matrícula</h1>
@@ -332,14 +320,14 @@
     <h2>Observaciones</h2>
     <div class="note">${limpiar(separarAcademico(matricula.observaciones || '').texto || 'Sin observaciones registradas.')}</div>
   </section>
-  <p class="legal">Esta ficha certifica el registro de matrícula del estudiante en la plataforma académica de IFOBE. Para cambios de datos personales, actualiza primero el expediente del alumno y vuelve a generar este documento.</p>
+  <div class="closing"><p class="legal">Esta ficha certifica el registro de matrícula del estudiante en la plataforma académica de IFOBE. Para cambios de datos personales, actualiza primero el expediente del alumno y vuelve a generar este documento.</p>
   <div class="signatures">
     <div class="sig">Admisiones y Registro</div>
     <div class="sig">Coordinación Académica</div>
     <div class="sig">Firma del estudiante</div>
   </div>
   <div class="seal">REGISTRO<br>ACADÉMICO<br>IFOBE</div>
-  <footer class="foot">IFOBE · Secretaría Académica · Ficha de matrícula generada desde el sistema institucional</footer>
+  <footer class="foot">IFOBE · Secretaría Académica · Ficha de matrícula generada desde el sistema institucional</footer></div>
 </main>
 <script>window.addEventListener('load',()=>setTimeout(()=>window.print(),250));<\/script>
 </body>
@@ -572,7 +560,7 @@
     payload.estadoAcademico = academico.estado;
     payload.seguimientoAcademico = academico.seguimiento;
     payload.historialAcademico = academico.historial;
-    payload.observaciones = armarObservaciones($('observaciones').value, academico);
+    payload.observaciones = $('observaciones').value.trim();
     const controls = [...$('formulario').elements], disabled = controls.map(c => c.disabled);
     controls.forEach(c => c.disabled = true);
     $('error').textContent = 'Guardando...';
@@ -583,7 +571,7 @@
       datos.matriculas.unshift(result.matricula);
       refrescar();
       $('editor').close();
-      aviso('Matrícula guardada. ' + mensajePostGuardado(result), result.matricula.estado === 'Activa' && !result.correoEnviado && !/formato de n[uú]mero|number format|columna con texto/i.test(String(result.correoMensaje || '')));
+      aviso('Matrícula guardada. ' + mensajePostGuardado(result), result.correoPendiente === true || (!result.correoEnviado && !result.correoMensaje));
     } catch (error) {
       $('error').textContent = error.message;
     } finally {

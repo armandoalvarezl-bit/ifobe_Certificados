@@ -34,7 +34,7 @@
 .admissions-page .back { border-radius:9px; color:white; background:#ffffff0a; border-color:#ffffff55; padding:14px 20px; }
 .admissions-page .back:hover { color:#ffcd63; background:#ffffff15; border-color:#ffcd63; }
 .admissions-page main { max-width:1200px; }
-.admissions-page .admissions-header { isolation:isolate; min-height:340px; padding:48px 52px; border-radius:20px; border:1px solid #174a86; border-bottom:6px solid #ffbf36; background:linear-gradient(100deg,#021a40 5%,#042757ee 58%,#063c78bb),url('img/login-study.jpg') center 55% / cover; box-shadow:0 18px 42px #082c6025; }
+.admissions-page .admissions-header { isolation:isolate; min-height:340px; padding:48px 52px; border-radius:20px; border:1px solid #174a86; border-bottom:6px solid #ffbf36; background:linear-gradient(100deg,#021a40 5%,#042757ee 58%,#063c78bb),var(--ifobe-fondo-acceso) center 55% / cover; box-shadow:0 18px 42px #082c6025; }
 .admissions-page .admissions-header::after { content:''; position:absolute; z-index:-1; inset:0; pointer-events:none; background:linear-gradient(125deg,transparent 65%,#ffffff06 65% 73%,transparent 73% 87%,#ffbd2e24 87% 89%,transparent 89%); }
 .admissions-page h1 { font-family:Inter,sans-serif; font-weight:700; font-size:clamp(36px,4.7vw,60px); letter-spacing:-.045em; line-height:1.07; margin-bottom:22px; }
 .admissions-page h1 em { font-style:normal; color:#ffc239; }

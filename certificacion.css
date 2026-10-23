@@ -13,7 +13,7 @@
 .certificates-home .workspace-nav button { color:#fff; background:#ffffff0b; border:1px solid #ffffff25; border-radius:24px; padding:11px 18px; white-space:nowrap; }
 .certificates-home .card-shell { display:grid; grid-template-columns:250px minmax(0,1fr) 310px; gap:0; min-height:calc(100svh - 128px); overflow:hidden; border:1px solid var(--cert-line); border-top:0; border-radius:0 0 18px 18px; background:linear-gradient(115deg,#edf4fb,#fff); box-shadow:0 16px 40px #12366b10; }
 .cert-sidebar { display:flex; flex-direction:column; position:relative; isolation:isolate; padding:24px 10px 22px; background:linear-gradient(145deg,#052759,#021a3e); color:#fff; }
-.cert-sidebar::before { content:''; position:absolute; z-index:-1; inset:180px -20px 120px; background:url('img/Logogen10.png') center / 390px no-repeat; filter:brightness(0) invert(1); opacity:.07; pointer-events:none; }
+.cert-sidebar::before { content:''; position:absolute; z-index:-1; inset:180px -20px 120px; background:var(--ifobe-logo) center / 390px no-repeat; filter:brightness(0) invert(1); opacity:.07; pointer-events:none; }
 .cert-sidebar nav { display:grid; gap:10px; }
 .cert-sidebar nav a { display:flex; align-items:center; gap:13px; color:#fff; padding:12px 14px; min-height:48px; text-decoration:none; font-size:12px; border-left:3px solid transparent; border-radius:0 9px 9px 0; }
 .cert-sidebar nav a span { font-size:25px; line-height:1; }
