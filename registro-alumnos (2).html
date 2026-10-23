@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="icon" type="image/png" data-ifobe-imagen="icono">
     <script src="inscripcion-config.js"></script>
+<script src="acceso-unificado.js?v=45"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registro de Alumnos · IFOBE</title>
@@ -442,7 +444,7 @@
     <script src="portal-shell.js" defer></script>
 <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
 <link rel="stylesheet" href="estudiantes.css">
-</head>
+<link rel="stylesheet" href="ajustes-interfaz.css?v=44"></head>
 <body class="campus-registry portal-page" data-portal-page="estudiantes">
 
 <div class="envoltura">
@@ -450,17 +452,12 @@
 
   <header class="marca">
     <div class="escudo">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAYAAADL1t+KAAAAAXNSR0IArs4c6QAAIABJREFUeF7svQe45VV19runOb2eXqf3AmqwsBrTVdKENxDS9NVaCQY1SXVW9r9ObTLQjNyVFDkiaGRe9RQI9pBEeUiHhjKM8Mww/S1L+f/+9x1nHDh/DZ5Ta13z09zn/nfe7Y66/j//lTPTBOJqVrqjBBIQY2CACQyDnPGSNJdEjGpvS9v+n05VgHtiJmSJvR4KsCKcJgUOmyODFVzM+/9pOsi+96VtVjNBK1BFCiZfr8XxSk1BAlMD0RGAdt/6UYQNU/gJm+NRnZg5ryVvyxdvSyJbVn7dHFAgIm3IEIDMbQGwGZAipG+YJKmgTPBDBcQxUYtVFEpDDbIYYuZE0kBrAdRLZjEtnIWiZLtxZQjXFbEQTpNiFtEpQwjq4RhKPo6TN0WvEC1KwFYlOXhwoUt+vurr2Cfr6f7q/PQlS7VYyoK4hyIkgQoyxDyTqzWFylNa0jTGP7v+3+ta+/9UEfXktceI1Tf6/oI2G2AQqmA2LmYRy5tuBBTh0G9EMgU12WdxL2iEfkTfMchpuobqjSbTU1MvJHz/RzeD9qbrCG09E1x1SW1eMV5RSHhbnf3qKa2eYZimXG7bcpvgQ3GKIsjbBWzoRQMV3Qxr3wGYWWiuNaBnXfeWZ5vwaJXH0kkuVEo4/pcU3fbi7OeM9/72p3nrCzO3d21H2/60l+9tGvRe8+lybOVWiSFVSUxpsFRZ1a7Um7JrTL2VZ0eugxjjxRPvBEcCcxsHM5/mwSCzOHUL0FIFa7yg0oBu0aJ4jgggU9JCTBcE9hIsTuOJIWJIWpDkjKY1jEyz2CjyIY5oJlkYRUcQOl4ipfTBcuwUC1UwOm2Ry0RohcSHM/D0eDVsGm3aQTU7GNGoUMLaG8QpnHFJc0P3XvbeD5cCtGdc/pv9YuCC0jJ0PIYnU4A+CBGRJUFsCogMh8DhkMVzeH70A/n1jZeC/y2Y+eeM0YKn8jS2FeIUJckC9AI4jSAyDDNJlWvzXY1G45Pf/vY0O7CVKw2SzO4qkkgRJgIU8jjnAtEqjMlbmZI5DiPzuPLK7ptO1LFcyzxxHKPT6ThMWtCJAAAAAElFTkSuQmCC" alt="Logo Instituto IFOBE">
+      <img data-ifobe-imagen="logo" alt="Logo Instituto IFOBE">
     </div>
     <div class="titulo-bloque">
       <span class="eyebrow">Instituto de Formación · IFOBE</span>
       <h1>Centro de estudiantes</h1>
       <p>Consulta, agrega, edita o elimina alumnos habilitados para certificación.</p>
-    </div>
-    <div class="registry-hero-stamps" aria-hidden="true">
-      <span>BASE ACADÉMICA</span>
-      <strong>IFOBE</strong>
-      <small>Registro institucional</small>
     </div>
     <div class="cinta"></div>
   </header>
@@ -471,7 +468,7 @@
     <a href="home.html"><span class="summary-icon"><i class="bi bi-patch-check" aria-hidden="true"></i></span><div><p>Certificaciones</p><strong class="summary-action">Emitir un documento <i class="bi bi-arrow-right" aria-hidden="true"></i></strong><small>Ir al centro de certificación</small></div></a>
   </section>
   <section class="student-directory" aria-labelledby="directoryTitle">
-  <div class="directory-heading"><div><p>GESTIÓN ACADÉMICA</p><h2 id="directoryTitle">Base de datos de alumnos</h2><span>Expediente institucional con documento, nombre y acciones académicas.</span></div><div class="directory-seal" aria-hidden="true">REGISTRO<br>IFOBE</div><button type="button" class="btn btn-fantasma" onclick="cargarAlumnos()"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i> Actualizar</button></div>
+  <div class="directory-heading"><div><p>GESTIÓN ACADÉMICA</p><h2 id="directoryTitle">Directorio de estudiantes</h2><span>Busca por nombre o documento y gestiona su información.</span></div><button type="button" class="btn btn-fantasma" onclick="cargarAlumnos()"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i> Actualizar</button></div>
   <div class="barra">
     <div class="buscador">
       <i class="bi bi-search" aria-hidden="true"></i>
@@ -479,7 +476,7 @@
     </div>
     <div style="display:flex; align-items:center; gap:18px;">
       <span class="contador" id="contador">Cargando…</span>
-      <button type="button" class="btn btn-primario" id="btnAgregar">
+      <button class="btn btn-primario" id="btnAgregar">
         <i class="bi bi-person-plus" aria-hidden="true"></i>
         Agregar alumno
       </button>
@@ -489,11 +486,9 @@
   <div class="ledger">
     <div class="ledger-cabecera">
       <span>#</span>
-      <span>Documento</span>
-      <span>Estudiante</span>
-      <span>Correo institucional</span>
-      <span>Programa</span>
-      <span>Acciones</span>
+      <span>Cédula</span>
+      <span>Nombre</span>
+      <span></span>
     </div>
     <div id="cuerpoTabla"></div>
   </div>
@@ -523,8 +518,8 @@
     <div class="campo"><label for="inputCorreo">Correo del estudiante</label><input type="email" id="inputCorreo" required placeholder="estudiante@correo.com"></div>
     <div class="campo"><label for="programa">Programa académico</label><select id="programa" required disabled><option value="">Cargando programas…</option></select><p id="programasEstado" role="status"></p><button type="button" onclick="cargarProgramas()">Actualizar programas</button></div>
     <div class="modal-acciones">
-      <button type="button" class="btn btn-fantasma" id="btnCancelarFormulario">Cancelar</button>
-      <button type="button" class="btn btn-primario" id="btnGuardar">Guardar</button>
+      <button class="btn btn-fantasma" id="btnCancelarFormulario">Cancelar</button>
+      <button class="btn btn-primario" id="btnGuardar">Guardar</button>
     </div>
   </div>
 </div>
@@ -537,17 +532,9 @@
     <p>¿Seguro que deseas eliminar a</p>
     <p class="nombre-confirmar" id="nombreAEliminar"></p>
     <div class="modal-acciones" style="justify-content:center;">
-      <button type="button" class="btn btn-fantasma" id="btnCancelarEliminar">Cancelar</button>
-      <button type="button" class="btn btn-peligro" id="btnConfirmarEliminar">Sí, eliminar</button>
+      <button class="btn btn-fantasma" id="btnCancelarEliminar">Cancelar</button>
+      <button class="btn btn-peligro" id="btnConfirmarEliminar">Sí, eliminar</button>
     </div>
-  </div>
-</div>
-
-<div class="fondo-modal loading-modal" id="fondoCarga" aria-live="polite" aria-hidden="true">
-  <div class="modal cargar">
-    <div class="loading-mark"><i class="bi bi-database-check" aria-hidden="true"></i></div>
-    <h2>Cargando base de alumnos</h2>
-    <p id="textoCarga">Consultando expedientes académicos…</p>
   </div>
 </div>
 
@@ -565,8 +552,6 @@
   const toasts        = document.getElementById('toasts');
 
   const fondoFormulario   = document.getElementById('fondoFormulario');
-  const fondoCarga        = document.getElementById('fondoCarga');
-  const textoCarga        = document.getElementById('textoCarga');
   const tituloFormulario  = document.getElementById('tituloFormulario');
   const subtituloFormulario = document.getElementById('subtituloFormulario');
   const inputCedula   = document.getElementById('inputCedula');
@@ -580,9 +565,6 @@
   const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
 
   let alumnos = {};          // { cedula: nombre }
-  let alumnoDetalles = {};   // { cedula: { correo, programa } }
-  let matriculasPorCedula = {}; // { cedula: programa }
-  let detallesSolicitud = 0;
   let cedulaEnEdicion = null; // null = modo agregar
   let cedulaAEliminar = null;
 
@@ -594,38 +576,12 @@
     toasts.appendChild(el);
     setTimeout(() => el.remove(), 3200);
   }
-  function abrirModal(modal) {
-    modal.hidden = false;
-    modal.removeAttribute('aria-hidden');
-    modal.classList.add('activo');
-  }
-  function cerrarModal(modal) {
-    modal.classList.remove('activo');
-    modal.setAttribute('aria-hidden', 'true');
-  }
-  function mostrarCarga(mensaje) {
-    textoCarga.textContent = mensaje || 'Consultando expedientes académicos…';
-    abrirModal(fondoCarga);
-  }
-  function ocultarCarga() {
-    cerrarModal(fondoCarga);
-  }
 
   // Evita inyectar HTML/JS al insertar datos de alumnos en el DOM.
   function escaparHTML(texto) {
     const div = document.createElement('div');
     div.textContent = String(texto ?? '');
     return div.innerHTML;
-  }
-  function detalleAlumnoLocal(cedula) {
-    const detalle = alumnoDetalles[cedula] || {};
-    return {
-      correo: detalle.correo || '',
-      programa: detalle.programa || matriculasPorCedula[cedula] || ''
-    };
-  }
-  function valorExpediente(valor) {
-    return valor ? escaparHTML(valor) : '<span class="pending-data">Pendiente por completar</span>';
   }
 
   // Se envía como text/plain a propósito: evita el preflight CORS
@@ -652,8 +608,6 @@
         <span></span>
         <span class="esqueleto" style="width:70%"></span>
         <span class="esqueleto" style="width:50%"></span>
-        <span class="esqueleto" style="width:60%"></span>
-        <span class="esqueleto" style="width:56%"></span>
         <span></span>`;
       cuerpoTabla.appendChild(fila);
     }
@@ -662,13 +616,8 @@
   function renderTabla() {
     const filtro = buscarInput.value.trim().toLowerCase();
     const entradas = Object.entries(alumnos)
-      .filter(([cedula, nombre]) => {
-        const detalle = detalleAlumnoLocal(cedula);
-        return cedula.toLowerCase().includes(filtro)
-          || nombre.toLowerCase().includes(filtro)
-          || String(detalle.correo || '').toLowerCase().includes(filtro)
-          || String(detalle.programa || '').toLowerCase().includes(filtro);
-      })
+      .filter(([cedula, nombre]) =>
+        cedula.toLowerCase().includes(filtro) || nombre.toLowerCase().includes(filtro))
       .sort((a, b) => a[1].localeCompare(b[1], 'es'));
 
     document.getElementById('studentTotal').textContent = Object.keys(alumnos).length;
@@ -687,27 +636,19 @@
 
     cuerpoTabla.innerHTML = '';
     entradas.forEach(([cedula, nombre], i) => {
-      const detalle = detalleAlumnoLocal(cedula);
       const cedulaSegura = escaparHTML(cedula);
       const nombreSeguro = escaparHTML(nombre);
-      const correoSeguro = valorExpediente(detalle.correo);
-      const programaSeguro = valorExpediente(detalle.programa);
 
       const fila = document.createElement('div');
       fila.className = 'fila';
       fila.innerHTML = `
         <span class="num">${String(i + 1).padStart(2, '0')}</span>
         <span class="cedula">${cedulaSegura}</span>
-        <span class="nombre"><span class="student-avatar" aria-hidden="true">${escaparHTML(nombre.trim().slice(0, 1).toUpperCase())}</span><span class="student-name-block"><strong>${nombreSeguro}</strong><small>Expediente académico</small></span></span>
-        <span class="correo">${correoSeguro}</span>
-        <span class="programa">${programaSeguro}</span>
+        <span class="nombre"><span class="student-avatar" aria-hidden="true">${escaparHTML(nombre.trim().slice(0, 1).toUpperCase())}</span><span>${nombreSeguro}</span></span>
         <span class="acciones">
           <button class="icono-btn" title="Editar" aria-label="Editar a ${nombreSeguro}" data-editar="${cedulaSegura}">
             <i class="bi bi-pencil-square" aria-hidden="true"></i>
           </button>
-          <a class="icono-btn" title="Matrículas" aria-label="Ver matrículas de ${nombreSeguro}" href="matriculas.html">
-            <i class="bi bi-journal-check" aria-hidden="true"></i>
-          </a>
           <button class="icono-btn peligro" title="Eliminar" aria-label="Eliminar a ${nombreSeguro}" data-eliminar="${cedulaSegura}">
             <i class="bi bi-trash3" aria-hidden="true"></i>
           </button>
@@ -727,64 +668,20 @@
       btn.addEventListener('click', (e) => { e.stopPropagation(); abrirConfirmarEliminar(btn.dataset.eliminar); }));
   }
 
-  async function cargarDetallesAlumnos(cedulas) {
-    const numero = ++detallesSolicitud;
-    const pendientes = cedulas.filter(cedula => !alumnoDetalles[cedula]);
-    for (let i = 0; i < pendientes.length; i += 6) {
-      textoCarga.textContent = `Completando expedientes ${Math.min(i + 6, pendientes.length)} de ${pendientes.length}…`;
-      const lote = pendientes.slice(i, i + 6);
-      const resultados = await Promise.all(lote.map(async cedula => {
-        try {
-          const data = await llamarAPI({accion:'detalleAlumno', cedula});
-          return data.ok && data.alumno ? [cedula, {correo:data.alumno.correo || '', programa:data.alumno.programa || ''}] : [cedula, {correo:'', programa:''}];
-        } catch {
-          return [cedula, {correo:'', programa:''}];
-        }
-      }));
-      if (numero !== detallesSolicitud) return;
-      resultados.forEach(([cedula, detalle]) => { alumnoDetalles[cedula] = detalle; });
-      renderTabla();
-    }
-  }
-
-  async function cargarResumenMatriculas() {
-    try {
-      const data = await llamarAPI({accion:'gestionMatriculas'});
-      if (!data.ok || !Array.isArray(data.matriculas)) return;
-      const prioridad = {Activa: 4, Pendiente: 3, Finalizada: 2, Cancelada: 1};
-      const elegidas = {};
-      data.matriculas.forEach(m => {
-        if (!m?.cedula || !m?.programa) return;
-        const cedula = String(m.cedula);
-        const peso = prioridad[m.estado] || 0;
-        if (!elegidas[cedula] || peso > elegidas[cedula].peso) elegidas[cedula] = {programa:m.programa, peso};
-      });
-      matriculasPorCedula = Object.fromEntries(Object.entries(elegidas).map(([cedula, item]) => [cedula, item.programa]));
-      renderTabla();
-    } catch {
-      matriculasPorCedula = {};
-    }
-  }
-
   // ---------- carga ----------
   async function cargarAlumnos() {
-    mostrarCarga('Consultando la base de datos de alumnos…');
     document.getElementById('studentTotal').textContent = '—';
     document.getElementById('studentMatches').textContent = '—';
     document.getElementById('studentFilter').textContent = 'Consultando el registro…';
     renderCargando();
     contador.textContent = 'Cargando…';
     try {
-      const resp = await fetch(`${API_URL}?accion=alumnos`);
+      const resp = await fetch(`${API_URL}?accion=alumnos&token=${encodeURIComponent(sessionStorage.getItem('gen10Sesion')||'')}`);
       if (!resp.ok) throw new Error(`El servidor respondió con error (${resp.status}).`);
       const data = await resp.json();
       if (!data.ok) throw new Error(data.mensaje || 'Error al cargar');
       alumnos = data.alumnos || {};
-      alumnoDetalles = {};
-      matriculasPorCedula = {};
       renderTabla();
-      await cargarResumenMatriculas();
-      await cargarDetallesAlumnos(Object.keys(alumnos));
     } catch (err) {
       cuerpoTabla.innerHTML = `
         <div class="vacio">
@@ -794,8 +691,6 @@
       contador.textContent = '—';
       document.getElementById('studentFilter').textContent = 'No se pudo actualizar';
       mostrarToast('No se pudo cargar el registro de alumnos.', 'error');
-    } finally {
-      ocultarCarga();
     }
   }
 
@@ -824,7 +719,7 @@
       inputNombre.value = '';
     }
 
-    abrirModal(fondoFormulario);
+    fondoFormulario.classList.add('activo');
     setTimeout(() => inputCedula.focus(), 50);
     if (cedula) {
       try {
@@ -840,7 +735,7 @@
   }
 
   function cerrarFormulario() {
-    cerrarModal(fondoFormulario);
+    fondoFormulario.classList.remove('activo');
   }
 
   async function guardar() {
@@ -886,11 +781,11 @@
   function abrirConfirmarEliminar(cedula) {
     cedulaAEliminar = cedula;
     nombreAEliminar.textContent = alumnos[cedula];
-    abrirModal(fondoConfirmar);
+    fondoConfirmar.classList.add('activo');
   }
 
   function cerrarConfirmar() {
-    cerrarModal(fondoConfirmar);
+    fondoConfirmar.classList.remove('activo');
   }
 
   async function eliminar() {

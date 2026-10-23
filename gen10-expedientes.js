@@ -1,0 +1,30 @@
+'use strict';
+window.G10Records = context => {
+  const {data,student,admin,recordBrowser,heading,button,esc,files,empty}=context;
+  function renderProfile() {
+    const profiles=(student()?[data.expediente||data.perfil]:admin()?data.expedientes:[]).filter(Boolean);
+    const required=data.documentosRequeridos||[];
+    const filtered=profiles.filter(p=>{
+      const matches=(p.nombre+' '+(p.cedula||'')+' '+p.email).toLocaleLowerCase('es').includes(recordBrowser.query.toLocaleLowerCase('es').trim());
+      const complete=required.every(r=>(p.archivos||[]).some(f=>f.categoria===r.id));
+      return matches&&(recordBrowser.status==='all'||(recordBrowser.status==='complete'?complete:!complete));
+    });
+    const pages=Math.max(1,Math.ceil(filtered.length/10));recordBrowser.page=Math.min(recordBrowser.page,pages);
+    const controls=student()?'':'<section class="record-filters"><label>Buscar estudiante<input type="search" id="recordSearch" value="'+esc(recordBrowser.query)+'" placeholder="Nombre, documento o correo"></label><label>Documentaci\u00f3n<select id="recordStatus">'+[['all','Todos los estados'],['pending','Con documentos pendientes'],['complete','Documentos adjuntados']].map(([v,n])=>'<option value="'+v+'" '+(recordBrowser.status===v?'selected':'')+'>'+n+'</option>').join('')+'</select></label><p>'+filtered.length+' de '+profiles.length+' expedientes</p></section>';
+    const pagination=student()||filtered.length<=10?'':'<div class="record-pagination"><button type="button" class="quiet" data-action="record-prev" '+(recordBrowser.page<=1?'disabled':'')+'>Anterior</button><span>P\u00e1gina '+recordBrowser.page+' de '+pages+'</span><button type="button" class="quiet" data-action="record-next" '+(recordBrowser.page>=pages?'disabled':'')+'>Siguiente</button></div>';
+    const visible=student()?filtered:filtered.slice((recordBrowser.page-1)*10,recordBrowser.page*10);
+    const record=p=>{
+      const delivered=required.filter(r=>(p.archivos||[]).some(f=>f.categoria===r.id)).length;
+      const pending=required.length-delivered,percent=required.length?Math.round(delivered/required.length*100):0;
+      const info=[['Documento',p.cedula],['Correo de acceso',p.email],['Tel\u00e9fono',p.telefono],['Ciudad',p.ciudad],['Direcci\u00f3n',p.direccion],['Contacto de emergencia',p.contactoEmergencia]];
+      const documents=required.map((r,i)=>{
+        const attachments=(p.archivos||[]).filter(f=>f.categoria===r.id);
+        return '<article class="record-document"><div class="record-document-top"><span class="record-file-icon"><i class="bi bi-file-earmark-text" aria-hidden="true"></i></span><span class="record-status '+(attachments.length?'is-delivered':'is-pending')+'">'+(attachments.length?'Adjuntado':'Pendiente')+'</span></div><span class="record-step">DOCUMENTO '+String(i+1).padStart(2,'0')+'</span><h4>'+esc(r.nombre)+'</h4><p class="record-document-help">'+(attachments.length?attachments.length+' archivo'+(attachments.length===1?'':'s')+' disponible'+(attachments.length===1?'':'s')+' para consulta.':'Adjunta este documento para completar tu expediente.')+'</p>'+files.render(attachments,'Usuarios',p.id)+'</article>';
+      }).join('');
+      const previous=(p.archivos||[]).filter(f=>!f.categoria);
+      return '<div class="record-dashboard"><section class="record-hero"><div><span class="record-kicker">EXPEDIENTE ACAD\u00c9MICO</span><h2>'+esc(p.nombre)+'</h2><p>Tu informaci\u00f3n personal y tus documentos, en un solo lugar.</p></div><span class="record-privacy"><i class="bi bi-shield-lock" aria-hidden="true"></i> Acceso privado</span></section><div class="record-stats"><article><span>Documentos requeridos</span><strong>'+required.length+'</strong><small>Tipos de documento solicitados</small></article><article><span>Documentos adjuntados</span><strong>'+delivered+'</strong><small>Con al menos un archivo</small></article><article><span>Por completar</span><strong>'+pending+'</strong><small>'+(pending?'Documentos pendientes de adjuntar':'Documentaci\u00f3n adjuntada')+'</small></article></div><div class="record-layout"><section class="record-info"><div class="record-section-heading"><i class="bi bi-person-vcard" aria-hidden="true"></i><div><h3>Datos del estudiante</h3><p>Informaci\u00f3n de contacto e identificaci\u00f3n</p></div></div><dl>'+info.map(([label,value])=>'<div><dt>'+label+'</dt><dd'+(!value?' class="record-missing"':'')+'>'+esc(value||'Sin registrar')+'</dd></div>').join('')+'</dl><p class="record-info-note"><i class="bi bi-info-circle" aria-hidden="true"></i> Para corregir el documento o el correo de acceso, contacta a administraci\u00f3n.</p></section><section class="record-documents"><div class="record-section-heading"><i class="bi bi-folder2-open" aria-hidden="true"></i><div><h3>Documentaci\u00f3n</h3><p>Archivos que forman parte de tu expediente</p></div></div><div class="record-progress-heading"><span>Documentos adjuntados</span><strong>'+delivered+' de '+required.length+'</strong></div><div class="record-progress" role="progressbar" aria-label="Documentos adjuntados" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+percent+'"><span style="width:'+percent+'%"></span></div><p class="record-review-note">Adjuntado indica que el archivo fue cargado; su validaci\u00f3n corresponde a administraci\u00f3n.</p><div class="record-document-grid">'+(documents||empty('No hay documentos requeridos configurados.'))+'</div>'+(previous.length?'<section class="record-other"><h4>Otros adjuntos</h4>'+files.render(previous,'Usuarios',p.id)+'</section>':'')+'</section></div></div>';
+    };
+    return heading(student()?'Mis datos y documentos':'Expedientes de estudiantes',student()?button('Actualizar datos y documentos','editar-perfil','',false):'')+controls+(visible.length?visible.map(p=>student()?record(p):'<details class="record-admin"><summary>'+esc(p.nombre)+' <span>'+esc(p.cedula||p.email)+'</span></summary>'+record(p)+'</details>').join(''):empty('No hay expedientes que coincidan con los filtros.'))+pagination;
+  }
+  return {renderProfile};
+};

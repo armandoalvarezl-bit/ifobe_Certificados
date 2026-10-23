@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="icon" type="image/png" data-ifobe-imagen="icono">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Inscripción de estudiantes · IFOBE</title>
@@ -13,10 +14,10 @@
 <link rel="stylesheet" href="refinamientos.css">
 <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
 <link rel="stylesheet" href="admisiones.css">
-</head>
+<link rel="stylesheet" href="ajustes-interfaz.css?v=44"></head>
 <body class="admissions-page">
   <dialog id="bienvenida" class="welcome-dialog" aria-labelledby="welcomeTitle" aria-describedby="welcomeIntro">
-    <img src="img/Logogen10.png" alt="IFOBE" class="welcome-logo">
+    <img data-ifobe-imagen="logo" alt="IFOBE" class="welcome-logo">
     <p class="welcome-eyebrow">ADMISIONES IFOBE</p>
     <h2 id="welcomeTitle">¡Bienvenido a tu próxima etapa!</h2>
     <p id="welcomeIntro">Completa esta solicitud para que podamos acompañarte en tu proceso de inscripción.</p>
@@ -40,13 +41,13 @@
     <aside class="admissions-guide" aria-label="Guía de inscripción">
       <div class="guide-intro"><span class="guide-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></span><p>ESTÁS A UN PASO</p><h2>Comienza tu<br>próxima etapa.</h2><span>Queremos conocerte y acompañarte en tu formación.</span></div>
       <section class="guide-checklist"><h3>Antes de empezar</h3><ul><li><i class="bi bi-person-vcard" aria-hidden="true"></i><span>Ten a mano tu número de documento.</span></li><li><i class="bi bi-envelope" aria-hidden="true"></i><span>Usa un correo y un celular donde podamos contactarte.</span></li><li><i class="bi bi-journal-bookmark" aria-hidden="true"></i><span>Elige el programa que te interesa estudiar.</span></li></ul></section>
-      <section class="guide-next"><i class="bi bi-chat-square-heart" aria-hidden="true"></i><h3>¿Qué pasa después?</h3><p>El equipo de admisiones revisará tu solicitud y te indicará cómo continuar. El envío del formulario no confirma la matrícula. Podras comunicarte al Numero de Coordinacion Academica </p>+573127947484 </p></section>
+      <section class="guide-next"><i class="bi bi-chat-square-heart" aria-hidden="true"></i><h3>¿Qué pasa después?</h3><p>El equipo de admisiones revisará tu solicitud y te indicará cómo continuar. El envío del formulario no confirma la matrícula.</p><p>Puedes comunicarte con Coordinación Académica al <a href="tel:+573127947484">+57 312 794 7484</a>.</p></section>
       <p class="guide-signature">Tu formación,<br>nuestro compromiso.</p>
     </aside>
     <section class="form-panel" aria-labelledby="form-title">
       <div class="form-heading">
       <div class="form-identity">
-      <img class="form-institute-logo" src="img/Logogen10.png" alt="Instituto IFOBE">
+      <img class="form-institute-logo" data-ifobe-imagen="logo" alt="Instituto IFOBE">
       <div>
       <h1 id="form-title">Formulario de inscripción</h1>
       <p class="intro">Complete cada sección para presentar su solicitud.</p>
@@ -106,6 +107,7 @@
           <div class="submission-panel">
           <h3>Revisa y envía tu solicitud</h3>
           <div class="review-note"><i class="bi bi-info-circle" aria-hidden="true"></i><p>Esta es una solicitud de admisión. La institución revisará la información y te indicará los siguientes pasos.</p></div>
+          <label class="confirmation"><input type="checkbox" name="whatsappConsentimiento"><span>Autorizo a IFOBE a enviarme la confirmación de esta inscripción por WhatsApp al celular registrado (opcional).</span></label>
           <label class="confirmation"><input type="checkbox" id="confirmacion" name="confirmacion" required><span>Confirmo que los datos son correctos y solicito que la institución me contacte para gestionar mi inscripción. *</span></label>
           <div id="submitSlot"></div>
           </div>
