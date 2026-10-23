@@ -659,12 +659,14 @@
   $('closeEditor').addEventListener('click',()=>$('editor').close());
   $('editor').addEventListener('cancel',event=>{if(saving)event.preventDefault();});
   function authScreen(screen) {
+    $('access').dataset.authScreen=screen;
     $('loginForm').hidden=screen!=='login';$('requestCode').hidden=screen!=='request';$('verifyCode').hidden=screen!=='verify';
     ['loginPassword','newPassword','confirmPassword','code'].forEach(id=>$(id).value='');
     document.querySelectorAll('[data-password]').forEach(button=>{ $(button.dataset.password).type='password';button.textContent='Mostrar';button.setAttribute('aria-label','Mostrar contraseña');button.setAttribute('aria-pressed','false'); });
-    $('accessFormTitle').textContent=screen==='login'?'Iniciar sesión':screen==='request'?(authPurpose==='recuperar'?'Recupera tu acceso':'Activa tu cuenta'):'Confirma tu acceso';
+    $('accessFormTitle').textContent=screen==='login'?'Iniciar sesión':screen==='request'?(authPurpose==='recuperar'?'Recuperar contraseña':'Activa tu cuenta'):(authPurpose==='recuperar'?'Crea tu nueva contraseña':'Confirma tu acceso');
     $('accessHelp').textContent=screen==='login'?'Ingresa con tu correo y la contraseña que creaste al activar tu cuenta.':
       authPurpose==='recuperar'?'Recibe un código único en tu correo para restablecer tu contraseña.':'Activa tu cuenta con un código único. Después entrarás con tu correo y contraseña.';
+    if(screen==='verify')$('accessHelp').textContent='Ingresa el código enviado a '+pendingEmail+' y elige tu nueva contraseña.';
     updateActivation();
   }
   function knownAccount(email) {
