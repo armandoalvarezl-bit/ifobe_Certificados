@@ -1,0 +1,21 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const source=fs.readFileSync(__dirname+'/PortalGen10.gs','utf8');
+test('Importa los 22 matriculados una sola vez y conserva accesos retirados',()=>{
+  const tablas={Cursos:[{id:'curso-1',titulo:'Office',estado:'Activo'}],Usuarios:[],Inscritos:[]};
+  const alumnos=Array.from({length:22},(_,i)=>[String(i),'Alumno '+i,'alumno'+i+'@example.com']);
+  const filas=alumnos.map(a=>['mat-'+a[0],'','',a[0],a[1],' Office ','','','Activa']);
+  const sheet=rows=>({getDataRange:()=>({getDisplayValues:()=>[[],...rows]})});
+  const context={convertirTexto:x=>x==null?'':String(x),COLUMNAS_MATRICULAS_:[],g10Lista_:t=>tablas[t].slice(),hojaAlumnosCompleta_:()=>sheet(alumnos),getHoja:()=>sheet(filas),g10Guardar_:(t,x)=>{tablas[t].push(x);return x;}};
+  vm.createContext(context);
+  vm.runInContext(source.slice(source.indexOf('function g10ImportarMatriculas_'),source.indexOf('function g10SincronizarAcademico_')),context);
+  assert.equal(context.g10ImportarMatriculas_().creadas,22);
+  assert.equal(tablas.Inscritos.length,22);
+  tablas.Inscritos[0].activo=false;
+  assert.equal(context.g10ImportarMatriculas_().creadas,0);
+  assert.equal(tablas.Inscritos[0].activo,false);
+  tablas.Cursos.push({id:'otro',titulo:'Office',estado:'Activo'});
+  assert.equal(context.g10ImportarMatriculas_().pendientes.length,22);
+});

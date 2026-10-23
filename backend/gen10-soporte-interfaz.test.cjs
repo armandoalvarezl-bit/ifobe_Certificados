@@ -1,0 +1,25 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const vm=require('node:vm');
+const fs=require('node:fs');
+const path=require('node:path');
+test('Soporte limita mil casos, filtra, pagina y conserva respuestas',()=>{
+  const events={};
+  const sandbox={window:{},document:{addEventListener:(type,fn)=>events[type]=fn,querySelector:()=>null}};
+  vm.createContext(sandbox);
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../gen10-soporte.js'),'utf8'),sandbox);
+  const data={usuario:{rol:'estudiante'},cursos:[],soporte:Array.from({length:1000},(_,i)=>({id:'caso-'+i,titulo:'Solicitud '+i,nombre:'Alumno',creada:'2026-01-01',contenido:'Mensaje',estado:i%2?'Cerrada':'Recibida'}))};
+  data.soporte.push({id:'respuesta',padre:'caso-999',nombre:'Administración',contenido:'Respuesta conservada'});
+  const context={data,courseId:'',heading:()=>'',button:()=>'',esc:s=>String(s??'').replace(/</g,'&lt;'),date:s=>s,files:{render:()=>''},empty:s=>s,render:()=>{}};
+  const render=()=>sandbox.window.G10Community(context).renderCommunity(true);
+  let html=render();
+  assert.equal((html.match(/class="community-ticket"/g)||[]).length,15);
+  assert.match(html,/Página 1 de 67/);
+  assert.match(html,/Respuesta conservada/);
+  events.click({target:{closest:()=>({dataset:{communityPage:'2'}})}});
+  html=render();assert.match(html,/Página 2 de 67/);assert.doesNotMatch(html,/Respuesta conservada/);
+  events.change({target:{dataset:{communityFilter:'status'},value:'Cerrada'}});
+  html=render();assert.match(html,/500 resultados/);assert.match(html,/Página 1 de 34/);
+  events.change({target:{dataset:{communityFilter:'query'},value:'caso-999'}});
+  html=render();assert.match(html,/1 resultados/);assert.match(html,/Respuesta conservada/);
+});
