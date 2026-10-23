@@ -74,7 +74,13 @@
     return {rows,tasks,exams,configured,partial,final:complete?partial:null};
   }
   const resource = url => /^https:\/\/[^\s/@]+(?:[/:?#][^\s]*)?$/i.test(url || '') ? `<p><a class="resource" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Abrir material o recurso <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a></p>` : '';
-  function notice(message, kind='info') { $('notice').textContent=message; $('notice').dataset.kind=kind; $('notice').hidden=false; }
+  function notice(message, kind='info') {
+    const box=$('notice');
+    // Durante el acceso, el aviso pertenece al formulario que lo genera.
+    if(!$('access').hidden)$('accessHelp').insertAdjacentElement('afterend',box);
+    else $('contenido').insertAdjacentElement('beforebegin',box);
+    box.textContent=message;box.dataset.kind=kind;box.hidden=false;
+  }
   function clearNotice() { $('notice').hidden=true; }
   async function api(accion, fields={}, timeout=60000) {
     const url = window.IFOBE_INSCRIPCION?.apiUrl;
